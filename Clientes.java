@@ -5,7 +5,7 @@ public class Clientes {
 	String endereço;
 	String cpf;
 	Automovel automoveis[];
-	Orçamentos orçamento[];
+	Orçamento orçamento[];
 	
 	public String getNome() {
 		return nome;
@@ -48,17 +48,13 @@ public class Clientes {
 		this.automoveis = automoveis;
 	}
 	
-	
-	
-	/*
-	
-	public Orçamentos[] getOrçamento() {
+	public Orçamento[] getOrçamento() {
 		return orçamento;
 	}
 	
-	public void setOrçamento(Orçamentos[] orçamento) {
+	public void setOrçamento(Orçamento[] orçamento) {
 		this.orçamento = orçamento;
-	}*/
+	}
 	
 		
 }
