@@ -49,10 +49,12 @@ public class Automovel {
 	
 	public void setPlaca(String placa) {
 		this.placa = placa;
-		if (placa.length() < 7 || placa.length() > 7) {
-			System.out.println("Placa inválida! Use a configuração XXX0X00");
+		if(placa.length() != 7 || !placa.substring(0, 3).matches("[A-Z]*") || !placa.substring(3, 4).matches("[0-9]*") || !placa.substring(4, 5).matches("[A-Z]*") || !placa.substring(5, 7).matches("[0-9]*")) {
+			System.out.println("Placa Inválida, tente o modelo XXX0X00");
 		}
+		
 	}
+	
 	
 	public int getAno() {
 		return ano;
@@ -91,5 +93,6 @@ public class Automovel {
 	public void setDono(Clientes dono) {
 		this.dono = dono;
 	}
-		
+	
+	
 }
