@@ -1,0 +1,44 @@
+package VO;
+
+public class Orçamento {
+	Peça peças;
+	Serviço serviços;
+	float valor;
+	Clientes cliente;
+	
+	public Peça getPeças() {
+		return peças;
+	}
+	
+	public void setPeças(Peça peças) {
+		this.peças = peças;
+	}
+	
+	public Serviço getServiços() {
+		return serviços;
+	}
+	
+	public void setServiços(Serviço serviços) {
+		this.serviços = serviços;
+	}
+	
+	public float getValor() {
+		return valor;
+	}
+	
+	public void setValor(float valor) {
+		this.valor = valor;
+		if (valor < 0) {
+			System.out.println("Entrada inválida! Digite um valor positivo!");
+		}
+	}
+	
+	public Clientes getCliente() {
+		return cliente;
+	}
+	
+	public void setCliente(Clientes cliente) {
+		this.cliente = cliente;
+	}
+	
+}
