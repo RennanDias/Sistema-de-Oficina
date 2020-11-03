@@ -1,23 +1,25 @@
 package VO;
 
 public class Automovel {
-	String marca;
-	String modelo;
-	String cor;
-	String placa;
-	int ano;
-	int quilometragem;
-	Peça peças[];
-	Clientes dono;
+	private String marca;
+	private String modelo;
+	private String cor;
+	private String placa;
+	private int ano;
+	private int quilometragem;
+	private Peça peças[];
+	private Clientes dono;
 	
 	public String getMarca() {
 		return marca;
 	}
 	
 	public void setMarca(String marca) {
-		this.marca = marca;
 		if (marca.length() == 0 || marca.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.marca = marca;
 		}
 	}
 	
@@ -26,9 +28,11 @@ public class Automovel {
 	}
 	
 	public void setModelo(String modelo) {
-		this.modelo = modelo;
 		if (modelo.length() == 0 || modelo.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.modelo = modelo;
 		}
 	}
 	
@@ -37,9 +41,11 @@ public class Automovel {
 	}
 	
 	public void setCor(String cor) {
-		this.cor = cor;
 		if (cor.length() == 0 || cor.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.cor = cor;
 		}
 	}
 	
@@ -48,9 +54,11 @@ public class Automovel {
 	}
 	
 	public void setPlaca(String placa) {
-		this.placa = placa;
 		if(placa.length() != 7 || !placa.substring(0, 3).matches("[A-Z]*") || !placa.substring(3, 4).matches("[0-9]*") || !placa.substring(4, 5).matches("[A-Z]*") || !placa.substring(5, 7).matches("[0-9]*")) {
 			System.out.println("Placa Inválida, tente o modelo XXX0X00");
+		}
+		else {
+			this.placa = placa;
 		}
 		
 	}
@@ -61,9 +69,11 @@ public class Automovel {
 	}
 	
 	public void setAno(int ano) {
-		this.ano = ano;
 		if (ano < 1886) {
 			System.out.println("Entrada inválida! O primeiro automóvel foi criado somente em 1886!");
+		}
+		else {
+			this.ano = ano;
 		}
 	}
 	
@@ -72,9 +82,11 @@ public class Automovel {
 	}
 	
 	public void setQuilometragem(int quilometragem) {
-		this.quilometragem = quilometragem;
 		if (quilometragem < 0) {
 			System.out.println("Entrada inválida! Digite um valor positivo!");
+		}
+		else {
+			this.quilometragem = quilometragem;
 		}
 	}
 	

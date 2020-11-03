@@ -1,10 +1,10 @@
 package VO;
 
 public class Orçamento {
-	Peça peças;
-	Serviço serviços;
-	float valor;
-	Clientes cliente;
+	private Peça peças;
+	private Serviço serviços;
+	private float valor;
+	private Clientes cliente;
 	
 	public Peça getPeças() {
 		return peças;
@@ -27,9 +27,11 @@ public class Orçamento {
 	}
 	
 	public void setValor(float valor) {
-		this.valor = valor;
 		if (valor < 0) {
 			System.out.println("Entrada inválida! Digite um valor positivo!");
+		}
+		else {
+			this.valor = valor;
 		}
 	}
 	

@@ -1,20 +1,22 @@
 package VO;
 
 public class Clientes {
-	String nome;
-	String endereço;
-	String cpf;
-	Automovel automoveis[];
-	Orçamento orçamento[];
+	private String nome;
+	private String endereço;
+	private String cpf;
+	private Automovel automoveis[];
+	private Orçamento orçamento[];
 	
 	public String getNome() {
 		return nome;
 	}
 	
 	public void setNome(String nome) {
-		this.nome = nome;
 		if (nome.length() == 0 || nome.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.nome = nome;
 		}
 	}
 	
@@ -23,9 +25,11 @@ public class Clientes {
 	}
 	
 	public void setEndereço(String endereço) {
-		this.endereço = endereço;
 		if (endereço.length() == 0 || endereço.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.endereço = endereço;
 		}
 	}
 	
@@ -34,9 +38,11 @@ public class Clientes {
 	}
 	
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
 		if (cpf.length() < 14 || cpf.length() > 14) {
 			System.out.println("Entrada de CPF inválida! Use o formato xxx.xxx.xxx-xx");
+		}
+		else {
+			this.cpf = cpf;
 		}
 	}
 

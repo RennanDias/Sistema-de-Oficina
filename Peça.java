@@ -1,8 +1,8 @@
 package VO;
 public class Peça {
-	String nome;
-	float preço;
-	String fabricante;
+	private String nome;
+	private float preço;
+	private String fabricante;
 	
 	
 	public String getNome() {
@@ -10,9 +10,11 @@ public class Peça {
 	}
 	
 	public void setNome(String nome) {
-		this.nome = nome;
 		if (nome.length() == 0 || nome.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.nome = nome;
 		}
 	}
 	
@@ -21,11 +23,12 @@ public class Peça {
 	}
 	
 	public void setPreço(float preço) {
-		this.preço = preço;
 		if (this.preço < 0) {
 			System.out.println("Entrada inválida! Digite um valor positivo!");
 		}
-				
+		else {
+			this.preço = preço;
+		}	
 	}
 	
 	public String getFabricante() {
@@ -33,9 +36,11 @@ public class Peça {
 	}
 	
 	public void setFabricante(String fabricante) {
-		this.fabricante = fabricante;
 		if (fabricante.length() == 0 || fabricante.length() == 0) {
 			System.out.println("Entrada inválida! Digite algo.");
+		}
+		else {
+			this.fabricante = fabricante;
 		}
 	}
 	
