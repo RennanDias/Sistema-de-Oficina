@@ -4,7 +4,7 @@ public class Orçamento {
 	private Peça peças;
 	private Serviço serviços;
 	private float valor;
-	private Clientes cliente;
+	private Automovel automoveis;
 	
 	public Peça getPeças() {
 		return peças;
@@ -35,12 +35,12 @@ public class Orçamento {
 		}
 	}
 	
-	public Clientes getCliente() {
-		return cliente;
+	public Automovel getAutomoveis() {
+		return automoveis;
 	}
-	
-	public void setCliente(Clientes cliente) {
-		this.cliente = cliente;
+
+	public void setAutomoveis(Automovel automoveis) {
+		this.automoveis = automoveis;
 	}
 	
 }

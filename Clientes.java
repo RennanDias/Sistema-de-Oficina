@@ -5,14 +5,13 @@ public class Clientes {
 	private String endereço;
 	private String cpf;
 	private Automovel automoveis[];
-	private Orçamento orçamento[];
 	
 	public String getNome() {
 		return nome;
 	}
 	
 	public void setNome(String nome) {
-		if (nome.length() == 0 || nome.length() == 0) {
+		if (nome.length() == 0 || nome == null) {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 		else {
@@ -25,7 +24,7 @@ public class Clientes {
 	}
 	
 	public void setEndereço(String endereço) {
-		if (endereço.length() == 0 || endereço.length() == 0) {
+		if (endereço.length() == 0 || endereço == null) {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 		else {
@@ -38,7 +37,7 @@ public class Clientes {
 	}
 	
 	public void setCpf(String cpf) {
-		if (cpf.length() < 14 || cpf.length() > 14) {
+		if (cpf.length() < 14 || cpf.length() > 14 || cpf == null) {
 			System.out.println("Entrada de CPF inválida! Use o formato xxx.xxx.xxx-xx");
 		}
 		else {
@@ -51,15 +50,12 @@ public class Clientes {
 	}
 
 	public void setAutomoveis(Automovel[] automoveis) {
-		this.automoveis = automoveis;
-	}
-	
-	public Orçamento[] getOrçamento() {
-		return orçamento;
-	}
-	
-	public void setOrçamento(Orçamento[] orçamento) {
-		this.orçamento = orçamento;
+		if (automoveis == null) {
+			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
+		}
+		else {
+			this.automoveis = automoveis;
+		}
 	}
 	
 		

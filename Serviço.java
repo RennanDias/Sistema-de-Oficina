@@ -8,7 +8,7 @@ public class Serviço {
 	}
 	
 	public void setNome(String nome) {
-		if (nome.length() == 0 || nome.length() == 0) {
+		if (nome.length() == 0 || nome == null) {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 		else {

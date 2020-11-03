@@ -9,13 +9,14 @@ public class Automovel {
 	private int quilometragem;
 	private Peça peças[];
 	private Clientes dono;
+	private Orçamento orçamento[];
 	
 	public String getMarca() {
 		return marca;
 	}
 	
 	public void setMarca(String marca) {
-		if (marca.length() == 0 || marca.length() == 0) {
+		if (marca.length() == 0 || marca == null) {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 		else {
@@ -28,7 +29,7 @@ public class Automovel {
 	}
 	
 	public void setModelo(String modelo) {
-		if (modelo.length() == 0 || modelo.length() == 0) {
+		if (modelo.length() == 0 || modelo == null) {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 		else {
@@ -41,7 +42,7 @@ public class Automovel {
 	}
 	
 	public void setCor(String cor) {
-		if (cor.length() == 0 || cor.length() == 0) {
+		if (cor.length() == 0 || cor == null) {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 		else {
@@ -54,13 +55,13 @@ public class Automovel {
 	}
 	
 	public void setPlaca(String placa) {
-		if(placa.length() != 7 || !placa.substring(0, 3).matches("[A-Z]*") || !placa.substring(3, 4).matches("[0-9]*") || !placa.substring(4, 5).matches("[A-Z]*") || !placa.substring(5, 7).matches("[0-9]*")) {
+		if(placa.length() != 7 || !placa.substring(0, 3).matches("[A-Z]*") || !placa.substring(3, 4).matches("[0-9]*") ||
+		  !placa.substring(4, 5).matches("[A-Z]*") || !placa.substring(5, 7).matches("[0-9]*") || placa == null) {
 			System.out.println("Placa Inválida, tente o modelo XXX0X00");
 		}
 		else {
 			this.placa = placa;
 		}
-		
 	}
 	
 	
@@ -95,7 +96,12 @@ public class Automovel {
 	}
 	
 	public void setPeças(Peça[] peças) {
-		this.peças = peças;
+		if (peças == null) {
+			System.out.println("Nada encontrado! Adicione peças para este automóvel!");
+		}
+		else {
+			this.peças = peças;
+		}
 	}
 	
 	public Clientes getDono() {
@@ -106,5 +112,17 @@ public class Automovel {
 		this.dono = dono;
 	}
 	
+	public Orçamento[] getOrçamento() {
+		return orçamento;
+	}
+	
+	public void setOrçamento(Orçamento[] orçamento) {
+		if (orçamento == null) {
+			System.out.println("Nada encontrado! Adicione um orçamento para este automóvel!");
+		}
+		else {
+			this.orçamento = orçamento;
+		}
+	}
 	
 }
