@@ -8,11 +8,16 @@ public class Serviço {
 	}
 	
 	public void setNome(String nome) {
-		if (nome.length() == 0 || nome == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (nome != null) {
+			if (nome.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.nome = nome;
+			}
 		}
 		else {
-			this.nome = nome;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	

@@ -16,11 +16,16 @@ public class Automovel {
 	}
 	
 	public void setMarca(String marca) {
-		if (marca.length() == 0 || marca == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (marca != null) {
+			if (marca.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.marca = marca;
+			}
 		}
 		else {
-			this.marca = marca;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -29,11 +34,16 @@ public class Automovel {
 	}
 	
 	public void setModelo(String modelo) {
-		if (modelo.length() == 0 || modelo == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (modelo != null) {
+			if (modelo.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.modelo = modelo;
+			}
 		}
 		else {
-			this.modelo = modelo;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -42,11 +52,16 @@ public class Automovel {
 	}
 	
 	public void setCor(String cor) {
-		if (cor.length() == 0 || cor == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (cor != null) {
+			if (cor.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.cor = cor;
+			}
 		}
 		else {
-			this.cor = cor;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -55,12 +70,17 @@ public class Automovel {
 	}
 	
 	public void setPlaca(String placa) {
-		if(placa.length() != 7 || !placa.substring(0, 3).matches("[A-Z]*") || !placa.substring(3, 4).matches("[0-9]*") ||
-		  !placa.substring(4, 5).matches("[A-Z]*") || !placa.substring(5, 7).matches("[0-9]*") || placa == null) {
-			System.out.println("Placa Inválida, tente o modelo XXX0X00");
+		if (placa != null) {
+			if(placa.length() != 7 || !placa.substring(0, 3).matches("[A-Z]*") || !placa.substring(3, 4).matches("[0-9]*") ||
+					  !placa.substring(4, 5).matches("[A-Z]*") || !placa.substring(5, 7).matches("[0-9]*")) {
+						System.out.println("Placa Inválida, tente o modelo XXX0X00");
+					}
+					else {
+						this.placa = placa;
+					}
 		}
 		else {
-			this.placa = placa;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -96,11 +116,11 @@ public class Automovel {
 	}
 	
 	public void setPeças(Peça[] peças) {
-		if (peças == null) {
-			System.out.println("Nada encontrado! Adicione peças para este automóvel!");
+		if (peças != null) {
+			this.peças = peças;
 		}
 		else {
-			this.peças = peças;
+			System.out.println("Nada encontrado! Adicione peças para este automóvel!");
 		}
 	}
 	
@@ -117,11 +137,11 @@ public class Automovel {
 	}
 	
 	public void setOrçamento(Orçamento[] orçamento) {
-		if (orçamento == null) {
-			System.out.println("Nada encontrado! Adicione um orçamento para este automóvel!");
+		if (orçamento != null) {
+			this.orçamento = orçamento;
 		}
 		else {
-			this.orçamento = orçamento;
+			System.out.println("Nada encontrado! Adicione um orçamento para este automóvel!");
 		}
 	}
 	

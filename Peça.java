@@ -11,11 +11,16 @@ public class Peça {
 	}
 	
 	public void setNome(String nome) {
-		if (nome.length() == 0 || nome == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (nome != null) {
+			if (nome.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.nome = nome;
+			}
 		}
 		else {
-			this.nome = nome;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -37,11 +42,16 @@ public class Peça {
 	}
 	
 	public void setFabricante(String fabricante) {
-		if (fabricante.length() == 0 || fabricante == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (fabricante != null) {
+			if (fabricante.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.fabricante = fabricante;
+			}
 		}
 		else {
-			this.fabricante = fabricante;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -50,13 +60,12 @@ public class Peça {
 	}
 
 	public void setAutomoveis(Automovel[] automoveis) {
-		if (automoveis == null) {
-			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
-		}
-		else {
+		if (automoveis != null) {
 			this.automoveis = automoveis;
 		}
+		else {
+			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
+		}
 	}
-	
 	
 }

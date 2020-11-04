@@ -11,11 +11,16 @@ public class Clientes {
 	}
 	
 	public void setNome(String nome) {
-		if (nome.length() == 0 || nome == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (nome != null) {
+			if (nome.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.nome = nome;
+			}
 		}
 		else {
-			this.nome = nome;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -24,11 +29,16 @@ public class Clientes {
 	}
 	
 	public void setEndereço(String endereço) {
-		if (endereço.length() == 0 || endereço == null) {
-			System.out.println("Entrada inválida! Digite algo.");
+		if (endereço != null) {
+			if (endereço.length() == 0) {
+				System.out.println("Entrada inválida! Digite algo.");
+			}
+			else {
+				this.endereço = endereço;
+			}
 		}
 		else {
-			this.endereço = endereço;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 	
@@ -37,13 +47,18 @@ public class Clientes {
 	}
 	
 	public void setCpf(String cpf) {
-		if (cpf.length() < 14 || cpf.length() > 14 || cpf == null || !cpf.substring(0, 3).matches("[1-9]*") || !cpf.substring(3, 4).matches("[.]*") ||
-				!cpf.substring(4, 7).matches("[1-9]*")	|| !cpf.substring(7, 8).matches("[.]*") || !cpf.substring(8, 11).matches("[1-9]*") || !cpf.substring(11, 12).matches("[-]*")
-				|| !cpf.substring(12, 14).matches("[1-9]*")) {
-			System.out.println("Entrada de CPF inválida! Use o formato xxx.xxx.xxx-xx");
+		if (cpf != null) {
+			if (cpf.length() < 14 || cpf.length() > 14 || !cpf.substring(0, 3).matches("[1-9]*") || !cpf.substring(3, 4).matches("[.]*") ||
+					!cpf.substring(4, 7).matches("[1-9]*")	|| !cpf.substring(7, 8).matches("[.]*") || !cpf.substring(8, 11).matches("[1-9]*") || !cpf.substring(11, 12).matches("[-]*")
+					|| !cpf.substring(12, 14).matches("[1-9]*")) {
+				System.out.println("Entrada de CPF inválida! Use o formato xxx.xxx.xxx-xx");
+			}
+			else {
+				this.cpf = cpf;
+			}
 		}
 		else {
-			this.cpf = cpf;
+			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
 
@@ -52,11 +67,11 @@ public class Clientes {
 	}
 
 	public void setAutomoveis(Automovel[] automoveis) {
-		if (automoveis == null) {
-			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
+		if (automoveis != null) {
+			this.automoveis = automoveis;
 		}
 		else {
-			this.automoveis = automoveis;
+			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
 		}
 	}
 	

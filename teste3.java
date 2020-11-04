@@ -9,6 +9,8 @@ public class teste3 {
 		Clientes c2 = new Clientes();
 		c2.setCpf("713.423.434-76");
 		System.out.println(c2.getCpf());
+		c2.setNome(null);
+		System.out.println(c2.getNome());
 	}
 
 }
