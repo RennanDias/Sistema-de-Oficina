@@ -1,9 +1,9 @@
 package VO;
-public class Peça {
+public class PeçaVO {
 	private String nome;
 	private float preço;
 	private String fabricante;
-	private Automovel automoveis[];
+	private AutomovelVO automoveis[];
 	
 	
 	public String getNome() {
@@ -55,11 +55,11 @@ public class Peça {
 		}
 	}
 	
-	public Automovel[] getAutomoveis() {
+	public AutomovelVO[] getAutomoveis() {
 		return automoveis;
 	}
 
-	public void setAutomoveis(Automovel[] automoveis) {
+	public void setAutomoveis(AutomovelVO[] automoveis) {
 		if (automoveis != null) {
 			this.automoveis = automoveis;
 		}

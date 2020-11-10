@@ -1,5 +1,5 @@
 package VO;
-public class Serviço {
+public class ServiçoVO {
 	private String nome;
 	private float valor;
 	

@@ -1,24 +1,24 @@
 package VO;
 
-public class Orçamento {
-	private Peça peças;
-	private Serviço serviços;
+public class OrçamentoVO {
+	private PeçaVO peças;
+	private ServiçoVO serviços;
 	private float valor;
-	private Automovel automoveis;
+	private AutomovelVO automoveis;
 	
-	public Peça getPeças() {
+	public PeçaVO getPeças() {
 		return peças;
 	}
 	
-	public void setPeças(Peça peças) {
+	public void setPeças(PeçaVO peças) {
 		this.peças = peças;
 	}
 	
-	public Serviço getServiços() {
+	public ServiçoVO getServiços() {
 		return serviços;
 	}
 	
-	public void setServiços(Serviço serviços) {
+	public void setServiços(ServiçoVO serviços) {
 		this.serviços = serviços;
 	}
 	
@@ -35,11 +35,11 @@ public class Orçamento {
 		}
 	}
 	
-	public Automovel getAutomoveis() {
+	public AutomovelVO getAutomoveis() {
 		return automoveis;
 	}
 
-	public void setAutomoveis(Automovel automoveis) {
+	public void setAutomoveis(AutomovelVO automoveis) {
 		this.automoveis = automoveis;
 	}
 	

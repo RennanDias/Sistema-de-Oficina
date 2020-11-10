@@ -1,15 +1,15 @@
 package VO;
 
-public class Automovel {
+public class AutomovelVO {
 	private String marca;
 	private String modelo;
 	private String cor;
 	private String placa;
 	private int ano;
 	private int quilometragem;
-	private Peça peças[];
-	private Clientes dono;
-	private Orçamento orçamento[];
+	private PeçaVO peças[];
+	private ClientesVO dono;
+	private OrçamentoVO orçamento[];
 	
 	public String getMarca() {
 		return marca;
@@ -111,11 +111,11 @@ public class Automovel {
 		}
 	}
 	
-	public Peça[] getPeças() {
+	public PeçaVO[] getPeças() {
 		return peças;
 	}
 	
-	public void setPeças(Peça[] peças) {
+	public void setPeças(PeçaVO[] peças) {
 		if (peças != null) {
 			this.peças = peças;
 		}
@@ -124,19 +124,19 @@ public class Automovel {
 		}
 	}
 	
-	public Clientes getDono() {
+	public ClientesVO getDono() {
 		return dono;
 	}
 	
-	public void setDono(Clientes dono) {
+	public void setDono(ClientesVO dono) {
 		this.dono = dono;
 	}
 	
-	public Orçamento[] getOrçamento() {
+	public OrçamentoVO[] getOrçamento() {
 		return orçamento;
 	}
 	
-	public void setOrçamento(Orçamento[] orçamento) {
+	public void setOrçamento(OrçamentoVO[] orçamento) {
 		if (orçamento != null) {
 			this.orçamento = orçamento;
 		}

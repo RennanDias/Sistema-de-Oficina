@@ -1,10 +1,10 @@
 package VO;
 
-public class Clientes {
+public class PessoaVO {
+	
 	private String nome;
 	private String endereço;
 	private String cpf;
-	private Automovel automoveis[];
 	
 	public String getNome() {
 		return nome;
@@ -61,19 +61,4 @@ public class Clientes {
 			System.out.println("Entrada inválida! Digite algo.");
 		}
 	}
-
-	public Automovel[] getAutomoveis() {
-		return automoveis;
-	}
-
-	public void setAutomoveis(Automovel[] automoveis) {
-		if (automoveis != null) {
-			this.automoveis = automoveis;
-		}
-		else {
-			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
-		}
-	}
-	
-		
 }
