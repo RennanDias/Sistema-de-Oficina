@@ -8,7 +8,7 @@ public class AutomovelVO {
 	private int ano;
 	private int quilometragem;
 	private PeçaVO peças[];
-	private ClientesVO dono;
+	//private ClientesVO dono;
 	private OrçamentoVO orçamento[];
 	
 	public String getMarca() {
@@ -124,13 +124,13 @@ public class AutomovelVO {
 		}
 	}
 	
-	public ClientesVO getDono() {
+	/*public ClientesVO getDono() {
 		return dono;
 	}
 	
 	public void setDono(ClientesVO dono) {
 		this.dono = dono;
-	}
+	}*/
 	
 	public OrçamentoVO[] getOrçamento() {
 		return orçamento;
