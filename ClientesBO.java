@@ -56,6 +56,7 @@ public class ClientesBO {
 	}
 
 	public void deletarCliente(ClientesVO[] c) {
+		
 		boolean t = false;
 		String delete;
 		
@@ -90,6 +91,7 @@ public class ClientesBO {
 	}
 	
 	public void pesquisarCliente(ClientesVO[] c) {
+		
 		boolean t = false;
 		String p;
 		
