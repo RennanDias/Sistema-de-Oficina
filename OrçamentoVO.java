@@ -1,24 +1,18 @@
 package VO;
 
+import java.util.Date;
+
 public class OrçamentoVO {
-	private PeçaVO peças;
-	private ServiçoVO serviços;
+	private ServiçoVO[] serviços;
 	private float valor;
 	private AutomovelVO automoveis;
+	private Date data;
 	
-	public PeçaVO getPeças() {
-		return peças;
-	}
-	
-	public void setPeças(PeçaVO peças) {
-		this.peças = peças;
-	}
-	
-	public ServiçoVO getServiços() {
+	public ServiçoVO[] getServiços() {
 		return serviços;
 	}
 	
-	public void setServiços(ServiçoVO serviços) {
+	public void setServiços(ServiçoVO[] serviços) {
 		this.serviços = serviços;
 	}
 	
@@ -42,5 +36,12 @@ public class OrçamentoVO {
 	public void setAutomoveis(AutomovelVO automoveis) {
 		this.automoveis = automoveis;
 	}
-	
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+			this.data = data;
+	}	
 }

@@ -1,41 +1,7 @@
 package VO;
-public class PeçaVO {
-	private String nome;
-	private float preço;
+public class PeçaVO extends ServiçoVO {
 	private String fabricante;
 	private AutomovelVO automoveis[];
-	
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setNome(String nome) {
-		if (nome != null) {
-			if (nome.length() == 0) {
-				System.out.println("Entrada inválida! Digite algo.");
-			}
-			else {
-				this.nome = nome;
-			}
-		}
-		else {
-			System.out.println("Entrada inválida! Digite algo.");
-		}
-	}
-	
-	public float getPreço() {
-		return preço;
-	}
-	
-	public void setPreço(float preço) {
-		if (this.preço < 0) {
-			System.out.println("Entrada inválida! Digite um valor positivo!");
-		}
-		else {
-			this.preço = preço;
-		}	
-	}
 	
 	public String getFabricante() {
 		return fabricante;

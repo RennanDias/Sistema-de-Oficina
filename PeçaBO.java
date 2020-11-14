@@ -1,7 +1,6 @@
 package BO;
 
 import java.util.Scanner;
-
 import VO.AutomovelVO;
 import VO.PeçaVO;
 
@@ -20,7 +19,7 @@ public PeçaVO adicionarPeça() {
 		
 		s = new Scanner(System.in);
 		System.out.println("Digite o preço da peça: ");
-		p.setPreço(Float.parseFloat(s.nextLine()));
+		p.setValor(Float.parseFloat(s.nextLine()));
 		
 		s = new Scanner(System.in);
 		System.out.println("Digite o fabricante da peça: ");
@@ -43,9 +42,9 @@ public PeçaVO adicionarPeça() {
 		p.setNome(s.nextLine());
 		
 		s = new Scanner(System.in);
-		System.out.println("Preço antigo: " + p.getPreço());
+		System.out.println("Preço antigo: " + p.getValor());
 		System.out.println("\nDigite o novo preço: ");
-		p.setPreço(Float.parseFloat(s.nextLine()));
+		p.setValor(Float.parseFloat(s.nextLine()));
 		
 		s = new Scanner(System.in);
 		System.out.println("Fabricante antigo: " + p.getFabricante());
@@ -87,7 +86,7 @@ public PeçaVO adicionarPeça() {
 	public void mostrarPeça(PeçaVO p) {
 		AutomovelBO met = new AutomovelBO();
 		System.out.println("Nome: " + p.getNome());
-		System.out.println("Preço: " + p.getPreço());
+		System.out.println("Preço: " + p.getValor());
 		System.out.println("Fabricante: " + p.getFabricante());
 		met.mostrarAutomovel(p.getAutomoveis());
 	}
