@@ -7,7 +7,16 @@ public class OrçamentoVO {
 	private float valor;
 	private AutomovelVO automoveis;
 	private Date data;
+	private boolean finalizado;
 	
+	public boolean getFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+
 	public ServiçoVO[] getServiços() {
 		return serviços;
 	}

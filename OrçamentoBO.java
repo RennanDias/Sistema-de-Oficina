@@ -91,6 +91,7 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 			r.setValor(soma);
 			Calendar calendar = Calendar.getInstance(); 
 			r.setData(calendar.getTime());
+			r.setFinalizado(false);
 					
 		return r;
 }
@@ -156,7 +157,13 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 			System.out.println("\nValor: R$" + r[i].getValor());
 		}
 		System.out.println("\nVALOR TOTAL: R$" + a.getValor());
-		System.out.println("Data: " + a.getData());
+		System.out.println("\nData: " + a.getData());
+		if (a.getFinalizado() == true) {
+			System.out.println("\nFinalizado\n");
+		}
+		else {
+			System.out.println("\nNão finalizado\n");
+		}
 	}
 	
 	public void pesquisarOrçamento(OrçamentoVO[] a) {

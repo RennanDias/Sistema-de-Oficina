@@ -1,7 +1,10 @@
 package BO;
 
+import java.util.Date;
 import java.util.Scanner;
+
 import VO.FuncionárioVO;
+import VO.OrçamentoVO;
 
 public class FuncionárioBO {
 	
@@ -65,6 +68,32 @@ public class FuncionárioBO {
 		else {
 			System.out.println("Usuário ou senha incorreto(s)!\n");
 		}
+	}
+	
+	public void gerarRelatorios(OrçamentoVO[] o, Date inicio, Date fim) {
+		OrçamentoBO met = new OrçamentoBO();
+		boolean t = false;
+ 		System.out.println("RELATÓRIOS DE " + inicio + " até " + fim + "\n");
+		for (int i = 0; i < o.length; i++) {
+			if (o[i].getData().after(inicio) && o[i].getData().before(fim)) {
+				met.mostrarOrçamento(o[i]);
+				t = true;
+			}
+		}
+		if (t != true) {
+			System.out.println("Não há orçamentos nesse período!");
+		}	
+	}
+	
+	public OrçamentoVO finalizarOrçamento(OrçamentoVO o) {
+		if (o.getFinalizado() != true) {
+			o.setFinalizado(true);
+			System.out.println("Orçamento finalizado!");
+		}
+		else {
+			System.out.println("O presente orçamento já está finalizado!");
+		}
+		return o;
 	}
 	
 }
