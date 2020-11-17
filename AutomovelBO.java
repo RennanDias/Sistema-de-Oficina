@@ -60,7 +60,7 @@ public ClientesVO[] adicionarAutomovel(ClientesVO[] c) { //Recebe vetor de clien
 		return c;
 	}
 
-public AutomovelVO adicionarAutomovel() { //Retorna um automóvel
+public AutomovelVO adicionarAutomovel() { //Adiciona e retorna um automóvel
 	
 		AutomovelVO a = new AutomovelVO();
 	
@@ -95,7 +95,7 @@ public AutomovelVO adicionarAutomovel() { //Retorna um automóvel
 		return a;
 }
 	
-	public AutomovelVO alterarAutomovel(AutomovelVO a) {
+	public AutomovelVO alterarAutomovel(AutomovelVO a) { //Recebe um automóvel e altera seus atributos
 		
 		System.out.println("ALTERANDO AUTOMÓVEL!\n");
 		
@@ -134,7 +134,7 @@ public AutomovelVO adicionarAutomovel() { //Retorna um automóvel
 		return a;
 	}
 
-	public void deletarAutomovel(AutomovelVO[] a) {
+	public void deletarAutomovel(AutomovelVO[] a) { //Recebe um vetor de automóveis e deleta um de acordo com a placa dele
 		boolean t = false;
 		String delete;
 		
@@ -160,7 +160,7 @@ public AutomovelVO adicionarAutomovel() { //Retorna um automóvel
 		
 	}
 	
-	public void mostrarAutomovel(AutomovelVO a) {
+	public void mostrarAutomovel(AutomovelVO a) { //Mostra os atributos de um automóvel 
 			System.out.println("Marca: " + a.getMarca());
 			System.out.println("Modelo: " + a.getModelo());
 			System.out.println("Ano: " + a.getAno());
@@ -170,7 +170,8 @@ public AutomovelVO adicionarAutomovel() { //Retorna um automóvel
 			System.out.println("\n");
 	}
 	
-	public void mostrarAutomovel(AutomovelVO[] a) {
+	public void mostrarAutomovel(AutomovelVO[] a) { //Mostra os atributos de vários automoveis de um vetor (usado para mostrar
+		//veiculos de um cliente, por exemplo)
 		for (int i = 0; i < a.length; i++) {
 			System.out.println("Automóvel " + (i+1) + "\n");
 			System.out.println("Marca: " + a[i].getMarca());
@@ -183,7 +184,8 @@ public AutomovelVO adicionarAutomovel() { //Retorna um automóvel
 		}
 	}
 	
-	public void pesquisarAutomovel(AutomovelVO[] a) {
+	public void pesquisarAutomovel(AutomovelVO[] a) { //Recebe um vetor de automoveis e mostra os atributos especificos do veiculo
+		//que possuir a placa que é recebida
 		boolean t = false;
 		String p;
 		

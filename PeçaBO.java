@@ -6,7 +6,7 @@ import VO.PeçaVO;
 
 public class PeçaBO {
 
-public PeçaVO adicionarPeça() {
+public PeçaVO adicionarPeça() { //Cria um objeto do tipo PeçaVO e atribui valores aos atributos e, no fim, o retorna
 		
 		PeçaVO p = new PeçaVO();
 		AutomovelBO met = new AutomovelBO();
@@ -32,7 +32,7 @@ public PeçaVO adicionarPeça() {
 		return p;
 	}
 	
-	public PeçaVO alterarPeça(PeçaVO p) {
+	public PeçaVO alterarPeça(PeçaVO p) { //Recebe uma peça e altera seus atributos
 		
 		System.out.println("ALTERANDO PEÇA!\n");
 		
@@ -56,7 +56,7 @@ public PeçaVO adicionarPeça() {
 		return p;
 	}
 
-	public void deletarPeça(PeçaVO[] p) {
+	public void deletarPeça(PeçaVO[] p) { //Recebe um vetor de peças, procura a peça a ser deletada pelo nome e a exclui
 		
 		boolean t = false;
 		String delete;
@@ -83,7 +83,7 @@ public PeçaVO adicionarPeça() {
 		
 	}
 	
-	public void mostrarPeça(PeçaVO p) {
+	public void mostrarPeça(PeçaVO p) { //Mostra os atributos de uma peça
 		AutomovelBO met = new AutomovelBO();
 		System.out.println("Nome: " + p.getNome());
 		System.out.println("Preço: " + p.getValor());
@@ -91,7 +91,7 @@ public PeçaVO adicionarPeça() {
 		met.mostrarAutomovel(p.getAutomoveis());
 	}
 	
-	public void pesquisarPeça(PeçaVO[] p) {
+	public void pesquisarPeça(PeçaVO[] p) { //Recebe um vetor de peças e retorna a peça específica que tiver o nome recebido
 		
 		boolean t = false;
 		String c;
