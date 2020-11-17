@@ -5,7 +5,7 @@ import VO.ServiçoVO;
 
 public class ServiçoBO {
 	
-	public ServiçoVO adicionarServiço() {
+	public ServiçoVO adicionarServiço() { //Cria um objeto do tipo ServiçoVO, atribui valores aos seus atributos e retorna o objeto
 		
 		ServiçoVO t = new ServiçoVO();
 		
@@ -22,7 +22,7 @@ public class ServiçoBO {
 		return t;
 	}
 	
-	public ServiçoVO alterarServiço(ServiçoVO t) {
+	public ServiçoVO alterarServiço(ServiçoVO t) { //Recebe um serviço e altera seus atributos
 		
 		System.out.println("ALTERANDO SERVIÇO!\n");
 		
@@ -41,7 +41,7 @@ public class ServiçoBO {
 		return t;
 	}
 
-	public void deletarServiço(ServiçoVO[] t) {
+	public void deletarServiço(ServiçoVO[] t) { //Recebe um vetor de serviços e deleta um de acordo com o nome digitado
 	
 		boolean p = false;
 		String delete;
@@ -68,12 +68,12 @@ public class ServiçoBO {
 		
 	}
 
-	public void mostrarServiço(ServiçoVO t) {
+	public void mostrarServiço(ServiçoVO t) { //Mostra os atributos de um serviço
 		System.out.println("Nome: " + t.getNome());
 		System.out.println("Valor: " + t.getValor());
 	}
 	
-	public void pesquisarServiço(ServiçoVO[] t) {
+	public void pesquisarServiço(ServiçoVO[] t) { //Recebe um vetor de serviços e pesquisa um serviço de acordo com o nome
 		
 		boolean v = false;
 		String p;

@@ -5,7 +5,9 @@ import VO.ClientesVO;
 
 public class ClientesBO {
 	
-	public ClientesVO adicionarCliente() {
+	public ClientesVO adicionarCliente() { //Cria um cliente dentro do método, cria um objeto do tipo AutomovelBO para poder usar
+		//os métodos na hora de adicionar o cliente, depois pega os valores e vai atribuindo ao meu objeto do tipo ClientesVO criado
+		//ao final, retorna um objeto do tipo ClientesVO
 		
 		ClientesVO c = new ClientesVO();
 		AutomovelBO met = new AutomovelBO();
@@ -31,7 +33,7 @@ public class ClientesBO {
 		return c;
 	}
 	
-	public ClientesVO alterarCliente(ClientesVO c) {
+	public ClientesVO alterarCliente(ClientesVO c) { //Recebe um objeto do tipo ClienteVO, altera seus atributos e, ao final, retorna ele
 		
 		System.out.println("ALTERANDO CLIENTE!\n");
 		
@@ -55,7 +57,7 @@ public class ClientesBO {
 		return c;
 	}
 
-	public void deletarCliente(ClientesVO[] c) {
+	public void deletarCliente(ClientesVO[] c) { //Acessa o vetor de clientes, pesquisa o cliente pelo cpf ou nome e deleta ele no vetor
 		
 		boolean t = false;
 		String delete;
@@ -82,7 +84,7 @@ public class ClientesBO {
 		
 	}
 	
-	public void mostrarCliente(ClientesVO c) {
+	public void mostrarCliente(ClientesVO c) { //Mostra um cliente
 		AutomovelBO met = new AutomovelBO();
 		System.out.println("Nome: " + c.getNome());
 		System.out.println("CPF: " + c.getCpf());
@@ -90,7 +92,7 @@ public class ClientesBO {
 		met.mostrarAutomovel(c.getAutomoveis());
 	}
 	
-	public void pesquisarCliente(ClientesVO[] c) {
+	public void pesquisarCliente(ClientesVO[] c) { //Pesquisa o cliente de acordo com o nome ou cpf, rodando o vetor de clientes recebido
 		
 		boolean t = false;
 		String p;
@@ -112,5 +114,4 @@ public class ClientesBO {
 			System.out.println("Cliente não encontrado!\n");
 		}
 	}
-	
 }

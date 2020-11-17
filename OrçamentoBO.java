@@ -96,7 +96,8 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		return r;
 }
 	
-	public ServiçoVO[] alterarOrçamento(ServiçoVO[] o) {
+	public ServiçoVO[] alterarOrçamento(ServiçoVO[] o) { //Recebe um vetor de orçamentos, roda cada um deles para decidir qual
+		//alterar, caso sim, realiza as alterações e retorna o vetor com os orçamentos alterados
 		
 		String d;
 		
@@ -119,7 +120,9 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		return o;
 	}
 
-	public void deletarOrçamento(OrçamentoVO[] a) {
+	public void deletarOrçamento(OrçamentoVO[] a) { //Deleta um orçamento dentro do vetor de orçamentos de acordo com a placa
+		//do veículo que for digitada. Nesse caso, ainda não coloquei uma forma de checar os orçamentos do veículo, mas somente 
+		//o último cadastrado a ele
 		boolean t = false;
 		String delete;
 		AutomovelVO c = new AutomovelVO();
@@ -147,7 +150,7 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		
 	}
 	
-	public void mostrarOrçamento(OrçamentoVO a) {
+	public void mostrarOrçamento(OrçamentoVO a) { //Mostra um orçamento
 		ServiçoVO[] r = new ServiçoVO[a.getServiços().length];
 		r = a.getServiços();
 		AutomovelBO met = new AutomovelBO();
@@ -166,7 +169,8 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		}
 	}
 	
-	public void pesquisarOrçamento(OrçamentoVO[] a) {
+	public void pesquisarOrçamento(OrçamentoVO[] a) { //Recebe um vetor de orçamentos, busca dentro dele os orçamentos relativos
+		//à placa do veículo digitada e exibe eles
 		boolean t = false;
 		String p;
 		AutomovelVO r = new AutomovelVO();
@@ -190,7 +194,8 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		}
 	}
 	
-	public void pesquisarOrçamento(OrçamentoVO[] o, Date inicio, Date fim) {
+	public void pesquisarOrçamento(OrçamentoVO[] o, Date inicio, Date fim) { //Recebe um vetor de orçamentos e pesquisa um 
+		//orçamento de acordo com a data de inicio e fim do periodo que deseja buscar
 		boolean t = false;
 		for (int i = 0; i < o.length; i++) {
 			if (o[i].getData().after(inicio) && o[i].getData().before(fim)) {

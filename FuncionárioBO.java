@@ -8,7 +8,8 @@ import VO.OrçamentoVO;
 
 public class FuncionárioBO {
 	
-	public FuncionárioVO cadastrarFuncionario() {
+	public FuncionárioVO cadastrarFuncionario() { //Cadastra um funcionário recebendo seus atributos relacionados à classe FuncionárioVO
+		//e depois retorna o funcionário cadastrado
 		
 		FuncionárioVO func = new FuncionárioVO();
 		
@@ -37,7 +38,8 @@ public class FuncionárioBO {
 		return func;
 	}
 	
-	public void fazerLogin (FuncionárioVO[] funcionarios) {
+	public void fazerLogin (FuncionárioVO[] funcionarios) { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
+		//iguais aos digitados no programa e, por fim, avisa se foi ou não logado com sucesso
 		boolean v = false;
 		
 		FuncionárioVO func = new FuncionárioVO();
@@ -70,7 +72,8 @@ public class FuncionárioBO {
 		}
 	}
 	
-	public void gerarRelatorios(OrçamentoVO[] o, Date inicio, Date fim) {
+	public void gerarRelatorios(OrçamentoVO[] o, Date inicio, Date fim) { //Recebe o vetor de orçamentos, a data de início e fim
+		//do período que deseja gerar relatórios e por fim, mostra todos eles com deus valores
 		OrçamentoBO met = new OrçamentoBO();
 		boolean t = false;
  		System.out.println("RELATÓRIOS DE " + inicio + " até " + fim + "\n");
@@ -85,7 +88,8 @@ public class FuncionárioBO {
 		}	
 	}
 	
-	public OrçamentoVO finalizarOrçamento(OrçamentoVO o) {
+	public OrçamentoVO finalizarOrçamento(OrçamentoVO o) { //Vê se o orçamento está finalizado ou não. Se estiver, diz que já está
+		//finalizado, se não, finaliza e emite uma nota
 		if (o.getFinalizado() != true) {
 			o.setFinalizado(true);
 			System.out.println("Orçamento finalizado!");
