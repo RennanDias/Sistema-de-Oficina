@@ -1,6 +1,6 @@
 package VO;
 
-public class PessoaVO {
+public abstract class PessoaVO {
 	
 	private String nome;
 	private String endereço;

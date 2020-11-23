@@ -3,13 +3,13 @@ package BO;
 import java.util.Scanner;
 import VO.ClientesVO;
 
-public class ClientesBO {
+public class ClientesBO implements BaseInterBO <ClientesVO>{
 	
-	public ClientesVO adicionarCliente() { //Cria um cliente dentro do método, cria um objeto do tipo AutomovelBO para poder usar
+	public ClientesVO adicionar(ClientesVO c) { //Cria um cliente dentro do método, cria um objeto do tipo AutomovelBO para poder usar
 		//os métodos na hora de adicionar o cliente, depois pega os valores e vai atribuindo ao meu objeto do tipo ClientesVO criado
 		//ao final, retorna um objeto do tipo ClientesVO
 		
-		ClientesVO c = new ClientesVO();
+		/*ClientesVO c = new ClientesVO();
 		AutomovelBO met = new AutomovelBO();
 		
 		System.out.println("ADICIONANDO NOVO CLIENTE!\n");
@@ -28,14 +28,14 @@ public class ClientesBO {
 		
 		c.setAutomoveis(met.adicionarAutomovel());
 		
-		System.out.println("Cliente adicionado.");
+		System.out.println("Cliente adicionado.");*/
 		
 		return c;
 	}
 	
-	public ClientesVO alterarCliente(ClientesVO c) { //Recebe um objeto do tipo ClienteVO, altera seus atributos e, ao final, retorna ele
+	public ClientesVO alterar(ClientesVO c) { //Recebe um objeto do tipo ClienteVO, altera seus atributos e, ao final, retorna ele
 		
-		System.out.println("ALTERANDO CLIENTE!\n");
+		/*System.out.println("ALTERANDO CLIENTE!\n");
 		
 		Scanner s = new Scanner(System.in);
 		System.out.println("Nome antigo: " + c.getNome());
@@ -52,14 +52,14 @@ public class ClientesBO {
 		System.out.println("\nDigite o novo CPF: ");
 		c.setCpf(s.nextLine());
 		
-		System.out.println("Cliente alterado.");
+		System.out.println("Cliente alterado.");*/
 		
 		return c;
 	}
 
-	public void deletarCliente(ClientesVO[] c) { //Acessa o vetor de clientes, pesquisa o cliente pelo cpf ou nome e deleta ele no vetor
+	public void deletar(ClientesVO c) { //Acessa o vetor de clientes, pesquisa o cliente pelo cpf ou nome e deleta ele no vetor
 		
-		boolean t = false;
+		/*boolean t = false;
 		String delete;
 		
 		System.out.println("DELETANDO CLIENTE!\n");
@@ -80,21 +80,21 @@ public class ClientesBO {
 		}
 		if (t != true) {
 			System.out.println("Cliente não encontrado!\n");
-		}
+		}*/
 		
 	}
 	
 	public void mostrarCliente(ClientesVO c) { //Mostra um cliente
-		AutomovelBO met = new AutomovelBO();
+		/*AutomovelBO met = new AutomovelBO();
 		System.out.println("Nome: " + c.getNome());
 		System.out.println("CPF: " + c.getCpf());
 		System.out.println("Endereço: " + c.getEndereço());
-		met.mostrarAutomovel(c.getAutomoveis());
+		met.mostrarAutomovel(c.getAutomoveis());*/
 	}
 	
-	public void pesquisarCliente(ClientesVO[] c) { //Pesquisa o cliente de acordo com o nome ou cpf, rodando o vetor de clientes recebido
+	public ClientesVO pesquisar(ClientesVO c) { //Pesquisa o cliente de acordo com o nome ou cpf, rodando o vetor de clientes recebido
 		
-		boolean t = false;
+		/*boolean t = false;
 		String p;
 		
 		System.out.println("PESQUISANDO CLIENTE!\n");
@@ -112,6 +112,8 @@ public class ClientesBO {
 		}
 		if (t != true) {
 			System.out.println("Cliente não encontrado!\n");
-		}
+		}*/
+		return c;
 	}
+
 }

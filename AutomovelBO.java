@@ -5,11 +5,12 @@ import java.util.Scanner;
 import VO.AutomovelVO;
 import VO.ClientesVO;
 
-public class AutomovelBO {
-
-public ClientesVO[] adicionarAutomovel(ClientesVO[] c) { //Recebe vetor de clientes e retorna vetor de clientes com os automoveis adicionados
+public class AutomovelBO implements BaseInterBO <AutomovelVO>{
+	//static private AutomovelBO<AutomovelVO> usuBO = new AutomovelBO<AutomovelVO>();
+	
+public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retorna vetor de clientes com os automoveis adicionados
 		
-		AutomovelVO a = new AutomovelVO();
+	/*AutomovelVO a = new AutomovelVO();
 		
 		System.out.println("ADICIONANDO NOVO AUTOMÓVEL!\n");
 		
@@ -55,49 +56,14 @@ public ClientesVO[] adicionarAutomovel(ClientesVO[] c) { //Recebe vetor de clien
 		}
 		if (t != true) {
 			System.out.println("Dono não encontrado!\n");
-		}
+		}*/
 		
-		return c;
-	}
-
-public AutomovelVO adicionarAutomovel() { //Adiciona e retorna um automóvel
-	
-		AutomovelVO a = new AutomovelVO();
-	
-		System.out.println("ADICIONANDO NOVO AUTOMÓVEL!\n");
-	
-			Scanner s = new Scanner(System.in);
-			System.out.println("Digite a marca do automóvel: ");
-			a.setMarca(s.nextLine());
-			
-			s = new Scanner(System.in);
-			System.out.println("Digite o modelo do automóvel: ");
-			a.setModelo(s.nextLine());
-			
-			s = new Scanner(System.in);
-			System.out.println("Digite o ano do automóvel: ");
-			a.setAno(Integer.parseInt(s.nextLine()));
-			
-			s = new Scanner(System.in);
-			System.out.println("Digite a cor do automóvel: ");
-			a.setCor(s.nextLine());
-			
-			s = new Scanner(System.in);
-			System.out.println("Digite a placa do automóvel: ");
-			a.setPlaca(s.nextLine());
-			
-			s = new Scanner(System.in);
-			System.out.println("Digite a quilometragem do automóvel: ");
-			a.setQuilometragem(Integer.parseInt(s.nextLine()));
-			
-			System.out.println("Automóvel adicionado.");
-			
 		return a;
-}
+	}
 	
-	public AutomovelVO alterarAutomovel(AutomovelVO a) { //Recebe um automóvel e altera seus atributos
+	public AutomovelVO alterar(AutomovelVO a) { //Recebe um automóvel e altera seus atributos
 		
-		System.out.println("ALTERANDO AUTOMÓVEL!\n");
+		/*System.out.println("ALTERANDO AUTOMÓVEL!\n");
 		
 		Scanner s = new Scanner(System.in);
 		System.out.println("Marca antiga: " + a.getMarca());
@@ -129,13 +95,13 @@ public AutomovelVO adicionarAutomovel() { //Adiciona e retorna um automóvel
 		System.out.println("\nDigite a nova quilometragem: ");
 		a.setQuilometragem(Integer.parseInt(s.nextLine()));
 		
-		System.out.println("Automóvel alterado.");
+		System.out.println("Automóvel alterado.");*/
 		
 		return a;
 	}
 
-	public void deletarAutomovel(AutomovelVO[] a) { //Recebe um vetor de automóveis e deleta um de acordo com a placa dele
-		boolean t = false;
+	public void deletar(AutomovelVO a) { //Recebe um vetor de automóveis e deleta um de acordo com a placa dele
+		/*boolean t = false;
 		String delete;
 		
 		System.out.println("DELETANDO AUTOMÓVEL!\n");
@@ -156,37 +122,13 @@ public AutomovelVO adicionarAutomovel() { //Adiciona e retorna um automóvel
 		}
 		if (t != true) {
 			System.out.println("Automóvel não encontrado!\n");
-		}
+		}*/
 		
 	}
 	
-	public void mostrarAutomovel(AutomovelVO a) { //Mostra os atributos de um automóvel 
-			System.out.println("Marca: " + a.getMarca());
-			System.out.println("Modelo: " + a.getModelo());
-			System.out.println("Ano: " + a.getAno());
-			System.out.println("Cor: " + a.getCor());
-			System.out.println("Placa: " + a.getPlaca());
-			System.out.println("Quilometragem: " + a.getQuilometragem());
-			System.out.println("\n");
-	}
-	
-	public void mostrarAutomovel(AutomovelVO[] a) { //Mostra os atributos de vários automoveis de um vetor (usado para mostrar
-		//veiculos de um cliente, por exemplo)
-		for (int i = 0; i < a.length; i++) {
-			System.out.println("Automóvel " + (i+1) + "\n");
-			System.out.println("Marca: " + a[i].getMarca());
-			System.out.println("Modelo: " + a[i].getModelo());
-			System.out.println("Ano: " + a[i].getAno());
-			System.out.println("Cor: " + a[i].getCor());
-			System.out.println("Placa: " + a[i].getPlaca());
-			System.out.println("Quilometragem: " + a[i].getQuilometragem());
-			System.out.println("\n");
-		}
-	}
-	
-	public void pesquisarAutomovel(AutomovelVO[] a) { //Recebe um vetor de automoveis e mostra os atributos especificos do veiculo
+	public AutomovelVO pesquisar(AutomovelVO a) { //Recebe um vetor de automoveis e mostra os atributos especificos do veiculo
 		//que possuir a placa que é recebida
-		boolean t = false;
+		/*boolean t = false;
 		String p;
 		
 		System.out.println("PESQUISANDO AUTOMÓVEL!\n");
@@ -204,7 +146,32 @@ public AutomovelVO adicionarAutomovel() { //Adiciona e retorna um automóvel
 		}
 		if (t != true) {
 			System.out.println("Automóvel não encontrado!\n");
-		}
+		}*/
+		return a;
+	}
+	
+	public void mostrarAutomovel(AutomovelVO a) { //Mostra os atributos de um automóvel 
+		/*System.out.println("Marca: " + a.getMarca());
+			System.out.println("Modelo: " + a.getModelo());
+			System.out.println("Ano: " + a.getAno());
+			System.out.println("Cor: " + a.getCor());
+			System.out.println("Placa: " + a.getPlaca());
+			System.out.println("Quilometragem: " + a.getQuilometragem());
+			System.out.println("\n");*/
+	}
+	
+	public void mostrarAutomovel(AutomovelVO[] a) { //Mostra os atributos de vários automoveis de um vetor (usado para mostrar
+		//veiculos de um cliente, por exemplo)
+		/*for (int i = 0; i < a.length; i++) {
+			System.out.println("Automóvel " + (i+1) + "\n");
+			System.out.println("Marca: " + a[i].getMarca());
+			System.out.println("Modelo: " + a[i].getModelo());
+			System.out.println("Ano: " + a[i].getAno());
+			System.out.println("Cor: " + a[i].getCor());
+			System.out.println("Placa: " + a[i].getPlaca());
+			System.out.println("Quilometragem: " + a[i].getQuilometragem());
+			System.out.println("\n");
+		}*/
 	}
 
 }

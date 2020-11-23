@@ -3,11 +3,11 @@ package BO;
 import java.util.Scanner;
 import VO.ServiçoVO;
 
-public class ServiçoBO {
+public class ServiçoBO implements BaseInterBO <ServiçoVO>{
 	
-	public ServiçoVO adicionarServiço() { //Cria um objeto do tipo ServiçoVO, atribui valores aos seus atributos e retorna o objeto
+	public ServiçoVO adicionar(ServiçoVO t) { //Cria um objeto do tipo ServiçoVO, atribui valores aos seus atributos e retorna o objeto
 		
-		ServiçoVO t = new ServiçoVO();
+		/*ServiçoVO t = new ServiçoVO();
 		
 		System.out.println("ADICIONANDO SERVIÇO!\n");
 		
@@ -18,13 +18,13 @@ public class ServiçoBO {
 		s = new Scanner(System.in);
 		System.out.println("Digite o valor do serviço: ");
 		t.setValor(Float.parseFloat(s.nextLine()));
-		
+		*/
 		return t;
 	}
 	
-	public ServiçoVO alterarServiço(ServiçoVO t) { //Recebe um serviço e altera seus atributos
+	public ServiçoVO alterar(ServiçoVO t) { //Recebe um serviço e altera seus atributos
 		
-		System.out.println("ALTERANDO SERVIÇO!\n");
+		/*System.out.println("ALTERANDO SERVIÇO!\n");
 		
 		Scanner s = new Scanner(System.in);
 		System.out.println("Nome antigo: " + t.getNome());
@@ -36,14 +36,14 @@ public class ServiçoBO {
 		System.out.println("\nDigite o novo valor: ");
 		t.setValor(Float.parseFloat(s.nextLine()));
 		
-		System.out.println("Serviço alterado.");
+		System.out.println("Serviço alterado.");*/
 		
 		return t;
 	}
 
-	public void deletarServiço(ServiçoVO[] t) { //Recebe um vetor de serviços e deleta um de acordo com o nome digitado
+	public void deletar(ServiçoVO t) { //Recebe um vetor de serviços e deleta um de acordo com o nome digitado
 	
-		boolean p = false;
+		/*boolean p = false;
 		String delete;
 		
 		System.out.println("DELETANDO SERVIÇO!\n");
@@ -64,17 +64,17 @@ public class ServiçoBO {
 		}
 		if (p != true) {
 			System.out.println("Serviço não encontrado!\n");
-		}
+		}*/
 		
 	}
 
 	public void mostrarServiço(ServiçoVO t) { //Mostra os atributos de um serviço
-		System.out.println("Nome: " + t.getNome());
-		System.out.println("Valor: " + t.getValor());
+		/*System.out.println("Nome: " + t.getNome());
+		System.out.println("Valor: " + t.getValor());*/
 	}
 	
-	public void pesquisarServiço(ServiçoVO[] t) { //Recebe um vetor de serviços e pesquisa um serviço de acordo com o nome
-		
+	public ServiçoVO pesquisar(ServiçoVO t) { //Recebe um vetor de serviços e pesquisa um serviço de acordo com o nome
+		/*
 		boolean v = false;
 		String p;
 		
@@ -93,8 +93,8 @@ public class ServiçoBO {
 		}
 		if (v != true) {
 			System.out.println("Serviço não encontrado!\n");
-		}
-		
+		}*/
+		return t;
 	}
 	
 }
