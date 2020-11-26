@@ -11,10 +11,10 @@ import VO.OrçamentoVO;
 
 public class OrçamentoBO {
 
-public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[] serviço) { //Recebe o vetor total de automoveis
+public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de automoveis
 	//peças e serviços e, com isso, vai adicionar peças e serviços para o veículo específico dito
 		
-		OrçamentoVO r = new OrçamentoVO();
+	/*OrçamentoVO r = new OrçamentoVO();
 		ServiçoVO[] o = new ServiçoVO[10];
 		float soma = 0;
 		int k = 0;
@@ -92,14 +92,14 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 			Calendar calendar = Calendar.getInstance(); 
 			r.setData(calendar.getTime());
 			r.setFinalizado(false);
-					
+			*/		
 		return r;
 }
 	
-	public ServiçoVO[] alterarOrçamento(ServiçoVO[] o) { //Recebe um vetor de orçamentos, roda cada um deles para decidir qual
+	public OrçamentoVO alterarOrçamento(OrçamentoVO o) { //Recebe um vetor de orçamentos, roda cada um deles para decidir qual
 		//alterar, caso sim, realiza as alterações e retorna o vetor com os orçamentos alterados
 		
-		String d;
+		/*String d;
 		
 		System.out.println("ALTERANDO ORÇAMENTO!\n");
 		
@@ -116,14 +116,14 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 			case "N": case "n": System.out.println("\n"); break;
 			}
 		}
-		
+		*/
 		return o;
 	}
 
-	public void deletarOrçamento(OrçamentoVO[] a) { //Deleta um orçamento dentro do vetor de orçamentos de acordo com a placa
+	public void deletarOrçamento(OrçamentoVO a) { //Deleta um orçamento dentro do vetor de orçamentos de acordo com a placa
 		//do veículo que for digitada. Nesse caso, ainda não coloquei uma forma de checar os orçamentos do veículo, mas somente 
 		//o último cadastrado a ele
-		boolean t = false;
+		/*boolean t = false;
 		String delete;
 		AutomovelVO c = new AutomovelVO();
 		
@@ -146,12 +146,12 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		}
 		if (t != true) {
 			System.out.println("Orçamento não encontrado!\n");
-		}
+		}*/
 		
 	}
 	
 	public void mostrarOrçamento(OrçamentoVO a) { //Mostra um orçamento
-		ServiçoVO[] r = new ServiçoVO[a.getServiços().length];
+		/*ServiçoVO[] r = new ServiçoVO[a.getServiços().length];
 		r = a.getServiços();
 		AutomovelBO met = new AutomovelBO();
 		met.mostrarAutomovel(a.getAutomoveis());
@@ -166,12 +166,12 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		}
 		else {
 			System.out.println("\nNão finalizado\n");
-		}
+		}*/
 	}
 	
-	public void pesquisarOrçamento(OrçamentoVO[] a) { //Recebe um vetor de orçamentos, busca dentro dele os orçamentos relativos
+	public void pesquisarOrçamento(OrçamentoVO a) { //Recebe um vetor de orçamentos, busca dentro dele os orçamentos relativos
 		//à placa do veículo digitada e exibe eles
-		boolean t = false;
+		/*boolean t = false;
 		String p;
 		AutomovelVO r = new AutomovelVO();
 		
@@ -191,12 +191,12 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		}
 		if (t != true) {
 			System.out.println("Placa do automóvel não encontrada!\n");
-		}
+		}*/
 	}
 	
 	public void pesquisarOrçamento(OrçamentoVO[] o, Date inicio, Date fim) { //Recebe um vetor de orçamentos e pesquisa um 
 		//orçamento de acordo com a data de inicio e fim do periodo que deseja buscar
-		boolean t = false;
+		/*boolean t = false;
 		for (int i = 0; i < o.length; i++) {
 			if (o[i].getData().after(inicio) && o[i].getData().before(fim)) {
 				mostrarOrçamento(o[i]);
@@ -205,7 +205,7 @@ public OrçamentoVO adicionarOrçamento(AutomovelVO[] a, PeçaVO[] peça, ServiçoVO[
 		}
 		if (t != true) {
 			System.out.println("Não há orçamentos nesse período!");
-		}
+		}*/
 		
 	}
 

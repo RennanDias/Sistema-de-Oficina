@@ -4,11 +4,11 @@ import java.util.Scanner;
 import VO.AutomovelVO;
 import VO.PeçaVO;
 
-public class PeçaBO {
+public class PeçaBO implements BaseInterBO <PeçaVO>{
 
-public PeçaVO adicionarPeça() { //Cria um objeto do tipo PeçaVO e atribui valores aos atributos e, no fim, o retorna
+public PeçaVO adicionar(PeçaVO p) { //Cria um objeto do tipo PeçaVO e atribui valores aos atributos e, no fim, o retorna
 		
-		PeçaVO p = new PeçaVO();
+	/*PeçaVO p = new PeçaVO();
 		AutomovelBO met = new AutomovelBO();
 		
 		System.out.println("ADICIONANDO NOVA PEÇA!\n");
@@ -28,13 +28,13 @@ public PeçaVO adicionarPeça() { //Cria um objeto do tipo PeçaVO e atribui valore
 		p.setAutomoveis(met.adicionarAutomovel());
 		
 		System.out.println("Peça adicionada.");
-		
+		*/
 		return p;
 	}
 	
-	public PeçaVO alterarPeça(PeçaVO p) { //Recebe uma peça e altera seus atributos
+	public PeçaVO alterar(PeçaVO p) { //Recebe uma peça e altera seus atributos
 		
-		System.out.println("ALTERANDO PEÇA!\n");
+		/*System.out.println("ALTERANDO PEÇA!\n");
 		
 		Scanner s = new Scanner(System.in);
 		System.out.println("Nome antigo: " + p.getNome());
@@ -52,13 +52,13 @@ public PeçaVO adicionarPeça() { //Cria um objeto do tipo PeçaVO e atribui valore
 		p.setFabricante(s.nextLine());
 		
 		System.out.println("Peça alterada.");
-		
+		*/
 		return p;
 	}
 
-	public void deletarPeça(PeçaVO[] p) { //Recebe um vetor de peças, procura a peça a ser deletada pelo nome e a exclui
+	public void deletar(PeçaVO p) { //Recebe um vetor de peças, procura a peça a ser deletada pelo nome e a exclui
 		
-		boolean t = false;
+		/*boolean t = false;
 		String delete;
 		
 		System.out.println("DELETANDO PEÇA!\n");
@@ -79,21 +79,21 @@ public PeçaVO adicionarPeça() { //Cria um objeto do tipo PeçaVO e atribui valore
 		}
 		if (t != true) {
 			System.out.println("Peça não encontrada!\n");
-		}
+		}*/
 		
 	}
 	
 	public void mostrarPeça(PeçaVO p) { //Mostra os atributos de uma peça
-		AutomovelBO met = new AutomovelBO();
+		/*AutomovelBO met = new AutomovelBO();
 		System.out.println("Nome: " + p.getNome());
 		System.out.println("Preço: " + p.getValor());
 		System.out.println("Fabricante: " + p.getFabricante());
-		met.mostrarAutomovel(p.getAutomoveis());
+		met.mostrarAutomovel(p.getAutomoveis());*/
 	}
 	
-	public void pesquisarPeça(PeçaVO[] p) { //Recebe um vetor de peças e retorna a peça específica que tiver o nome recebido
+	public PeçaVO pesquisar(PeçaVO p) { //Recebe um vetor de peças e retorna a peça específica que tiver o nome recebido
 		
-		boolean t = false;
+		/*boolean t = false;
 		String c;
 		
 		System.out.println("PESQUISANDO PEÇA!\n");
@@ -111,14 +111,15 @@ public PeçaVO adicionarPeça() { //Cria um objeto do tipo PeçaVO e atribui valore
 		}
 		if (t != true) {
 			System.out.println("Peça não encontrada!\n");
-		}
+		}*/
+		return p;
 	}
 	
-public void pesquisarPeça(PeçaVO p, AutomovelVO[] a) { //Na main, pesuisar peça por cliente deve ser colocada dentro de um 'for'
+	/*public void pesquisarPeça(PeçaVO p) { //Na main, pesuisar peça por cliente deve ser colocada dentro de um 'for'
 	//para que eu percorra meu vetor de peças, e dentro de cada peça, passar como argumento do método o getAutomoveis pra passar
 	//o vetor de automóveis
 		
-		boolean t = false;
+	boolean t = false;
 		String m, c;
 		
 		System.out.println("PESQUISANDO PEÇA!\n");
@@ -141,6 +142,6 @@ public void pesquisarPeça(PeçaVO p, AutomovelVO[] a) { //Na main, pesuisar peça 
 		if (t != true) {
 			System.out.println("Peça não encontrada!\n");
 		}
-	}
+	}*/
 	
 }

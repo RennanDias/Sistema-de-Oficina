@@ -26,17 +26,17 @@ public class teste3 {
 		ClientesVO[] c = new ClientesVO[3];
 		ClientesBO cmet = new ClientesBO();
 		AutomovelBO amet = new AutomovelBO();
-		c[0] = cmet.adicionarCliente();
-		c[1] = cmet.adicionarCliente();
-		c[2] = cmet.adicionarCliente();
-		cmet.deletarCliente(c);
-		cmet.alterarCliente(c[0]);
-		cmet.pesquisarCliente(c);
+		//c[0] = cmet.adicionarCliente(c[0]);
+		//c[1] = cmet.adicionarCliente(c[1]);
+		//c[2] = cmet.adicionarCliente(c[2]);
+		//cmet.deletarCliente(c);
+		//cmet.alterarCliente(c[0]);
+		//cmet.pesquisarCliente(c);
 		
-		amet.adicionarAutomovel(c);
+		//amet.adicionarAutomovel(c);
 		//amet.alterarAutomovel(c[0].getAutomoveis()); !!! Dúvida de como acessar vetor dentro de um vetor
-		amet.deletarAutomovel(c[0].getAutomoveis());
-		amet.pesquisarAutomovel(c[0].getAutomoveis());
+		//amet.deletarAutomovel(c[0].getAutomoveis());
+		//amet.pesquisarAutomovel(c[0].getAutomoveis());
 		
 	}
 
