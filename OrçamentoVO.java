@@ -8,6 +8,7 @@ public class OrçamentoVO {
 	private AutomovelVO automoveis;
 	private Date data;
 	private boolean finalizado;
+	private Long id;
 	
 	public boolean getFinalizado() {
 		return finalizado;
@@ -52,5 +53,13 @@ public class OrçamentoVO {
 
 	public void setData(Date data) {
 			this.data = data;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}	
 }

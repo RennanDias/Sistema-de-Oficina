@@ -1,7 +1,7 @@
 package VO;
 public class PeçaVO extends ServiçoVO {
 	private String fabricante;
-	private AutomovelVO automoveis[];
+	private AutomovelVO automoveis;
 	
 	public String getFabricante() {
 		return fabricante;
@@ -21,13 +21,13 @@ public class PeçaVO extends ServiçoVO {
 		}
 	}
 	
-	public AutomovelVO[] getAutomoveis() {
+	public AutomovelVO getAutomoveis() {
 		return automoveis;
 	}
 
 	public void setAutomoveis(AutomovelVO automoveis) {
 		if (automoveis != null) {
-			this.automoveis[(this.automoveis.length - 1)] = automoveis;
+			this.automoveis = automoveis;
 		}
 		else {
 			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");
