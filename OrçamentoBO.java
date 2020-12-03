@@ -1,19 +1,44 @@
 package BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
+import DAO.OrçamentoDAO;
 import VO.PeçaVO;
 import VO.ServiçoVO;
 import VO.AutomovelVO;
+import VO.ClientesVO;
 import VO.OrçamentoVO;
 
-public class OrçamentoBO {
-
-public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de automoveis
+public class OrçamentoBO implements BaseInterBO <OrçamentoVO> {
+	OrçamentoDAO dao = new OrçamentoDAO();
+	
+public OrçamentoVO adicionar(OrçamentoVO r) { //Recebe o vetor total de automoveis
 	//peças e serviços e, com isso, vai adicionar peças e serviços para o veículo específico dito
 		
+	try {
+		boolean existe = false;
+		List<OrçamentoVO> rs = dao.listar();
+		while (((ResultSet) rs).next()) {
+			OrçamentoVO test = (OrçamentoVO) rs;
+			if (r.getId() == test.getId()){
+				existe = true;
+			}
+		}
+		if (existe != false){
+			throw new SQLException("Impossível cadastrar, pois já existe orçamento com este Id");
+		}
+		else {
+			dao.inserir(r);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
 	/*OrçamentoVO r = new OrçamentoVO();
 		ServiçoVO[] o = new ServiçoVO[10];
 		float soma = 0;
@@ -96,8 +121,9 @@ public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de
 		return r;
 }
 	
-	public OrçamentoVO alterarOrçamento(OrçamentoVO o) { //Recebe um vetor de orçamentos, roda cada um deles para decidir qual
-		//alterar, caso sim, realiza as alterações e retorna o vetor com os orçamentos alterados
+	public OrçamentoVO alterar(OrçamentoVO o) { //Recebe um vetor de orçamentos, roda cada um deles para decidir qual
+		
+		o = dao.modificar(o);
 		
 		/*String d;
 		
@@ -120,9 +146,10 @@ public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de
 		return o;
 	}
 
-	public void deletarOrçamento(OrçamentoVO a) { //Deleta um orçamento dentro do vetor de orçamentos de acordo com a placa
-		//do veículo que for digitada. Nesse caso, ainda não coloquei uma forma de checar os orçamentos do veículo, mas somente 
-		//o último cadastrado a ele
+	public void deletar(OrçamentoVO a) { //Deleta um orçamento 
+		
+		dao.excluir(a);
+		
 		/*boolean t = false;
 		String delete;
 		AutomovelVO c = new AutomovelVO();
@@ -150,7 +177,7 @@ public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de
 		
 	}
 	
-	public void mostrarOrçamento(OrçamentoVO a) { //Mostra um orçamento
+	/*public void mostrarOrçamento(OrçamentoVO a) { //Mostra um orçamento
 		/*ServiçoVO[] r = new ServiçoVO[a.getServiços().length];
 		r = a.getServiços();
 		AutomovelBO met = new AutomovelBO();
@@ -166,11 +193,14 @@ public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de
 		}
 		else {
 			System.out.println("\nNão finalizado\n");
-		}*/
-	}
+		}
+	}*/
 	
-	public void pesquisarOrçamento(OrçamentoVO a) { //Recebe um vetor de orçamentos, busca dentro dele os orçamentos relativos
+	public OrçamentoVO pesquisar(OrçamentoVO a) { //Recebe um vetor de orçamentos, busca dentro dele os orçamentos relativos
 		//à placa do veículo digitada e exibe eles
+		
+		a = dao.buscar(a);
+		
 		/*boolean t = false;
 		String p;
 		AutomovelVO r = new AutomovelVO();
@@ -192,9 +222,12 @@ public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de
 		if (t != true) {
 			System.out.println("Placa do automóvel não encontrada!\n");
 		}*/
+		
+		return a;
 	}
+
 	
-	public void pesquisarOrçamento(OrçamentoVO[] o, Date inicio, Date fim) { //Recebe um vetor de orçamentos e pesquisa um 
+	/*public void pesquisarOrçamento(OrçamentoVO[] o, Date inicio, Date fim) { //Recebe um vetor de orçamentos e pesquisa um 
 		//orçamento de acordo com a data de inicio e fim do periodo que deseja buscar
 		/*boolean t = false;
 		for (int i = 0; i < o.length; i++) {
@@ -205,9 +238,9 @@ public OrçamentoVO adicionarOrçamento(OrçamentoVO r) { //Recebe o vetor total de
 		}
 		if (t != true) {
 			System.out.println("Não há orçamentos nesse período!");
-		}*/
+		}
 		
-	}
+	}*/
 
 	
 }

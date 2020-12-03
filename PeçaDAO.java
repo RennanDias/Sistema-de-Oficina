@@ -10,12 +10,11 @@ import java.util.List;
 import VO.AutomovelVO;
 import VO.PeçaVO;
 
-public class PeçaDAO extends BaseDAO implements BaseInterDAO <PeçaVO>{
+public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 
 	public PeçaVO inserir(PeçaVO p) { 		
 		//Recebe um objeto do tipo PeçaVO e insere ele na tabela Peças no banco de dados
-		
-		conn = getConnection();
+
 		String sql = "insert into peças (nome, modelo_auto, fabricante, valor) values (?,?,?,?)";
 		PreparedStatement ptst;
 		
@@ -23,12 +22,26 @@ public class PeçaDAO extends BaseDAO implements BaseInterDAO <PeçaVO>{
 		avo = p.getAutomoveis();
 		
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, p.getNome());
 			ptst.setString(2, avo.getModelo());
 			ptst.setString(3, p.getFabricante());
 			ptst.setFloat(4, p.getValor());
 			ptst.execute();
+			
+			int affectedRows = ptst.executeUpdate();
+			
+			if(affectedRows == 0) {
+				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
+			}
+			ResultSet generatedKeys = ptst.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				p.setId(generatedKeys.getLong(1));
+			}
+			else {
+				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,12 +52,11 @@ public class PeçaDAO extends BaseDAO implements BaseInterDAO <PeçaVO>{
 		
 	public PeçaVO modificar(PeçaVO p) {
 		//Recebe um objeto do tipo PeçaVO e insere ele na tabela Peças no banco de dados	
-		
-		conn = getConnection();
+
 		String sql = "update from peças set valor =  ? where id = ?";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setFloat(1, p.getValor());
 			ptst.setLong(2, p.getId());
 			ptst.executeUpdate();
@@ -57,12 +69,11 @@ public class PeçaDAO extends BaseDAO implements BaseInterDAO <PeçaVO>{
 
 	public void excluir(PeçaVO p) {
 		//Recebe um objeto do tipo PeçaVO e exclui ele na tabela Peças no banco de dados	
-		
-		conn = getConnection();
+
 		String sql = "delete from peças where id =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setLong(1, p.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -73,15 +84,14 @@ public class PeçaDAO extends BaseDAO implements BaseInterDAO <PeçaVO>{
 		
 	public List<PeçaVO> listar() { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
-	
-		conn = getConnection();
+
 		String sql = "select * from peças";
 		Statement st;
 		ResultSet rs;
 		List<PeçaVO> peças = new ArrayList<PeçaVO>();
 		
 		try {
-			st = conn.createStatement();
+			st = getConnection().prepareStatement(sql);
 			rs = st.executeQuery(sql);
 			
 			while (rs.next()) {
@@ -104,15 +114,16 @@ public class PeçaDAO extends BaseDAO implements BaseInterDAO <PeçaVO>{
 	
 	public PeçaVO buscar(PeçaVO p) { 
 		//Recebe um objeto do tipo PeçaVO e busca ele na tabela Peças no banco de dados	
-		
-		conn = getConnection();
-		String sql = "select from peças where id = ?";
+
+		String sql = "select from peças where id = ? or nome = ? or fabricante = ?";
 		Statement st;
 		ResultSet rs;
 		
 		try {
-			st = conn.createStatement();
+			st = getConnection().prepareStatement(sql);
 			((PreparedStatement) st).setLong(1, p.getId());
+			((PreparedStatement) st).setString(2, p.getNome());
+			((PreparedStatement) st).setString(3, p.getFabricante());
 			rs = st.executeQuery(sql);
 			
 			PeçaVO vo = new PeçaVO();

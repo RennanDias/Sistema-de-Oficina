@@ -9,21 +9,34 @@ import java.util.List;
 
 import VO.ClientesVO;
 
-public class ClientesDAO extends BaseDAO implements BaseInterDAO <ClientesVO>{
+public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <ClientesVO>{
 	
-	public ClientesVO inserir(ClientesVO c) { 
+	public ClientesVO inserir(ClientesVO c) throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e insere ele no banco de dados na tabela Clientes
 		
-		conn = getConnection();
-		String sql = "insert into clientes (id, nome, cpf, endereço) values (?,?,?,?)";
+		String sql = "insert into clientes (nome, cpf, endereço) values (?,?,?)";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
-			ptst.setLong(1, c.getId());
-			ptst.setString(2, c.getNome());
-			ptst.setString(3, c.getCpf());
-			ptst.setString(4, c.getEndereço());
+			ptst = getConnection().prepareStatement(sql);
+			//ptst.setLong(1, c.getId());
+			ptst.setString(1, c.getNome());
+			ptst.setString(2, c.getCpf());
+			ptst.setString(3, c.getEndereço());
 			ptst.execute();
+			
+			int affectedRows = ptst.executeUpdate();
+			
+			if(affectedRows == 0) {
+				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
+			}
+			ResultSet generatedKeys = ptst.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				c.setId(generatedKeys.getLong(1));
+			}
+			else {
+				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -31,14 +44,13 @@ public class ClientesDAO extends BaseDAO implements BaseInterDAO <ClientesVO>{
 		return c;
 	}
 	
-	public ClientesVO modificar(ClientesVO c) { 
+	public ClientesVO modificar(ClientesVO c) throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e altera ele no banco de dados na tabela Clientes
 		
-		conn = getConnection();
 		String sql = "update clientes set nome =  ? where id = ?";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, c.getNome());
 			ptst.setLong(2, c.getId());
 			ptst.executeUpdate();
@@ -49,14 +61,13 @@ public class ClientesDAO extends BaseDAO implements BaseInterDAO <ClientesVO>{
 		return c;
 	}
 
-	public void excluir(ClientesVO c) { 
+	public void excluir(ClientesVO c) throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 	
-		conn = getConnection();
 		String sql = "delete from clientes where cpf =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, c.getCpf());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -65,17 +76,16 @@ public class ClientesDAO extends BaseDAO implements BaseInterDAO <ClientesVO>{
 	
 	}
 	
-	public List<ClientesVO> listar() { 
+	public List<ClientesVO> listar() throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 	
-		conn = getConnection();
 		String sql = "select * from clientes";
 		Statement st;
 		ResultSet rs;
 		List<ClientesVO> clientes = new ArrayList<ClientesVO>();
 		
 		try {
-			st = conn.createStatement();
+			st = getConnection().prepareStatement(sql);
 			rs = st.executeQuery(sql);
 			
 			while (rs.next()) {
@@ -94,17 +104,18 @@ public class ClientesDAO extends BaseDAO implements BaseInterDAO <ClientesVO>{
 	}
 	
 	
-	public ClientesVO buscar(ClientesVO c) { 
+	public ClientesVO buscar(ClientesVO c) throws SQLException{ 
 		//Recebe um objeto do tipo ClientesVO e busca ele na tabela Clientes no banco de dados
 		
-		conn = getConnection();
-		String sql = "select from clientes where cpf = ?";
+		String sql = "select from clientes where cpf = ? or where nome = ? or where id = ?";
 		Statement st;
 		ResultSet rs;
 		
 		try {
-			st = conn.prepareStatement(sql);
-			((PreparedStatement) st).setString(1, c.getNome());
+			st = getConnection().prepareStatement(sql);
+			((PreparedStatement) st).setString(1, c.getCpf());
+			((PreparedStatement) st).setString(2, c.getNome());
+			((PreparedStatement) st).setLong(3, c.getId());
 			rs = st.executeQuery(sql);
 			
 			ClientesVO vo = new ClientesVO();

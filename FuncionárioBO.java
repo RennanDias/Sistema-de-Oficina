@@ -1,15 +1,39 @@
 package BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
+import DAO.FuncionárioDAO;
+import VO.ClientesVO;
 import VO.FuncionárioVO;
 import VO.OrçamentoVO;
 
 public class FuncionárioBO {
-	
+	FuncionárioDAO dao = new FuncionárioDAO();
 	public FuncionárioVO cadastrarFuncionario(FuncionárioVO func) { //Cadastra um funcionário recebendo seus atributos relacionados à classe FuncionárioVO
 		//e depois retorna o funcionário cadastrado
+		
+		try {
+			boolean existe = false;
+			List<FuncionárioVO> rs = dao.listar();
+			while (((ResultSet) rs).next()) {
+				FuncionárioVO test = (FuncionárioVO) rs;
+				if (func.getCpf() == test.getCpf()){
+					existe = true;
+				}
+			}
+			if (existe != false){
+				throw new SQLException("Impossível cadastrar, pois já existe funcionário com este CPF");
+			}
+			else {
+				dao.inserir(func);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		/*FuncionárioVO func = new FuncionárioVO();
 		
@@ -38,8 +62,11 @@ public class FuncionárioBO {
 		return func;
 	}
 	
-	public void fazerLogin (FuncionárioVO funcionario) { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
+	public boolean fazerLogin (FuncionárioVO funcionario) { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
 		//iguais aos digitados no programa e, por fim, avisa se foi ou não logado com sucesso
+		
+		return dao.fazerLogin(funcionario);
+		
 		/*boolean v = false;
 		
 		FuncionárioVO func = new FuncionárioVO();
@@ -72,7 +99,7 @@ public class FuncionárioBO {
 		}*/
 	}
 	
-	public void gerarRelatorios(OrçamentoVO o) { //Recebe o vetor de orçamentos, a data de início e fim
+	public void gerarRelatorios(OrçamentoVO inicio, OrçamentoVO fim) { //Recebe o vetor de orçamentos, a data de início e fim
 		//do período que deseja gerar relatórios e por fim, mostra todos eles com deus valores
 		/*OrçamentoBO met = new OrçamentoBO();
 		boolean t = false;
@@ -85,19 +112,22 @@ public class FuncionárioBO {
 		}
 		if (t != true) {
 			System.out.println("Não há orçamentos nesse período!");
-		}	
+		}*/	
 	}
 	
 	public OrçamentoVO finalizarOrçamento(OrçamentoVO o) { //Vê se o orçamento está finalizado ou não. Se estiver, diz que já está
 		//finalizado, se não, finaliza e emite uma nota
-		if (o.getFinalizado() != true) {
+		
+		dao.confirmarOrçamento(o);
+		
+		/*if (o.getFinalizado() != true) {
 			o.setFinalizado(true);
 			System.out.println("Orçamento finalizado!");
 		}
 		else {
 			System.out.println("O presente orçamento já está finalizado!");
-		}
-		return o;*/
+		}*/
+		return o;
 	}
 	
 }

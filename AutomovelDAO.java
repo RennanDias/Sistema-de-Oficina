@@ -10,11 +10,10 @@ import java.util.List;
 import VO.AutomovelVO;
 import VO.ClientesVO;
 
-public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
-	public AutomovelVO inserir(AutomovelVO a) { 
+public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <AutomovelVO>{
+	public AutomovelVO inserir(AutomovelVO a) throws SQLException { 
 		//Recebe um objeto do tipo AutomovelVO e insere ele no banco de dados na tabela Automovel
 		
-		conn = getConnection();
 		String sql = "insert into automoveis (cpf_cliente, placa, marca, modelo, cor, ano, quilometragem) values (?,?,?,?,?,?,?)";
 		PreparedStatement ptst;
 		
@@ -22,7 +21,8 @@ public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
 		c = a.getDono();
 		
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			//ptst.setLong(1, a.getId());
 			ptst.setString(1, c.getCpf());
 			ptst.setString(2, a.getPlaca());
 			ptst.setString(3, a.getMarca());
@@ -31,6 +31,20 @@ public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
 			ptst.setInt(6, a.getAno());
 			ptst.setInt(7, a.getQuilometragem());
 			ptst.execute();
+			
+			int affectedRows = ptst.executeUpdate();
+			
+			if(affectedRows == 0) {
+				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
+			}
+			ResultSet generatedKeys = ptst.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				a.setId(generatedKeys.getLong(1));
+			}
+			else {
+				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -40,14 +54,13 @@ public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
 	}
 
 	
-	public AutomovelVO modificar(AutomovelVO a) { 
+	public AutomovelVO modificar(AutomovelVO a) throws SQLException { 
 		//Recebe um objeto do tipo AutomovelVO e altera ele no banco de dados na tabela Automovel
 		
-		conn = getConnection();
-		String sql = "update from automoveis set placa =  ? where id = ?";
+		String sql = "update automoveis set placa =  ? where id = ?";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, a.getPlaca());
 			ptst.setLong(2, a.getId());
 			ptst.executeUpdate();
@@ -58,14 +71,13 @@ public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
 		return a;
 	}
 
-	public void excluir(AutomovelVO a) { 
+	public void excluir(AutomovelVO a) throws SQLException { 
 		//Recebe um objeto do tipo AutomovelVO e exclui ele no banco de dados na tabela Automovel
 		
-		conn = getConnection();
 		String sql = "delete from automoveis where placa =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = conn.prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, a.getPlaca());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -74,17 +86,16 @@ public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
 		
 	}
 	
-	public List<AutomovelVO> listar() { 
+	public List<AutomovelVO> listar() throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 	
-		conn = getConnection();
 		String sql = "select * from automoveis";
 		Statement st;
 		ResultSet rs;
 		List<AutomovelVO> automoveis = new ArrayList<AutomovelVO>();
 		
 		try {
-			st = conn.createStatement();
+			st = getConnection().prepareStatement(sql);
 			rs = st.executeQuery(sql);
 			
 			while (rs.next()) {
@@ -109,21 +120,22 @@ public class AutomovelDAO extends BaseDAO implements BaseInterDAO <AutomovelVO>{
 		return automoveis;
 	}
 	
-	public AutomovelVO buscar(AutomovelVO a) { 
+	public AutomovelVO buscar(AutomovelVO a) throws SQLException { 
 		//Recebe um objeto do tipo AutomovelVO e busca ele no banco de dados na tabela Automovel	
 		
-		conn = getConnection();
-		String sql = "select from automoveis where placa = ?";
+		String sql = "select from automoveis where placa = ? or cpf_cliente = ?";
 		Statement st;
 		ResultSet rs;
 		
 		try {
-			st = conn.createStatement();
-			((PreparedStatement) st).setString(1, a.getPlaca());
-			rs = st.executeQuery(sql);
-			
 			AutomovelVO vo = new AutomovelVO();
 			ClientesVO c = new ClientesVO();
+			c = a.getDono();
+			
+			st = getConnection().prepareStatement(sql);
+			((PreparedStatement) st).setString(1, a.getPlaca());
+			((PreparedStatement) st).setString(2, c.getCpf());
+			rs = st.executeQuery(sql);
 			
 			c.setCpf(rs.getString("cpf_cliente"));
 			vo.setPlaca(rs.getString("placa"));
