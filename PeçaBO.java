@@ -1,13 +1,39 @@
 package BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
+
+import DAO.PeçaDAO;
 import VO.AutomovelVO;
+import VO.ClientesVO;
 import VO.PeçaVO;
 
 public class PeçaBO implements BaseInterBO <PeçaVO>{
-
+	PeçaDAO dao = new PeçaDAO();
+	
 public PeçaVO adicionar(PeçaVO p) { //Cria um objeto do tipo PeçaVO e atribui valores aos atributos e, no fim, o retorna
 		
+	try {
+		boolean existe = false;
+		List<PeçaVO> rs = dao.listar();
+		while (((ResultSet) rs).next()) {
+			PeçaVO test = (PeçaVO) rs;
+			if (p.getNome() == test.getNome() && p.getFabricante() == test.getFabricante()){
+				existe = true;
+			}
+		}
+		if (existe != false){
+			throw new SQLException("Impossível cadastrar, pois já existe peça com este nome e fabricante.");
+		}
+		else {
+			dao.inserir(p);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
 	/*PeçaVO p = new PeçaVO();
 		AutomovelBO met = new AutomovelBO();
 		
@@ -34,6 +60,18 @@ public PeçaVO adicionar(PeçaVO p) { //Cria um objeto do tipo PeçaVO e atribui va
 	
 	public PeçaVO alterar(PeçaVO p) { //Recebe uma peça e altera seus atributos
 		
+		try {
+			PeçaVO rs = dao.buscar(p);
+			if (p == rs){
+				throw new SQLException("Valores idênticos. Nada alterado.");
+			}
+			else {
+				p = dao.modificar(p);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
 		/*System.out.println("ALTERANDO PEÇA!\n");
 		
 		Scanner s = new Scanner(System.in);
@@ -57,6 +95,8 @@ public PeçaVO adicionar(PeçaVO p) { //Cria um objeto do tipo PeçaVO e atribui va
 	}
 
 	public void deletar(PeçaVO p) { //Recebe um vetor de peças, procura a peça a ser deletada pelo nome e a exclui
+		
+		dao.excluir(p);
 		
 		/*boolean t = false;
 		String delete;
@@ -83,15 +123,18 @@ public PeçaVO adicionar(PeçaVO p) { //Cria um objeto do tipo PeçaVO e atribui va
 		
 	}
 	
-	public void mostrarPeça(PeçaVO p) { //Mostra os atributos de uma peça
+	/*public void mostrarPeça(PeçaVO p) { //Mostra os atributos de uma peça
 		/*AutomovelBO met = new AutomovelBO();
 		System.out.println("Nome: " + p.getNome());
 		System.out.println("Preço: " + p.getValor());
 		System.out.println("Fabricante: " + p.getFabricante());
-		met.mostrarAutomovel(p.getAutomoveis());*/
-	}
+		met.mostrarAutomovel(p.getAutomoveis());
+	}*/
 	
 	public PeçaVO pesquisar(PeçaVO p) { //Recebe um vetor de peças e retorna a peça específica que tiver o nome recebido
+		
+		p = dao.buscar(p);
+		
 		
 		/*boolean t = false;
 		String c;

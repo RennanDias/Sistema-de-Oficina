@@ -8,8 +8,9 @@ public class AutomovelVO {
 	private int ano;
 	private int quilometragem;
 	private PeçaVO peças[];
-	//private ClientesVO dono;
+	private ClientesVO dono;
 	private OrçamentoVO orçamento[];
+	private Long id;
 	
 	public String getMarca() {
 		return marca;
@@ -124,13 +125,13 @@ public class AutomovelVO {
 		}
 	}
 	
-	/*public ClientesVO getDono() {
+	public ClientesVO getDono() {
 		return dono;
 	}
 	
 	public void setDono(ClientesVO dono) {
 		this.dono = dono;
-	}*/
+	}
 	
 	public OrçamentoVO[] getOrçamento() {
 		return orçamento;
@@ -143,6 +144,14 @@ public class AutomovelVO {
 		else {
 			System.out.println("Nada encontrado! Adicione um orçamento para este automóvel!");
 		}
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

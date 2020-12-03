@@ -1,14 +1,38 @@
 package BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
+import DAO.AutomovelDAO;
 import VO.AutomovelVO;
 import VO.ClientesVO;
 
 public class AutomovelBO implements BaseInterBO <AutomovelVO>{
 	//static private AutomovelBO<AutomovelVO> usuBO = new AutomovelBO<AutomovelVO>();
+	AutomovelDAO dao = new AutomovelDAO();
 	
 public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retorna vetor de clientes com os automoveis adicionados
+		
+	try {
+		boolean existe = false;
+		List<AutomovelVO> rs = dao.listar();
+		while (((ResultSet) rs).next()) {
+			AutomovelVO test = (AutomovelVO) rs;
+			if (a.getPlaca() == test.getPlaca()){
+				existe = true;
+			}
+		}
+		if (existe != false){
+			throw new SQLException("Impossível cadastrar, pois já existe veículo com esta placa");
+		}
+		else {
+			dao.inserir(a);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
 		
 	/*AutomovelVO a = new AutomovelVO();
 		
@@ -63,6 +87,18 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 	
 	public AutomovelVO alterar(AutomovelVO a) { //Recebe um automóvel e altera seus atributos
 		
+		try {
+			AutomovelVO rs = dao.buscar(a);
+			if (a == rs){
+				throw new SQLException("Valores idênticos. Nada alterado.");
+			}
+			else {
+				a = dao.modificar(a);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
 		/*System.out.println("ALTERANDO AUTOMÓVEL!\n");
 		
 		Scanner s = new Scanner(System.in);
@@ -101,6 +137,12 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 	}
 
 	public void deletar(AutomovelVO a) { //Recebe um vetor de automóveis e deleta um de acordo com a placa dele
+		
+		try {
+			dao.excluir(a);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 		/*boolean t = false;
 		String delete;
 		
@@ -127,6 +169,14 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 	}
 	
 	public AutomovelVO pesquisar(AutomovelVO a) { //Recebe um vetor de automoveis e mostra os atributos especificos do veiculo
+		
+		try {
+			a = dao.buscar(a);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		
 		//que possuir a placa que é recebida
 		/*boolean t = false;
 		String p;
@@ -150,14 +200,14 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 		return a;
 	}
 	
-	public void mostrarAutomovel(AutomovelVO a) { //Mostra os atributos de um automóvel 
+	/*public void mostrarAutomovel(AutomovelVO a) { //Mostra os atributos de um automóvel 
 		/*System.out.println("Marca: " + a.getMarca());
 			System.out.println("Modelo: " + a.getModelo());
 			System.out.println("Ano: " + a.getAno());
 			System.out.println("Cor: " + a.getCor());
 			System.out.println("Placa: " + a.getPlaca());
 			System.out.println("Quilometragem: " + a.getQuilometragem());
-			System.out.println("\n");*/
+			System.out.println("\n");
 	}
 	
 	public void mostrarAutomovel(AutomovelVO[] a) { //Mostra os atributos de vários automoveis de um vetor (usado para mostrar
@@ -171,7 +221,7 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 			System.out.println("Placa: " + a[i].getPlaca());
 			System.out.println("Quilometragem: " + a[i].getQuilometragem());
 			System.out.println("\n");
-		}*/
-	}
+		}
+	}*/
 
 }
