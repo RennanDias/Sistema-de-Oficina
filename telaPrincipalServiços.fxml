@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControladorPrincipalServiços">
+   <children>
+      <ImageView fitHeight="203.0" fitWidth="600.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Cabeçalho.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="361.0" fitWidth="159.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Linha%20Lateral%20Opções%20(10).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="logoPesquisar" fitHeight="25.0" fitWidth="15.0" layoutX="459.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Lupa.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoPesquisar" layoutX="455.0" layoutY="65.0" mnemonicParsing="false" onAction="#pesquisar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" />
+      <ImageView fx:id="logoAdicionar" fitHeight="34.0" fitWidth="56.0" layoutX="549.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Adicionar.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoAdicionar" layoutX="542.0" layoutY="58.0" mnemonicParsing="false" onAction="#abrirAbaAdicionar" opacity="0.0" prefHeight="40.0" prefWidth="45.0" />
+      <Label layoutX="159.0" layoutY="48.0" text="Pesquisar" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="10.0" />
+         </font>
+      </Label>
+      <TextField fx:id="insertPesquisaServiçoNome" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="236.0" promptText="insertPesquisaServiçoNome" />
+      <TextField fx:id="insertPesquisaServiçoID" layoutX="404.0" layoutY="65.0" prefHeight="25.0" prefWidth="45.0" promptText="insertPesquisaSeviçoID" />
+      <ImageView fx:id="retanguloBase" fitHeight="79.0" fitWidth="405.0" layoutX="161.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Retangulo%20Base.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="logoAlterar" fitHeight="18.0" fitWidth="45.0" layoutX="541.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Lápis%20Alterar.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoAlterar" layoutX="542.0" layoutY="114.0" mnemonicParsing="false" onAction="#abrirAbaAlterar" opacity="0.0" prefHeight="19.0" prefWidth="18.0" visible="false">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="logoDeletar" fitHeight="48.0" fitWidth="9.0" layoutX="546.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Lixeirinha.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoDeletar" layoutX="542.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirAbaDeletar" opacity="0.0" prefHeight="19.0" prefWidth="18.0" visible="false">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+      <Label fx:id="nomeServiçoPesquisado" layoutX="176.0" layoutY="125.0" text="AAAAAAAA AAAAA AAAAAAAAAAA AAAAAAA" textFill="#4e67a5" visible="false">
+         <font>
+            <Font name="Century Gothic" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="r$" layoutX="477.0" layoutY="120.0" prefHeight="25.0" prefWidth="19.0" text="R$ " textFill="#4e67a5" visible="false">
+         <font>
+            <Font name="Century Gothic" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="preçoServiço" layoutX="496.0" layoutY="125.0" text="Label" textFill="#4e67a5" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="opaco" arcHeight="5.0" arcWidth="5.0" height="406.0" layoutY="-3.0" opacity="0.2" stroke="BLACK" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="600.0" />
+      <Rectangle fx:id="abaAdicionar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" layoutX="137.0" layoutY="35.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="326.0" />
+      <Label fx:id="addServiço" layoutX="225.0" layoutY="53.0" text="ADICIONAR SERVIÇO" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoSairAdicionar" fitHeight="18.0" fitWidth="21.0" layoutX="426.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoSairAdicionar" layoutX="418.0" layoutY="39.0" mnemonicParsing="false" onAction="#fecharAbaAdicionar" opacity="0.0" prefHeight="34.0" prefWidth="35.0" visible="false" />
+      <TextField fx:id="novoServiçoNome" layoutX="155.0" layoutY="97.0" prefHeight="25.0" prefWidth="198.0" promptText="Nome" visible="false" />
+      <TextField fx:id="novoServiçoPreço" layoutX="361.0" layoutY="97.0" prefHeight="25.0" prefWidth="74.0" promptText="Preço" visible="false" />
+      <Button fx:id="botaoConfirmarAdicionar" layoutX="254.0" layoutY="134.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <Rectangle fx:id="abaAlterar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" layoutX="140.0" layoutY="29.0" stroke="WHITE" strokeDashOffset="10.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="326.0" />
+      <ImageView fx:id="logoSairAlterar" fitHeight="18.0" fitWidth="21.0" layoutX="435.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoSairAlterar" layoutX="433.0" layoutY="37.0" mnemonicParsing="false" onAction="#fecharAbaAlterar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" visible="false" />
+      <Label fx:id="alterarServiço" layoutX="235.0" layoutY="49.0" text="ALTERAR SERVIÇO" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="alterarServiçoPreço" layoutX="381.0" layoutY="86.0" prefHeight="12.0" prefWidth="56.0" promptText="Preço" visible="false" />
+      <TextField fx:id="alterarServiçoNome" layoutX="169.0" layoutY="86.0" prefHeight="25.0" prefWidth="204.0" promptText="Nome" visible="false" />
+      <Button fx:id="botaoConfirmarAlteracao" layoutX="254.0" layoutY="122.0" mnemonicParsing="false" onAction="#alterar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <Rectangle fx:id="abaDeletar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="161.0" layoutX="112.0" layoutY="114.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="389.0" />
+      <Label fx:id="delServiço" layoutX="234.0" layoutY="135.0" text="DELETAR SERVIÇO" textFill="#435ea0" visible="false">
+         <font>
+            <Font name="Century Gothic" size="16.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoSairDeletar" fitHeight="18.0" fitWidth="21.0" layoutX="468.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoSairDeletar" layoutX="466.0" layoutY="121.0" mnemonicParsing="false" onAction="#fecharAbaDeletar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" visible="false" />
+      <Label fx:id="idNomeServiçoDel" layoutX="278.0" layoutY="179.0" text="Label" textFill="#435ea0" visible="false">
+         <font>
+            <Font name="Century Gothic" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="textDeletar" layoutX="143.0" layoutY="161.0" text="Tem certeza que deseja deletar o serviço de ID e nome:" textFill="#435ea0" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoConfirmarDeletar" layoutX="208.0" layoutY="218.0" mnemonicParsing="false" onAction="#deletar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoCancelarDeletar" layoutX="306.0" layoutY="218.0" mnemonicParsing="false" onAction="#fecharAbaDeletar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #e70505;" text="CANCELAR" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoAlterarAutomoveis" layoutX="26.0" layoutY="82.0" mnemonicParsing="false" onAction="#alterarParaAutomoveis" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarPeças" layoutX="26.0" layoutY="120.0" mnemonicParsing="false" onAction="#alterarParaPeças" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarClientes" layoutX="26.0" layoutY="43.0" mnemonicParsing="false" onAction="#alterarParaClientes" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarOrçamentos" layoutX="26.0" layoutY="202.0" mnemonicParsing="false" onAction="#alterarParaOrçamentos" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarRelatorios" layoutX="20.0" layoutY="245.0" mnemonicParsing="false" onAction="#alterarParaRelatorios" opacity="0.0" prefHeight="34.0" prefWidth="104.0" />
+   </children>
+</Pane>

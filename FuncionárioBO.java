@@ -2,12 +2,8 @@ package BO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
-
 import DAO.FuncionárioDAO;
-import VO.ClientesVO;
 import VO.FuncionárioVO;
 import VO.OrçamentoVO;
 
@@ -64,7 +60,7 @@ public class FuncionárioBO {
 	
 	public boolean fazerLogin (FuncionárioVO funcionario) { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
 		//iguais aos digitados no programa e, por fim, avisa se foi ou não logado com sucesso
-		
+		//ResultSet funcrs = dao.buscar(funcionario);
 		return dao.fazerLogin(funcionario);
 		
 		/*boolean v = false;

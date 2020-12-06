@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import VO.AutomovelVO;
-import VO.ClientesVO;
 import VO.FuncionárioVO;
 import VO.OrçamentoVO;
 
@@ -17,18 +16,19 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 	public FuncionárioVO inserirFuncionário(FuncionárioVO func) { 
 		//Recebe um objeto do tipo FuncionárioVO e o cadastra no banco de dados
 
-		String sql = "insert into funcionarios (nome, cpf, endereço, usuario, senha) values (?,?,?,?,?)";
+		String sql = "insert into funcionarios (id, nome, cpf, endereço, usuario, senha) values (?,?,?,?,?,?)";
 		PreparedStatement ptst;
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setString(1, func.getNome());
-			ptst.setString(2, func.getCpf());
-			ptst.setString(3, func.getEndereço());
-			ptst.setString(4, func.getUsuario());
-			ptst.setString(5, func.getSenha());
+			ptst.setLong(1, func.getId());
+			ptst.setString(2, func.getNome());
+			ptst.setString(3, func.getCpf());
+			ptst.setString(4, func.getEndereço());
+			ptst.setString(5, func.getUsuario());
+			ptst.setString(6, func.getSenha());
 			ptst.execute();
 			
-			int affectedRows = ptst.executeUpdate();
+			/*int affectedRows = ptst.executeUpdate();
 			
 			if(affectedRows == 0) {
 				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
@@ -39,7 +39,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 			}
 			else {
 				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
-			}
+			}*/
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,16 +84,23 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 	
 	public boolean fazerLogin (FuncionárioVO func) { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
 		//iguais aos digitados no programa e, por fim, avisa se foi ou não logado com sucesso
-		String sql = "select from funcionarios where usuario = ? and where senha = ?";
-		Statement st;
+		String sql = "select * from funcionarios where usuario = ? and senha = ?";
+		PreparedStatement st;
+		ResultSet rs;
 		boolean logon = false;
 		
 		try {
 			st = getConnection().prepareStatement(sql);
 			((PreparedStatement) st).setString(1, func.getUsuario());
 			((PreparedStatement) st).setString(2, func.getSenha());
-
-			logon = true;
+			rs = st.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString("usuario").equals(func.getUsuario()) && rs.getString("senha").equals(func.getSenha())) {
+					logon = true;
+					break;
+				}
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,31 +128,70 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 	}
 
 	@Override
-	public FuncionárioVO inserir(FuncionárioVO vo) throws SQLException {
+	public FuncionárioVO inserir(FuncionárioVO vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FuncionárioVO modificar(FuncionárioVO vo) throws SQLException {
+	public FuncionárioVO modificar(FuncionárioVO vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void excluir(FuncionárioVO vo) throws SQLException {
+	public void excluir(FuncionárioVO vo) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public FuncionárioVO buscar(FuncionárioVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public FuncionárioVO buscar(FuncionárioVO func) /*throws SQLException*/ {
+
+		String sql = "select * from funcionarios";
+		PreparedStatement st;
+		ResultSet rs;
+		//List<FuncionárioVO> funcionarios = new ArrayList<FuncionárioVO>();
+		
+		try {
+			st = getConnection().prepareStatement(sql);
+			rs = st.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString("usuario").equals(func.getUsuario()) && rs.getString("senha").equals(func.getSenha())) {
+					FuncionárioVO vo = new FuncionárioVO();
+					vo.setId(rs.getLong("id"));
+					vo.setNome(rs.getString("nome"));
+					vo.setCpf(rs.getString("cpf"));
+					vo.setEndereço(rs.getString("endereço"));
+					vo.setUsuario(rs.getString("usuario"));
+					vo.setSenha(rs.getString("senha"));
+					func = vo;
+					//else {
+					//	System.out.println("Senha incorreta!");
+					//}
+				//}
+				//else {
+					//System.out.println("Login incorreto!");
+				}
+			}
+			
+			/*for(FuncionárioVO lvo: funcionarios) {
+				if(lvo.getUsuario().equals(func.getUsuario()) && lvo.getSenha().equals(func.getSenha())) {
+					func = lvo;
+					break;
+				}				
+			}*/
+			//func = vo;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return func;
 	}
 
 	@Override
-	public List<FuncionárioVO> listar() throws SQLException {
+	public List<FuncionárioVO> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}

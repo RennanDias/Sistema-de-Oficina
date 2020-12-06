@@ -3,11 +3,7 @@ package BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
-
 import DAO.ServiçoDAO;
-import VO.ClientesVO;
-import VO.PeçaVO;
 import VO.ServiçoVO;
 
 public class ServiçoBO implements BaseInterBO <ServiçoVO>{

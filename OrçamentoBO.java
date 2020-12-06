@@ -2,16 +2,8 @@ package BO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
-
 import DAO.OrçamentoDAO;
-import VO.PeçaVO;
-import VO.ServiçoVO;
-import VO.AutomovelVO;
-import VO.ClientesVO;
 import VO.OrçamentoVO;
 
 public class OrçamentoBO implements BaseInterBO <OrçamentoVO> {

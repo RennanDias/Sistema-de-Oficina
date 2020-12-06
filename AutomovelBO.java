@@ -3,11 +3,8 @@ package BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
-
 import DAO.AutomovelDAO;
 import VO.AutomovelVO;
-import VO.ClientesVO;
 
 public class AutomovelBO implements BaseInterBO <AutomovelVO>{
 	//static private AutomovelBO<AutomovelVO> usuBO = new AutomovelBO<AutomovelVO>();
@@ -140,41 +137,16 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 		
 		try {
 			dao.excluir(a);
-		} catch (SQLException e){
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*boolean t = false;
-		String delete;
-		
-		System.out.println("DELETANDO AUTOMÓVEL!\n");
-		
-		Scanner s = new Scanner(System.in);
-		System.out.println("Digite a placa do automóvel a ser deletado: ");
-		delete = s.nextLine();
-		
-		for (int i = 0; i < a.length; i++) {
-			if (delete.equals(a[i].getPlaca())) {
-				for (int j = i; j < (a.length - 1); j++) {
-					a[j] = a[j+1];
-				}
-				t = true;
-				System.out.println("O automóvel de placa " + delete + " foi deletado.\n");
-				break;
-			}
-		}
-		if (t != true) {
-			System.out.println("Automóvel não encontrado!\n");
-		}*/
 		
 	}
 	
 	public AutomovelVO pesquisar(AutomovelVO a) { //Recebe um vetor de automoveis e mostra os atributos especificos do veiculo
 		
-		try {
-			a = dao.buscar(a);
-		} catch (SQLException e){
-			e.printStackTrace();
-		}
+		a = dao.buscar(a);
 		
 		
 		//que possuir a placa que é recebida

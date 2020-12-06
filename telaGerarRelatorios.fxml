@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControladorPrincipalRelatorios">
+   <children>
+      <ImageView fitHeight="203.0" fitWidth="600.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Cabeçalho.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="361.0" fitWidth="159.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Linha%20Lateral%20Opções%20(6).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="logoPesquisar" fitHeight="25.0" fitWidth="15.0" layoutX="437.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Lupa.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoPesquisar" layoutX="433.0" layoutY="66.0" mnemonicParsing="false" onAction="#pesquisar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" />
+      <Label layoutX="159.0" layoutY="48.0" text="Pesquisar" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="10.0" />
+         </font>
+      </Label>
+      <TextField fx:id="insertDataInicio" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="128.0" promptText="Data de Início" />
+      <TextField fx:id="insertDataFim" layoutX="301.0" layoutY="65.0" prefHeight="25.0" prefWidth="121.0" promptText="Data de Fim" />
+      <ImageView fx:id="retanguloBase" fitHeight="79.0" fitWidth="405.0" layoutX="161.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Retangulo%20Base.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="setupAutoOrçamentoPesquisado" layoutX="169.0" layoutY="117.0" text="AAAAAAAA AAAAA AAAAAAAAAAA AAAAAAA" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="r$" layoutX="477.0" layoutY="120.0" prefHeight="25.0" prefWidth="19.0" text="R$ " textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="valorOrçamento" layoutX="496.0" layoutY="125.0" text="Label" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="placaOrçamentoPesquisado" layoutX="199.0" layoutY="131.0" text="aaa.aaa.aaa-aa" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefPlaca" layoutX="169.0" layoutY="131.0" text="Placa: " textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="dataOrçamentoPesquisado" layoutX="336.0" layoutY="131.0" text="00/00/0000" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefData" layoutX="309.0" layoutY="131.0" text="Data:" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefStatus" layoutX="169.0" layoutY="141.0" text="Status:" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="statusOrçamentoPesquisado" layoutX="199.0" layoutY="141.0" text="nao finalizado" textFill="#4e67a5">
+         <font>
+            <Font name="Century Gothic" size="9.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoGerarRelatorio" layoutX="301.0" layoutY="341.0" mnemonicParsing="false" onAction="#abrirAbaGerarRelatorio" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #435ea0;" text="GERAR RELATÓRIO" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <Rectangle fx:id="opaco" arcHeight="5.0" arcWidth="5.0" height="406.0" layoutY="-3.0" opacity="0.2" stroke="BLACK" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="600.0" />
+      <Rectangle fx:id="abaPeriodoRelatorio" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="215.0" layoutX="137.0" layoutY="35.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="326.0" />
+      <Label fx:id="gerOrçamentoPer" layoutX="198.0" layoutY="54.0" text="ORÇAMENTOS DO PERÍODO" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoSairAdicionar" fitHeight="18.0" fitWidth="21.0" layoutX="426.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoSairPeriodoRelatorio" layoutX="418.0" layoutY="39.0" mnemonicParsing="false" onAction="#fecharAbaRelatorio" opacity="0.0" prefHeight="34.0" prefWidth="35.0" visible="false" />
+      <Label fx:id="prefValorTotal" layoutX="175.0" layoutY="164.0" text="Valor Total: R$" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoConfirmarGeracao" layoutX="255.0" layoutY="203.0" mnemonicParsing="false" onAction="#gerarRelatorio" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="prefPlaca2" layoutX="174.0" layoutY="123.0" text="Placa:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="placa2Rel" layoutX="203.0" layoutY="123.0" text="AAA0A00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefData2" layoutX="260.0" layoutY="123.0" text="Data:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="data2Rel" layoutX="290.0" layoutY="123.0" text="00/00/0000" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefValor2" layoutX="355.0" layoutY="123.0" text="Valor: R$" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="valor2Rel" layoutX="398.0" layoutY="123.0" text="00,00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="dataFimPeriodoRel" layoutX="344.0" layoutY="83.0" text="00/00/0000" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefFim" layoutX="321.0" layoutY="83.0" text="Fim:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="dataInPeriodoRel" layoutX="232.0" layoutY="83.0" text="00/00/0000" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefInicio" layoutX="202.0" layoutY="83.0" text="Início:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="valor1Rel" layoutX="398.0" layoutY="109.0" text="00,00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefValor1" layoutX="355.0" layoutY="109.0" text="Valor: R$" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="data1Rel" layoutX="290.0" layoutY="109.0" text="00/00/0000" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefData1" layoutX="260.0" layoutY="109.0" text="Data:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="placa1Rel" layoutX="203.0" layoutY="109.0" text="AAA0A00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefPlaca1" layoutX="174.0" layoutY="109.0" text="Placa:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="valor3Rel" layoutX="398.0" layoutY="139.0" text="00,00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefValor3" layoutX="355.0" layoutY="139.0" text="Valor: R$" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="data3Rel" layoutX="290.0" layoutY="139.0" text="00/00/0000" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefData3" layoutX="260.0" layoutY="139.0" text="Data:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="placa3Rel" layoutX="203.0" layoutY="139.0" text="AAA0A00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="prefPlaca3" layoutX="174.0" layoutY="139.0" text="Placa:" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="valorTotalOrçamento" layoutX="273.0" layoutY="164.0" text="00,00" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoAlterarAutomoveis" layoutX="26.0" layoutY="78.0" mnemonicParsing="false" onAction="#alterarParaAutomoveis" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarPeças" layoutX="26.0" layoutY="116.0" mnemonicParsing="false" onAction="#alterarParaPeças" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarClientes" layoutX="26.0" layoutY="39.0" mnemonicParsing="false" onAction="#alterarParaClientes" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarServiços" layoutX="26.0" layoutY="155.0" mnemonicParsing="false" onAction="#alterarParaServiços" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+      <Button fx:id="botaoAlterarOrçamentos" layoutX="26.0" layoutY="198.0" mnemonicParsing="false" onAction="#alterarParaOrçamentos" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
+   </children>
+</Pane>

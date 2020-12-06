@@ -14,17 +14,18 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	public ClientesVO inserir(ClientesVO c) throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e insere ele no banco de dados na tabela Clientes
 		
-		String sql = "insert into clientes (nome, cpf, endereço) values (?,?,?)";
+		String sql = "insert into clientes (nome, cpf, endereço, id) values (?,?,?,?)";
 		PreparedStatement ptst;
+		
 		try {
-			ptst = getConnection().prepareStatement(sql);
-			//ptst.setLong(1, c.getId());
+			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ptst.setLong(4, c.getId());
 			ptst.setString(1, c.getNome());
 			ptst.setString(2, c.getCpf());
 			ptst.setString(3, c.getEndereço());
 			ptst.execute();
 			
-			int affectedRows = ptst.executeUpdate();
+			/*int affectedRows = ptst.executeUpdate();
 			
 			if(affectedRows == 0) {
 				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
@@ -32,10 +33,13 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 			ResultSet generatedKeys = ptst.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				c.setId(generatedKeys.getLong(1));
+				sql = "insert into clientes2 (id) values (?)";
+				ptst.setLong(1, c.getId());
+				ptst.executeUpdate();
 			}
 			else {
-				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
-			}
+				throw new SQLException("A inserção falhou. Nenhum id foi retornado.");
+			}*/
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,24 +111,28 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	public ClientesVO buscar(ClientesVO c) throws SQLException{ 
 		//Recebe um objeto do tipo ClientesVO e busca ele na tabela Clientes no banco de dados
 		
-		String sql = "select from clientes where cpf = ? or where nome = ? or where id = ?";
-		Statement st;
+		String sql = "select * from clientes";
+		PreparedStatement st;
 		ResultSet rs;
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			((PreparedStatement) st).setString(1, c.getCpf());
-			((PreparedStatement) st).setString(2, c.getNome());
-			((PreparedStatement) st).setLong(3, c.getId());
-			rs = st.executeQuery(sql);
+			//((PreparedStatement) st).setString(1, c.getCpf());
+			//((PreparedStatement) st).setString(2, c.getNome());
+			//((PreparedStatement) st).setLong(3, c.getId());
+			rs = st.executeQuery();
 			
-			ClientesVO vo = new ClientesVO();
-			vo.setNome(rs.getString("nome"));
-			vo.setCpf(rs.getString("cpf"));
-			vo.setEndereço(rs.getString("endereço"));
-			vo.setId(rs.getLong("id"));
-			
-			c = vo;
+			while(rs.next()) {
+				if(rs.getString("nome").equals(c.getNome()) || rs.getString("cpf").equals(c.getCpf()) || rs.getLong("id") == c.getId()) {
+					ClientesVO vo = new ClientesVO();
+					vo.setNome(rs.getString("nome"));
+					vo.setCpf(rs.getString("cpf"));
+					vo.setEndereço(rs.getString("endereço"));
+					vo.setId(rs.getLong("id"));
+					
+					c = vo;
+				}
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -11,7 +11,7 @@ import VO.AutomovelVO;
 import VO.ClientesVO;
 
 public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <AutomovelVO>{
-	public AutomovelVO inserir(AutomovelVO a) throws SQLException { 
+	public AutomovelVO inserir(AutomovelVO a) throws SQLException{ 
 		//Recebe um objeto do tipo AutomovelVO e insere ele no banco de dados na tabela Automovel
 		
 		String sql = "insert into automoveis (cpf_cliente, placa, marca, modelo, cor, ano, quilometragem) values (?,?,?,?,?,?,?)";
@@ -30,7 +30,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 			ptst.setString(5, a.getCor());
 			ptst.setInt(6, a.getAno());
 			ptst.setInt(7, a.getQuilometragem());
-			ptst.execute();
+			//ptst.execute();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -90,13 +90,13 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 	
 		String sql = "select * from automoveis";
-		Statement st;
+		PreparedStatement st;
 		ResultSet rs;
 		List<AutomovelVO> automoveis = new ArrayList<AutomovelVO>();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			rs = st.executeQuery(sql);
+			rs = st.executeQuery();
 			
 			while (rs.next()) {
 				AutomovelVO vo = new AutomovelVO();
@@ -120,7 +120,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		return automoveis;
 	}
 	
-	public AutomovelVO buscar(AutomovelVO a) throws SQLException { 
+	public AutomovelVO buscar(AutomovelVO a)/*throws SQLException*/ { 
 		//Recebe um objeto do tipo AutomovelVO e busca ele no banco de dados na tabela Automovel	
 		
 		String sql = "select from automoveis where placa = ? or cpf_cliente = ?";

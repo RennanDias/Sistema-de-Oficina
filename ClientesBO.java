@@ -3,8 +3,6 @@ package BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
-
 import DAO.ClientesDAO;
 import VO.ClientesVO;
 
@@ -98,31 +96,10 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		
 		try {
 			dao.excluir(c);
-		} catch (SQLException e){
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*boolean t = false;
-		String delete;
-		
-		System.out.println("DELETANDO CLIENTE!\n");
-		
-		Scanner s = new Scanner(System.in);
-		System.out.println("Digite o nome ou cpf do cliente a ser deletado: ");
-		delete = s.nextLine();
-		
-		for (int i = 0; i < c.length; i++) {
-			if (delete.equals(c[i].getNome()) || delete.equals(c[i].getCpf())) {
-				for (int j = i; j < (c.length - 1); j++) {
-					c[j] = c[j+1];
-				}
-				t = true;
-				System.out.println("Cliente deletado.");
-				break;
-			}
-		}
-		if (t != true) {
-			System.out.println("Cliente não encontrado!\n");
-		}*/
 		
 	}
 	
@@ -140,7 +117,8 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		
 		try {
 			c = dao.buscar(c);
-		} catch (SQLException e){
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
