@@ -1,56 +1,31 @@
 package BO;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+
+import DAO.AutomovelDAO;
 import DAO.ClientesDAO;
+import VO.AutomovelVO;
 import VO.ClientesVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ClientesBO implements BaseInterBO <ClientesVO>{
 	ClientesDAO dao = new ClientesDAO();
+	AutomovelDAO adao = new AutomovelDAO();
+	AutomovelVO avo = new AutomovelVO();
 	public ClientesVO adicionar(ClientesVO c) { //Cria um cliente dentro do método, cria um objeto do tipo AutomovelBO para poder usar
 		//os métodos na hora de adicionar o cliente, depois pega os valores e vai atribuindo ao meu objeto do tipo ClientesVO criado
 		//ao final, retorna um objeto do tipo ClientesVO
-		
+		avo = c.getAutomoveis();
+		avo.setDono(c);
+
 		try {
-			boolean existe = false;
-			List<ClientesVO> rs = dao.listar();
-			while (((ResultSet) rs).next()) {
-				ClientesVO test = (ClientesVO) rs;
-				if (c.getCpf() == test.getCpf()){
-					existe = true;
-				}
-			}
-			if (existe != false){
-				throw new SQLException("Impossível cadastrar, pois já existe cliente com este CPF");
-			}
-			else {
-				c = dao.inserir(c);
-			}
+			dao.inserir(c);
+			adao.inserir(avo);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*ClientesVO c = new ClientesVO();
-		AutomovelBO met = new AutomovelBO();
-		
-		System.out.println("ADICIONANDO NOVO CLIENTE!\n");
-		
-		Scanner s = new Scanner(System.in);
-		System.out.println("Digite o nome do cliente: ");
-		c.setNome(s.nextLine());
-		
-		s = new Scanner(System.in);
-		System.out.println("Digite o endereço do cliente: ");
-		c.setEndereço(s.nextLine());
-		
-		s = new Scanner(System.in);
-		System.out.println("Digite o CPF do cliente: ");
-		c.setCpf(s.nextLine());
-		
-		c.setAutomoveis(met.adicionarAutomovel());
-		
-		System.out.println("Cliente adicionado.");*/
 		
 		return c;
 	}
@@ -59,35 +34,17 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		
 		//Ao invés de listar, usar buscar
 		
+		System.out.println(c.getId());
+		System.out.println(c.getNome());
+		System.out.println(c.getCpf());
+		System.out.println(c.getEndereço());
+		
 		try {
-			ClientesVO rs = dao.buscar(c);
-			if (c == rs){
-				throw new SQLException("Valores idênticos. Nada alterado.");
-			}
-			else {
-				c = dao.modificar(c);
-			}
-		} catch (SQLException e){
+			c = dao.modificar(c);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*System.out.println("ALTERANDO CLIENTE!\n");
-		
-		Scanner s = new Scanner(System.in);
-		System.out.println("Nome antigo: " + c.getNome());
-		System.out.println("\nDigite o novo nome: ");
-		c.setNome(s.nextLine());
-		
-		s = new Scanner(System.in);
-		System.out.println("Endereço do antigo: " + c.getEndereço());
-		System.out.println("\nDigite o novo endereço: ");
-		c.setEndereço(s.nextLine());
-		
-		s = new Scanner(System.in);
-		System.out.println("CPF antigo: " + c.getCpf());
-		System.out.println("\nDigite o novo CPF: ");
-		c.setCpf(s.nextLine());
-		
-		System.out.println("Cliente alterado.");*/
 		
 		return c;
 	}
@@ -103,46 +60,51 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		
 	}
 	
-	/*public void mostrarCliente(ClientesVO c) { //Mostra um cliente
-		AutomovelBO met = new AutomovelBO();
-		System.out.println("Nome: " + c.getNome());
-		System.out.println("CPF: " + c.getCpf());
-		System.out.println("Endereço: " + c.getEndereço());
-		met.mostrarAutomovel(c.getAutomoveis());
-	}*/
-	
-	public ClientesVO pesquisar(ClientesVO c) { //Pesquisa o cliente de acordo com o nome ou cpf, rodando o vetor de clientes recebido
+	public ObservableList<ClientesVO> listar() { //Recebe o vetor de orçamentos, a data de início e fim
+		//do período que deseja gerar relatórios e por fim, mostra todos eles com deus valores
+		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
+		try {
+			clientes = dao.listar();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+
+	public ObservableList<ClientesVO> pesquisar(ClientesVO c) { //Pesquisa o cliente de acordo com o nome ou cpf, rodando o vetor de clientes recebido
 		
 	//Buscar ao invés de listar	
 		
+		/*System.out.println(c.getNome());
+		System.out.println(c.getCpf());
+		System.out.println(c.getId());
+		
+		if(c.getNome().length() < 1 || c.getNome() ==  null) {
+			c.setNome("a");
+		}
+		
+		if (c.getCpf().length() < 1 || c.getNome() ==  null) {
+			c.setCpf("000.000.000-00");
+		}
+		
+		if (c.getId() == null) {
+			c.setId((long) 0);
+		}
+		
+		System.out.println(c.getNome());
+		System.out.println(c.getCpf());
+		System.out.println(c.getId());*/
+		
+		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		try {
-			c = dao.buscar(c);
+			clientes = dao.buscar(c);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-		/*boolean t = false;
-		String p;
-		
-		System.out.println("PESQUISANDO CLIENTE!\n");
-		
-		Scanner s = new Scanner(System.in);
-		System.out.println("Digite o nome ou cpf do cliente a ser pesquisado: ");
-		p = s.nextLine();
-		
-		for (int i = 0; i < c.length; i++) {
-			if (p.equals(c[i].getNome()) || p.equals(c[i].getCpf())) {
-				mostrarCliente(c[i]);
-				t = true;
-				break;
-			}
-		}
-		if (t != true) {
-			System.out.println("Cliente não encontrado!\n");
-		}*/
-		return c;
+		return clientes;
 	}
 
 }

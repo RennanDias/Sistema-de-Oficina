@@ -1,32 +1,33 @@
 package DAO;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import VO.AutomovelVO;
 import VO.OrçamentoVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<OrçamentoVO>{
 
-	public OrçamentoVO inserir(OrçamentoVO r) { 
+	public OrçamentoVO inserir(OrçamentoVO r) throws SQLException { 
 		//Recebe um objeto do tipo OrçamentoVO e insere ele no banco de dados na tabela Orçamento
 
-		String sql = "insert into orçamentos (placa_auto, data_de_solicitacao, valor_total) values (?,?,?)";
+		String sql = "insert into orçamentos (placa_auto, data_de_solicitacao, finalizado, valor_total) values (?,?,?,?)";
 		PreparedStatement ptst;
 		AutomovelVO a = new AutomovelVO();
+		a = r.getAutomoveis();
 		//a.setOrçamento(r);
 		
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ptst.setString(1, a.getPlaca());
-			ptst.setDate(2, (Date) r.getData());
-			ptst.setFloat(3, r.getValor());
-			ptst.execute();
+			ptst.setDate(2, new java.sql.Date(r.getData().getTime()));
+			ptst.setBoolean(3, r.getFinalizado());
+			ptst.setFloat(4, r.getValor());
+			//ptst.executeQuery();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -38,8 +39,9 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 				r.setId(generatedKeys.getLong(1));
 			}
 			else {
-				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
+				throw new SQLException("A inserção falhou. Nenhum id foi retornado.");
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -47,15 +49,22 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		return r;
 	}
 		
-	public OrçamentoVO modificar(OrçamentoVO o) {
+	public OrçamentoVO modificar(OrçamentoVO o) throws SQLException {
 		//Recebe um objeto do tipo OrçamentoVO e modifica ele no banco de dados na tabela Orçamento	
 
-		String sql = "update from orçamentos set valor_total =  ? where id = ?";
+		String sql = "update orçamentos set (placa_auto, data_de_solicitacao, finalizado, valor_total) =  (?,?,?,?) where id = ?";
 		PreparedStatement ptst;
+		
+		AutomovelVO a = new AutomovelVO();
+		a = o.getAutomoveis();
+		
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setFloat(1, o.getValor());
-			ptst.setLong(2, o.getId());
+			ptst.setString(1, a.getPlaca());
+			ptst.setDate(2, new java.sql.Date(o.getData().getTime()));
+			ptst.setBoolean(3, o.getFinalizado());
+			ptst.setFloat(4, o.getValor());
+			ptst.setLong(5, o.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,7 +73,7 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		return o;
 	}
 
-	public void excluir(OrçamentoVO a) { 
+	public void excluir(OrçamentoVO a) throws SQLException { 
 		//Recebe um objeto do tipo OrçamentoVO e exclui ele no banco de dados na tabela Orçamento
 
 		String sql = "delete from orçamentos where id =  ?";
@@ -79,17 +88,35 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 	
 	}
 	
-	public List<OrçamentoVO> listar() { 
+	public OrçamentoVO atualizar(OrçamentoVO a) throws SQLException { 
+		//Recebe um objeto do tipo OrçamentoVO e exclui ele no banco de dados na tabela Orçamento
+
+		String sql = "update orçamentos set valor_total = ? where id =  ?";
+		PreparedStatement ptst;
+		try {
+			ptst = getConnection().prepareStatement(sql);
+			ptst.setFloat(1, a.getValor());
+			ptst.setLong(2, a.getId());
+			ptst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return a;
+	}
+	
+	public ObservableList<OrçamentoVO> listar() throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 
 		String sql = "select * from orçamentos";
-		Statement st;
+		PreparedStatement st;
 		ResultSet rs;
-		List<OrçamentoVO> orçamentos = new ArrayList<OrçamentoVO>();
+		//List<OrçamentoVO> orçamentos = new ArrayList<OrçamentoVO>();
+		ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			rs = st.executeQuery(sql);
+			rs = st.executeQuery();
 			
 			while (rs.next()) {
 				OrçamentoVO vo = new OrçamentoVO();
@@ -97,9 +124,10 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 				
 				a.setPlaca(rs.getString("placa_auto"));
 				vo.setData(rs.getDate("data_de_solicitacao"));
+				vo.setFinalizado(rs.getBoolean("finalizado"));
 				vo.setValor(rs.getFloat("valor_total"));
 				vo.setId(rs.getLong("id"));
-				vo.setFinalizado(rs.getBoolean("finalizado"));
+				//vo.setFinalizado(rs.getBoolean("finalizado"));
 				vo.setAutomoveis(a);
 				orçamentos.add(vo);
 			}
@@ -110,35 +138,40 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		return orçamentos;
 	}
 		
-	public OrçamentoVO buscar(OrçamentoVO o) { 
+	public ObservableList<OrçamentoVO> buscar(OrçamentoVO o) throws SQLException { 
 		//Recebe um objeto do tipo OrçamentoVO e busca ele no banco de dados na tabela Orçamento	
 
-		String sql = "select from orçamentos where id = ?";
-		Statement st;
+		String sql = "select * from orçamentos where id = ? or placa_auto = ?";
+		PreparedStatement st;
 		ResultSet rs;
+		AutomovelVO avo = new AutomovelVO();
+		avo = o.getAutomoveis();
+		ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			((PreparedStatement) st).setLong(1, o.getId());
-			rs = st.executeQuery(sql);
+			st.setLong(1, o.getId());
+			st.setString(2, avo.getPlaca());
+			rs = st.executeQuery();
 			
-			OrçamentoVO vo = new OrçamentoVO();
-			AutomovelVO a = new AutomovelVO();
-			
-			a.setPlaca(rs.getString("placa_auto"));
-			vo.setData(rs.getDate("data_de_solicitacao"));
-			vo.setValor(rs.getFloat("valor_total"));
-			vo.setId(rs.getLong("id"));
-			vo.setFinalizado(rs.getBoolean("finalizado"));
-			vo.setAutomoveis(a);
-			
-			o = vo;
+			while(rs.next()){
+				OrçamentoVO vo = new OrçamentoVO();
+				AutomovelVO a = new AutomovelVO();
+
+				a.setPlaca(rs.getString("placa_auto"));
+				vo.setData(rs.getDate("data_de_solicitacao"));
+				vo.setValor(rs.getFloat("valor_total"));
+				vo.setFinalizado(rs.getBoolean("finalizado"));
+				vo.setId(rs.getLong("id"));
+				vo.setAutomoveis(a);
+				orçamentos.add(vo);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return o;
+		return orçamentos;
 	}
 	
 }

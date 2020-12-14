@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+import javafx.collections.ObservableList;
+
 public abstract class BaseDAO<VO> {
 
 	private static Connection conn = null;
@@ -39,6 +41,6 @@ public abstract class BaseDAO<VO> {
 	public abstract VO inserir(VO vo) throws SQLException;
 	public abstract VO modificar(VO vo) throws SQLException;
 	public abstract void excluir(VO vo) throws SQLException;
-	public abstract VO buscar(VO vo) throws SQLException;
+	public abstract ObservableList<VO> buscar(VO vo) throws SQLException;
 	public abstract List<VO> listar() throws SQLException;
 }

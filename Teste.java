@@ -1,26 +1,22 @@
 package DAO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import VO.AutomovelVO;
-import VO.ClientesVO;
 import VO.FuncionárioVO;
 
 public class Teste {
 
 	public static void main(String[] args) {
 		
-		ClientesDAO cdao = new ClientesDAO();
-		AutomovelDAO adao = new AutomovelDAO();
+		//ClientesDAO cdao = new ClientesDAO();
+		//AutomovelDAO adao = new AutomovelDAO();
 		FuncionárioDAO fdao = new FuncionárioDAO();
-		ClientesVO vo = new ClientesVO();
+		//ClientesVO vo = new ClientesVO();
 		FuncionárioVO func = new FuncionárioVO();
-		FuncionárioVO func2 = new FuncionárioVO();
-		ClientesVO vo2 = new ClientesVO();
-		List<AutomovelVO> lvo = new ArrayList<AutomovelVO>();
-		AutomovelVO avo = new AutomovelVO();
+		//FuncionárioVO func2 = new FuncionárioVO();
+		//ClientesVO vo2 = new ClientesVO();
+		//List<AutomovelVO> lvo = new ArrayList<AutomovelVO>();
+		//AutomovelVO avo = new AutomovelVO();
 		
 		/*func.setId((long) 2);
 		func.setCpf("710.600.500-40");
@@ -30,13 +26,18 @@ public class Teste {
 		func.setSenha("opapa123");
 		fdao.inserirFuncionário(func);*/
 		
-		/*func.setId((long) 1);
+		func.setId((long) 1);
 		func.setCpf("700.600.500-40");
 		func.setNome("Alexandre Oliveira");
-		func.setEndereço("Sampa");*/
-		func.setUsuario("PicaDeAço"); //-------------------- 
-		func.setSenha("opapa123"); //---------------------- 
-		func2 = fdao.buscar(func); //----------------------
+		func.setEndereço("Sampa");
+		func.setUsuario("Poukkin"); //-------------------- 
+		func.setSenha("opa123"); //---------------------- 
+		try {
+			fdao.inserirFuncionário(func);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //----------------------
 		
 		/*vo.setId((long) 3);
 		vo.setCpf("701.920.614-72");
@@ -48,7 +49,7 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		System.out.println("Nome: " + func2.getNome()); //------------------
+		//System.out.println("Nome: " + func2.getNome()); //------------------
 		
 		/*avo.setDono(vo);
 		avo.setId((long) 1);
@@ -60,13 +61,18 @@ public class Teste {
 		avo.setQuilometragem(6924);
 		adao.inserir(avo);*/
 		
-		/*vo.setId((long) 2);
-		vo.setCpf("702.915.614-72");
+		//vo.setId((long) 2);
+		/*vo.setCpf("702.915.614-72");
 		vo.setNome("Francisco Jarismar");
 		vo.setEndereço("Planalto");
-		//dao.inserir(vo);
+		try {
+			cdao.inserir(vo);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		avo.setDono(vo);
+		/*avo.setDono(vo);
 		avo.setId((long) 2);
 		avo.setMarca("Jeep");
 		avo.setModelo("Compass Trailhawlk");
@@ -77,7 +83,7 @@ public class Teste {
 		//adao.modificar(avo);*/
 		
 		
-		try {
+		/*try {
 			lvo = adao.listar();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -97,7 +103,7 @@ public class Teste {
 			/*System.out.println(vo2.getNome());
 			System.out.println(vo2.getCpf());
 			System.out.println(vo2.getEndereço());*/
-		}
+		//}
 		
 		
 		

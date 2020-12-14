@@ -4,23 +4,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import VO.ServiçoVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <ServiçoVO>{
 
-	public ServiçoVO inserir(ServiçoVO t) { 
+	public ServiçoVO inserir(ServiçoVO t) throws SQLException { 
 		//Recebe um objeto do tipo ServiçoVO e insere ele na tabela Peças no banco de dados
 
 		String sql = "insert into serviços (nome, valor) values (?,?)";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ptst.setString(1, t.getNome());
 			ptst.setFloat(2, t.getValor());
-			ptst.execute();
+			//ptst.execute();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -32,7 +32,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 				t.setId(generatedKeys.getLong(1));
 			}
 			else {
-				throw new SQLException("A inserção falhou. Nenhu id foi retornado.");
+				throw new SQLException("A inserção falhou. Nenhum id foi retornado.");
 			}
 			
 		} catch (SQLException e) {
@@ -43,16 +43,18 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		return t;
 	}
 	
-	public ServiçoVO modificar(ServiçoVO t) { 
+	public ServiçoVO modificar(ServiçoVO t) throws SQLException { 
 		//Recebe um objeto do tipo ServiçoVO e modifica ele na tabela Peças no banco de dados
 
-		String sql = "update from serviços set valor =  ? where id = ?";
+		String sql = "update serviços set (nome, valor) =  (?,?) where id = ?";
 		PreparedStatement ptst;
 		try {
 			ptst = getConnection().prepareStatement(sql);
-			ptst.setFloat(1, t.getValor());
-			ptst.setLong(2, t.getId());
+			ptst.setString(1, t.getNome());
+			ptst.setFloat(2, t.getValor());
+			ptst.setLong(3, t.getId());
 			ptst.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -60,7 +62,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		return t;
 	}
 
-	public void excluir(ServiçoVO t) { 
+	public void excluir(ServiçoVO t) throws SQLException { 
 		//Recebe um objeto do tipo ServiçoVO e exclui ele na tabela Peças no banco de dados
 
 		String sql = "delete from serviços where id =  ?";
@@ -75,17 +77,17 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 	
 	}
 	
-	public List<ServiçoVO> listar() { 
+	public ObservableList<ServiçoVO> listar() throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 
 		String sql = "select * from serviços";
-		Statement st;
+		PreparedStatement st;
 		ResultSet rs;
-		List<ServiçoVO> serviços = new ArrayList<ServiçoVO>();
+		ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			rs = st.executeQuery(sql);
+			rs = st.executeQuery();
 			
 			while (rs.next()) {
 				ServiçoVO vo = new ServiçoVO();
@@ -102,31 +104,34 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 	}
 	
 
-	public ServiçoVO buscar(ServiçoVO t) { 
+	public ObservableList<ServiçoVO> buscar(ServiçoVO t) throws SQLException { 
 		//Recebe um objeto do tipo ServiçoVO e busca ele na tabela Peças no banco de dados
 
-		String sql = "select from serviços where id = ? or nome = ?";
-		Statement st;
+		String sql = "select * from serviços where nome = ? or id = ?";
+		PreparedStatement st;
 		ResultSet rs;
+		ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			((PreparedStatement) st).setLong(1, t.getId());
-			((PreparedStatement) st).setString(2, t.getNome());
-			rs = st.executeQuery(sql);
+			st.setString(1, t.getNome());
+			st.setLong(2, t.getId());
+			rs = st.executeQuery();
 			
-			ServiçoVO vo = new ServiçoVO();
-			vo.setNome(rs.getString("nome"));
-			vo.setValor(rs.getFloat("valor"));
-			vo.setId(rs.getLong("id"));
-			
-			t = vo;
+			while(rs.next()) {
+				ServiçoVO vo = new ServiçoVO();
+				vo.setNome(rs.getString("nome"));
+				vo.setValor(rs.getFloat("valor"));
+				vo.setId(rs.getLong("id"));
+				serviços.add(vo);			
+			}
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	
-		return t;
+		return serviços;
 	}
 	
 	

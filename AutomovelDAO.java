@@ -4,11 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import VO.AutomovelVO;
 import VO.ClientesVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <AutomovelVO>{
 	public AutomovelVO inserir(AutomovelVO a) throws SQLException{ 
@@ -57,12 +57,17 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 	public AutomovelVO modificar(AutomovelVO a) throws SQLException { 
 		//Recebe um objeto do tipo AutomovelVO e altera ele no banco de dados na tabela Automovel
 		
-		String sql = "update automoveis set placa =  ? where id = ?";
+		String sql = "update automoveis set (placa, marca, modelo, cor, ano, quilometragem) =  (?,?,?,?,?,?) where id = ?";
 		PreparedStatement ptst;
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, a.getPlaca());
-			ptst.setLong(2, a.getId());
+			ptst.setString(2, a.getMarca());
+			ptst.setString(3, a.getModelo());
+			ptst.setString(4, a.getCor());
+			ptst.setInt(5, a.getAno());
+			ptst.setInt(6, a.getQuilometragem());
+			ptst.setLong(7, a.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,13 +91,13 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		
 	}
 	
-	public List<AutomovelVO> listar() throws SQLException { 
+	public ObservableList<AutomovelVO> listar() throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 	
-		String sql = "select * from automoveis";
+		String sql = "select * from visao_auto";
 		PreparedStatement st;
 		ResultSet rs;
-		List<AutomovelVO> automoveis = new ArrayList<AutomovelVO>();
+		ObservableList<AutomovelVO> automoveis = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
@@ -106,9 +111,9 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 				vo.setPlaca(rs.getString("placa"));
 				vo.setMarca(rs.getString("marca"));
 				vo.setModelo(rs.getString("modelo"));
-				vo.setCor(rs.getString("cor"));
+				//vo.setCor(rs.getString("cor"));
 				vo.setAno(rs.getInt("ano"));
-				vo.setQuilometragem(rs.getInt("quilometragem"));
+				//vo.setQuilometragem(rs.getInt("quilometragem"));
 				vo.setId(rs.getLong("id"));
 				vo.setDono(c);
 				automoveis.add(vo);
@@ -120,40 +125,46 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		return automoveis;
 	}
 	
-	public AutomovelVO buscar(AutomovelVO a)/*throws SQLException*/ { 
+	public ObservableList<AutomovelVO> buscar(AutomovelVO a)/*throws SQLException*/ { 
 		//Recebe um objeto do tipo AutomovelVO e busca ele no banco de dados na tabela Automovel	
 		
-		String sql = "select from automoveis where placa = ? or cpf_cliente = ?";
-		Statement st;
+		String sql = "select * from visao_auto where id = ? or placa = ? or cpf_cliente = ?";
+		PreparedStatement st;
 		ResultSet rs;
+		ClientesVO cvo = new ClientesVO();
+		cvo = a.getDono();
+		ObservableList<AutomovelVO> automoveis = FXCollections.observableArrayList();
 		
 		try {
-			AutomovelVO vo = new AutomovelVO();
-			ClientesVO c = new ClientesVO();
-			c = a.getDono();
 			
 			st = getConnection().prepareStatement(sql);
-			((PreparedStatement) st).setString(1, a.getPlaca());
-			((PreparedStatement) st).setString(2, c.getCpf());
-			rs = st.executeQuery(sql);
+			st.setLong(1, a.getId());
+			st.setString(2, a.getPlaca());
+			st.setString(3, cvo.getCpf());
+			rs = st.executeQuery();
 			
-			c.setCpf(rs.getString("cpf_cliente"));
-			vo.setPlaca(rs.getString("placa"));
-			vo.setMarca(rs.getString("marca"));
-			vo.setModelo(rs.getString("modelo"));
-			vo.setCor(rs.getString("cor"));
-			vo.setAno(rs.getInt("ano"));
-			vo.setQuilometragem(rs.getInt("quilometragem"));
-			vo.setId(rs.getLong("id"));
-			vo.setDono(c);
+			while(rs.next()) {
+				AutomovelVO vo = new AutomovelVO();
+				ClientesVO c = new ClientesVO();
+				//c = a.getDono();
+				c.setCpf(rs.getString("cpf_cliente"));
+				vo.setPlaca(rs.getString("placa"));
+				vo.setMarca(rs.getString("marca"));
+				vo.setModelo(rs.getString("modelo"));
+				//vo.setCor(rs.getString("cor"));
+				vo.setAno(rs.getInt("ano"));
+				//vo.setQuilometragem(rs.getInt("quilometragem"));
+				vo.setId(rs.getLong("id"));
+				vo.setDono(c);
+				automoveis.add(vo);
+			}
 			
-			a = vo;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return a;
+		return automoveis;
 	}
 
 }

@@ -4,28 +4,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import VO.ClientesVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <ClientesVO>{
 	
 	public ClientesVO inserir(ClientesVO c) throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e insere ele no banco de dados na tabela Clientes
 		
-		String sql = "insert into clientes (nome, cpf, endereço, id) values (?,?,?,?)";
+		String sql = "insert into clientes (nome, cpf, endereço) values (?,?,?)";
 		PreparedStatement ptst;
 		
 		try {
 			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			ptst.setLong(4, c.getId());
+			//ptst.setLong(4, c.getId());
 			ptst.setString(1, c.getNome());
 			ptst.setString(2, c.getCpf());
 			ptst.setString(3, c.getEndereço());
-			ptst.execute();
+			//ptst.execute();
 			
-			/*int affectedRows = ptst.executeUpdate();
+			int affectedRows = ptst.executeUpdate();
 			
 			if(affectedRows == 0) {
 				throw new SQLException("A inserção falhou. Nenhuma linha foi alterada.");
@@ -33,13 +33,10 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 			ResultSet generatedKeys = ptst.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				c.setId(generatedKeys.getLong(1));
-				sql = "insert into clientes2 (id) values (?)";
-				ptst.setLong(1, c.getId());
-				ptst.executeUpdate();
 			}
 			else {
 				throw new SQLException("A inserção falhou. Nenhum id foi retornado.");
-			}*/
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,13 +48,17 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	public ClientesVO modificar(ClientesVO c) throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e altera ele no banco de dados na tabela Clientes
 		
-		String sql = "update clientes set nome =  ? where id = ?";
+		String sql = "update clientes set (nome,cpf,endereço) =  (?,?,?) where id = ?";
 		PreparedStatement ptst;
+		
 		try {
 			ptst = getConnection().prepareStatement(sql);
 			ptst.setString(1, c.getNome());
-			ptst.setLong(2, c.getId());
+			ptst.setString(2, c.getCpf());
+			ptst.setString(3, c.getEndereço());
+			ptst.setLong(4, c.getId());
 			ptst.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,24 +81,24 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	
 	}
 	
-	public List<ClientesVO> listar() throws SQLException { 
+	public ObservableList<ClientesVO> listar() throws SQLException { 
 		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
 	
 		String sql = "select * from clientes";
-		Statement st;
+		PreparedStatement st;
 		ResultSet rs;
-		List<ClientesVO> clientes = new ArrayList<ClientesVO>();
+		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			rs = st.executeQuery(sql);
+			rs = st.executeQuery();
 			
 			while (rs.next()) {
 				ClientesVO vo = new ClientesVO();
+				vo.setId(rs.getLong("id"));
 				vo.setNome(rs.getString("nome"));
 				vo.setCpf(rs.getString("cpf"));
 				vo.setEndereço(rs.getString("endereço"));
-				vo.setId(rs.getLong("id"));
 				clientes.add(vo);
 			}
 			
@@ -108,37 +109,38 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	}
 	
 	
-	public ClientesVO buscar(ClientesVO c) throws SQLException{ 
+	public ObservableList<ClientesVO> buscar(ClientesVO c) throws SQLException{ 
 		//Recebe um objeto do tipo ClientesVO e busca ele na tabela Clientes no banco de dados
 		
-		String sql = "select * from clientes";
+		//String sql = "select * from clientes where nome = ?";
+		String sql = "select * from clientes where nome = ? or cpf = ? or id = ?";
 		PreparedStatement st;
 		ResultSet rs;
+		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		
 		try {
 			st = getConnection().prepareStatement(sql);
-			//((PreparedStatement) st).setString(1, c.getCpf());
-			//((PreparedStatement) st).setString(2, c.getNome());
-			//((PreparedStatement) st).setLong(3, c.getId());
+			st.setString(1, c.getNome());
+			st.setString(2, c.getCpf());
+			st.setLong(3, c.getId());
 			rs = st.executeQuery();
 			
 			while(rs.next()) {
-				if(rs.getString("nome").equals(c.getNome()) || rs.getString("cpf").equals(c.getCpf()) || rs.getLong("id") == c.getId()) {
+				//if(rs.getString("nome").equals(c.getNome()) || rs.getString("cpf").equals(c.getCpf()) || rs.getLong("id") == c.getId()) {
 					ClientesVO vo = new ClientesVO();
 					vo.setNome(rs.getString("nome"));
 					vo.setCpf(rs.getString("cpf"));
 					vo.setEndereço(rs.getString("endereço"));
 					vo.setId(rs.getLong("id"));
-					
-					c = vo;
-				}
+					clientes.add(vo);
+				//}
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return c;
+		return clientes;
 	}
 
 }
