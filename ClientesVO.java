@@ -1,15 +1,15 @@
 package VO;
 
 public class ClientesVO extends PessoaVO{
-	private AutomovelVO[] automoveis =  new AutomovelVO[1];
+	private AutomovelVO automoveis =  new AutomovelVO();
 
-	public AutomovelVO[] getAutomoveis() {
+	public AutomovelVO getAutomoveis() {
 		return automoveis;
 	}
 
 	public void setAutomoveis(AutomovelVO automoveis) {
 		if (automoveis != null) {
-			this.automoveis[(this.automoveis.length - 1)] = automoveis;
+			this.automoveis = automoveis;
 		}
 		else {
 			System.out.println("Nada encontrado! Adicione um automóvel a este cliente!");

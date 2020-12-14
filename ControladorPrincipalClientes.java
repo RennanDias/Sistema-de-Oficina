@@ -1,13 +1,19 @@
 package Controller;
 
 import BO.ClientesBO;
+import VO.AutomovelVO;
 import VO.ClientesVO;
 import View.Telas;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
@@ -16,12 +22,10 @@ public class ControladorPrincipalClientes {
 	@FXML private TextField insertPesquisaClienteNome;
 	@FXML private TextField insertPesquisaClienteCPF;
 	@FXML private TextField insertPesquisaClienteID;
-	@FXML private ImageView retanguloBase;
-	@FXML private Label prefEnd;
-	@FXML private Label prefCpf;
-	@FXML private Label endCliente;
-	@FXML private Label cpfCliente;
 	@FXML private Label nomeClientePesquisado;
+	@FXML private Button botaoAlterar;
+	@FXML private Button botaoDeletar;
+	@FXML private Button botaoLogout;
 	
 	//Retângulo opaco
 	@FXML private Rectangle opaco;
@@ -41,7 +45,7 @@ public class ControladorPrincipalClientes {
 	@FXML private TextField novoAutoCor;
 	@FXML private TextField novoAutoAno;
 	@FXML private TextField novoAutoKm;
-	@FXML private Button botaoFecharAdicionar;
+	@FXML private Button botaoSairAdicionar;
 	@FXML private Button botaoConfirmarAdicionar;
 	
 	//Componentes da tela alterar clientes
@@ -64,40 +68,92 @@ public class ControladorPrincipalClientes {
 	@FXML private Label nomeClienteDeletado;
 	@FXML private Label textDeletar;
 	
+	@FXML private Rectangle retanguloExit;
+	@FXML private Button botaoAlterarClientes;
+	@FXML private Label labelExit;
+	
+    @FXML private TableView <ClientesVO> tabelaClientes;
+    @FXML private TableColumn <ClientesVO, Long> idCliente;
+    @FXML private TableColumn <ClientesVO, String> nomeCliente;
+    @FXML private TableColumn <ClientesVO, String> cpfCliente1;
+    @FXML private TableColumn <ClientesVO, String> endereçoCliente;
+	
+	//A operação teve êxito
 	
 	ClientesBO cBO = new ClientesBO();
 	
+	ObservableList<ClientesVO> clientes = FXCollections.observableArrayList(
+			clientes = cBO.listar()
+	);
+	
+	public void initialize() {
+		
+		idCliente.setCellValueFactory(new PropertyValueFactory<ClientesVO, Long>("id"));
+		nomeCliente.setCellValueFactory(new PropertyValueFactory<ClientesVO, String>("nome"));
+		cpfCliente1.setCellValueFactory(new PropertyValueFactory<ClientesVO, String>("cpf"));
+		endereçoCliente.setCellValueFactory(new PropertyValueFactory<ClientesVO, String>("endereço"));
+		
+		tabelaClientes.setItems(clientes);
+	}
+	
 	public void pesquisar(ActionEvent event) {
 		ClientesVO c = new ClientesVO();
-		c.setNome(insertPesquisaClienteNome.getText());
-		c.setCpf(insertPesquisaClienteCPF.getText());
-		if (insertPesquisaClienteID.getText().equals("")) {
-			insertPesquisaClienteID.setText("0");
-		}
-		c.setId(Long.parseLong(insertPesquisaClienteID.getText()));
 		
-		if (c.getNome().equals("")) {
-			c.setNome("Aleatório");
+		/*System.out.println("\" " + insertPesquisaClienteNome.getText().length() + " \"");
+		System.out.println(insertPesquisaClienteCPF.getText());
+		System.out.println("\" " + insertPesquisaClienteID.getText().length() + " \"");*/
+		
+		if(insertPesquisaClienteNome.getText().length() >= 1) {
+			c.setNome(insertPesquisaClienteNome.getText());
 		}
-		if (c.getCpf().equals("")) {
+		else {
+			c.setNome("a");
+		}
+		
+		if (insertPesquisaClienteCPF.getText().length() >= 1) {
+			c.setCpf(insertPesquisaClienteCPF.getText());
+		}
+		else {
 			c.setCpf("000.000.000-00");
 		}
-		if (c.getEndereço().equals(null)) {
-			c.setEndereço("Aleatório");
+		
+		if (insertPesquisaClienteID.getText().length() >= 1) {
+			c.setId(Long.parseLong(insertPesquisaClienteID.getText()));
+		}
+		else {
+			c.setId((long) 0);
 		}
 		
-		c = cBO.pesquisar(c);
+		/*c.setNome(insertPesquisaClienteNome.getText());
+		c.setCpf(insertPesquisaClienteCPF.getText());
+		c.setId(Long.parseLong(insertPesquisaClienteID.getText()));*/
 		
-		nomeClientePesquisado.setText(c.getNome());
+		//------- CONFIRMAR COM GADELHA -----------
+		
+		//Fazer 3 métodos de busca ou tentar condensar em um só com as 3 possíveis entradas??
+		
+		//------- CONFIRMAR COM GADELHA -----------		
+		
+		/*for(ClientesVO cvo : cBO.pesquisar(c)) {
+		c = cvo;
+		}*/
+		
+		clientes = cBO.pesquisar(c);	
+		tabelaClientes.setItems(clientes);
+		
+		/*nomeClientePesquisado.setText(c.getNome());
 		cpfCliente.setText(c.getCpf());
-		endCliente.setText(c.getEndereço());
+		endCliente.setText(c.getEndereço());*/
 		
-		retanguloBase.setVisible(true);
+		botaoAlterar.setVisible(true);
+		botaoDeletar.setVisible(true);
+		
+		/*retanguloBase.setVisible(true);
 		prefEnd.setVisible(true);
 		prefCpf.setVisible(true);
 		endCliente.setVisible(true);
 		cpfCliente.setVisible(true);
-		nomeClientePesquisado.setVisible(true);
+		nomeClientePesquisado.setVisible(true);*/
 		
 	}
 	
@@ -117,7 +173,7 @@ public class ControladorPrincipalClientes {
 		novoAutoAno.setVisible(true);
 		novoAutoKm.setVisible(true);
 		novoAutoCor.setVisible(true);
-		botaoFecharAdicionar.setVisible(true);
+		botaoSairAdicionar.setVisible(true);
 		botaoConfirmarAdicionar.setVisible(true);
 	}
 	
@@ -137,7 +193,7 @@ public class ControladorPrincipalClientes {
 		novoAutoAno.setVisible(false);
 		novoAutoKm.setVisible(false);
 		novoAutoCor.setVisible(false);
-		botaoFecharAdicionar.setVisible(false);
+		botaoSairAdicionar.setVisible(false);
 		botaoConfirmarAdicionar.setVisible(false);
 	}
 
@@ -173,6 +229,7 @@ public class ControladorPrincipalClientes {
 		botaoCancelarDeletar.setVisible(true);
 		botaoConfirmarDeletar.setVisible(true);
 		delCliente.setVisible(true);
+		nomeClienteDeletado.setText(insertPesquisaClienteNome.getText());
 		nomeClienteDeletado.setVisible(true);
 		textDeletar.setVisible(true);
 	}
@@ -190,15 +247,110 @@ public class ControladorPrincipalClientes {
 	}
 	
 	public void adicionar(ActionEvent event) {
+		ClientesVO vo = new ClientesVO();
+		AutomovelVO a = new AutomovelVO();
+		vo.setNome(novoClienteNome.getText());
+		vo.setCpf(novoClienteCPF.getText());
+		vo.setEndereço(novoClienteEnd.getText());
+		a.setMarca(novoAutoMarca.getText());
+		a.setModelo(novoAutoModelo.getText());
+		a.setCor(novoAutoCor.getText());
+		a.setPlaca(novoAutoPlaca.getText());
+		a.setAno(Integer.parseInt(novoAutoAno.getText()));
+		a.setQuilometragem(Integer.parseInt(novoAutoKm.getText()));
+		vo.setAutomoveis(a);
+		
+		cBO.adicionar(vo);
+
+		opaco.setVisible(true);
+		retanguloExit.setVisible(true);
+		labelExit.setVisible(true);
+		botaoAlterarClientes.setVisible(true);
 		
 	}
 	
 	public void alterar(ActionEvent event) {
+		ClientesVO c = new ClientesVO();
 		
+		if(insertPesquisaClienteNome.getText().length() >= 1) {
+			c.setNome(insertPesquisaClienteNome.getText());
+		}
+		else {
+			c.setNome("a");
+		}
+		
+		if (insertPesquisaClienteCPF.getText().length() >= 1) {
+			c.setCpf(insertPesquisaClienteCPF.getText());
+		}
+		else {
+			c.setCpf("000.000.000-00");
+		}
+		
+		if (insertPesquisaClienteID.getText().length() >= 1) {
+			c.setId(Long.parseLong(insertPesquisaClienteID.getText()));
+		}
+		else {
+			c.setId((long) 0);
+		}
+		
+		for(ClientesVO cvo : cBO.pesquisar(c)) {
+			c = cvo;
+		}
+		
+		//System.out.println(novoClienteNome1.getText());
+		//System.out.println(novoClienteCPF1.getText());
+		//System.out.println(novoClienteEnd1.getText());
+		
+		c.setNome(novoClienteNome1.getText());
+		c.setCpf(novoClienteCPF1.getText());
+		c.setEndereço(novoClienteEnd1.getText());
+		
+		//System.out.println(c.getNome());
+		//System.out.println(c.getCpf());
+		//System.out.println(c.getEndereço());
+		
+		cBO.alterar(c);
+		
+		opaco.setVisible(true);
+		retanguloExit.setVisible(true);
+		labelExit.setVisible(true);
+		botaoAlterarClientes.setVisible(true);
 	}
 	
 	public void deletar(ActionEvent event) {
+		ClientesVO c = new ClientesVO();
 		
+		if(insertPesquisaClienteNome.getText().length() >= 1) {
+			c.setNome(insertPesquisaClienteNome.getText());
+		}
+		else {
+			c.setNome("a");
+		}
+		
+		if (insertPesquisaClienteCPF.getText().length() >= 1) {
+			c.setCpf(insertPesquisaClienteCPF.getText());
+		}
+		else {
+			c.setCpf("000.000.000-00");
+		}
+		
+		if (insertPesquisaClienteID.getText().length() >= 1) {
+			c.setId(Long.parseLong(insertPesquisaClienteID.getText()));
+		}
+		else {
+			c.setId((long) 0);
+		}
+		
+		for(ClientesVO cvo : cBO.pesquisar(c)) {
+			c = cvo;
+		}
+		
+		cBO.deletar(c);
+
+		opaco.setVisible(true);
+		retanguloExit.setVisible(true);
+		labelExit.setVisible(true);
+		botaoAlterarClientes.setVisible(true);
 	}	
 	
 	public void alterarParaAutomoveis(ActionEvent event) {
@@ -246,4 +398,21 @@ public class ControladorPrincipalClientes {
 		}
 	}
 	
+	public void alterarParaClientes(ActionEvent event) {
+		try {
+			Telas.telaPrincipalClientes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void alterarParaLogout(ActionEvent event) {
+		try {
+			Telas.telaLogout();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

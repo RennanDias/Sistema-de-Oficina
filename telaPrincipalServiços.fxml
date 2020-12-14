@@ -25,6 +25,7 @@
          </image>
       </ImageView>
       <Button fx:id="botaoPesquisar" layoutX="455.0" layoutY="65.0" mnemonicParsing="false" onAction="#pesquisar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" />
+      <Button fx:id="botaoLogout" layoutX="564.0" layoutY="6.0" mnemonicParsing="false" onAction="#alterarParaLogout" opacity="0.0" prefHeight="27.0" prefWidth="30.0" text="LOGOUT" />
       <ImageView fx:id="logoAdicionar" fitHeight="34.0" fitWidth="56.0" layoutX="549.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Adicionar.png" />
@@ -36,48 +37,25 @@
             <Font name="Century Gothic" size="10.0" />
          </font>
       </Label>
-      <TextField fx:id="insertPesquisaServiçoNome" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="236.0" promptText="insertPesquisaServiçoNome" />
-      <TextField fx:id="insertPesquisaServiçoID" layoutX="404.0" layoutY="65.0" prefHeight="25.0" prefWidth="45.0" promptText="insertPesquisaSeviçoID" />
-      <ImageView fx:id="retanguloBase" fitHeight="79.0" fitWidth="405.0" layoutX="161.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Retangulo%20Base.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="logoAlterar" fitHeight="18.0" fitWidth="45.0" layoutX="541.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Lápis%20Alterar.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="botaoAlterar" layoutX="542.0" layoutY="114.0" mnemonicParsing="false" onAction="#abrirAbaAlterar" opacity="0.0" prefHeight="19.0" prefWidth="18.0" visible="false">
+      <TextField fx:id="insertPesquisaServiçoNome" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="236.0" promptText="Nome" />
+      <TextField fx:id="insertPesquisaServiçoID" layoutX="404.0" layoutY="65.0" prefHeight="25.0" prefWidth="45.0" promptText="ID" />
+      <TableView fx:id="tabelaServiços" layoutX="154.0" layoutY="102.0" prefHeight="233.0" prefWidth="430.0">
+        <columns>
+          <TableColumn fx:id="idServiço" prefWidth="47.0" text="ID" />
+          <TableColumn fx:id="nomeServiço" prefWidth="293.0" text="Nome" />
+            <TableColumn fx:id="valorServiço" prefWidth="89.0" text="Valor" />
+        </columns>
+      </TableView>
+      <Button fx:id="botaoAlterar" layoutX="242.0" layoutY="349.0" mnemonicParsing="false" onAction="#abrirAbaAlterar" prefHeight="27.0" prefWidth="92.0" text="ALTERAR" visible="false">
          <font>
-            <Font size="9.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <ImageView fx:id="logoDeletar" fitHeight="48.0" fitWidth="9.0" layoutX="546.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Lixeirinha.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="botaoDeletar" layoutX="542.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirAbaDeletar" opacity="0.0" prefHeight="19.0" prefWidth="18.0" visible="false">
+      <Button fx:id="botaoDeletar" layoutX="407.0" layoutY="349.0" mnemonicParsing="false" onAction="#abrirAbaDeletar" prefHeight="27.0" prefWidth="92.0" text="DELETAR" visible="false">
          <font>
-            <Font size="9.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Label fx:id="nomeServiçoPesquisado" layoutX="176.0" layoutY="125.0" text="AAAAAAAA AAAAA AAAAAAAAAAA AAAAAAA" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="11.0" />
-         </font>
-      </Label>
-      <Label fx:id="r$" layoutX="477.0" layoutY="120.0" prefHeight="25.0" prefWidth="19.0" text="R$ " textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="11.0" />
-         </font>
-      </Label>
-      <Label fx:id="preçoServiço" layoutX="496.0" layoutY="125.0" text="Label" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="12.0" />
-         </font>
-      </Label>
       <Rectangle fx:id="opaco" arcHeight="5.0" arcWidth="5.0" height="406.0" layoutY="-3.0" opacity="0.2" stroke="BLACK" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="600.0" />
       <Rectangle fx:id="abaAdicionar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="148.0" layoutX="137.0" layoutY="35.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="326.0" />
       <Label fx:id="addServiço" layoutX="225.0" layoutY="53.0" text="ADICIONAR SERVIÇO" textFill="#435ea0" visible="false">
@@ -154,5 +132,12 @@
       <Button fx:id="botaoAlterarClientes" layoutX="26.0" layoutY="43.0" mnemonicParsing="false" onAction="#alterarParaClientes" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
       <Button fx:id="botaoAlterarOrçamentos" layoutX="26.0" layoutY="202.0" mnemonicParsing="false" onAction="#alterarParaOrçamentos" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
       <Button fx:id="botaoAlterarRelatorios" layoutX="20.0" layoutY="245.0" mnemonicParsing="false" onAction="#alterarParaRelatorios" opacity="0.0" prefHeight="34.0" prefWidth="104.0" />
+      <Rectangle fx:id="retanguloExit" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="95.0" layoutX="250.0" layoutY="95.0" stroke="#867777" strokeType="INSIDE" visible="false" width="168.0" />
+      <Button fx:id="botaoAlterarServiços" layoutX="318.0" layoutY="143.0" mnemonicParsing="false" onAction="#alterarParaServiços" style="-fx-background-color: #4e67a5;" text="OK" textFill="WHITE" visible="false" />
+      <Label fx:id="labelExit" layoutX="266.0" layoutY="118.0" text="A operação teve êxito!" textFill="#4e67a5" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
