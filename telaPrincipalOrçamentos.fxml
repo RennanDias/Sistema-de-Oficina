@@ -25,6 +25,7 @@
          </image>
       </ImageView>
       <Button fx:id="botaoPesquisar" layoutX="455.0" layoutY="65.0" mnemonicParsing="false" onAction="#pesquisar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" />
+      <Button fx:id="botaoLogout" layoutX="564.0" layoutY="6.0" mnemonicParsing="false" onAction="#alterarParaLogout" opacity="0.0" prefHeight="27.0" prefWidth="30.0" text="LOGOUT" />
       <ImageView fx:id="logoAdicionar" fitHeight="34.0" fitWidth="56.0" layoutX="549.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Adicionar.png" />
@@ -38,158 +39,73 @@
       </Label>
       <TextField fx:id="insertPesquisaOrçamentoPlaca" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="236.0" promptText="Placa do Automóvel" />
       <TextField fx:id="insertPesquisaOrçamentoID" layoutX="404.0" layoutY="65.0" prefHeight="25.0" prefWidth="45.0" promptText="ID" />
-      <ImageView fx:id="retanguloBase" fitHeight="79.0" fitWidth="405.0" layoutX="161.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Retangulo%20Base.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="logoAlterar" fitHeight="18.0" fitWidth="45.0" layoutX="541.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Lápis%20Alterar.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="botaoAlterar" layoutX="542.0" layoutY="114.0" mnemonicParsing="false" onAction="#abrirAbaAlterar" opacity="0.0" prefHeight="19.0" prefWidth="18.0" visible="false">
-         <font>
-            <Font size="9.0" />
-         </font>
-      </Button>
-      <ImageView fx:id="logoDeletar" fitHeight="48.0" fitWidth="9.0" layoutX="546.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20Lixeirinha.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="botaoDeletar" layoutX="542.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirAbaDeletar" opacity="0.0" prefHeight="19.0" prefWidth="18.0" visible="false">
-         <font>
-            <Font size="9.0" />
-         </font>
-      </Button>
-      <Label fx:id="setupAutoOrçamentoPesquisado" layoutX="169.0" layoutY="117.0" text="AAAAAAAA AAAAA AAAAAAAAAAA AAAAAAA" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="11.0" />
-         </font>
-      </Label>
-      <Label fx:id="r$" layoutX="477.0" layoutY="120.0" prefHeight="25.0" prefWidth="19.0" text="R$ " textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="11.0" />
-         </font>
-      </Label>
-      <Label fx:id="valorOrçamento" layoutX="496.0" layoutY="125.0" text="Label" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="placaOrçamentoPesquisado" layoutX="199.0" layoutY="131.0" text="aaa.aaa.aaa-aa" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="9.0" />
-         </font>
-      </Label>
-      <Label fx:id="prefPlaca" layoutX="169.0" layoutY="131.0" text="Placa: " textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="9.0" />
-         </font>
-      </Label>
-      <Label fx:id="dataOrçamentoPesquisado" layoutX="336.0" layoutY="131.0" text="00/00/0000" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="9.0" />
-         </font>
-      </Label>
-      <Label fx:id="prefData" layoutX="309.0" layoutY="131.0" text="Data:" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="9.0" />
-         </font>
-      </Label>
-      <Label fx:id="prefStatus" layoutX="169.0" layoutY="141.0" text="Status:" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="9.0" />
-         </font>
-      </Label>
-      <Label fx:id="statusOrçamentoPesquisado" layoutX="199.0" layoutY="141.0" text="nao finalizado" textFill="#4e67a5" visible="false">
-         <font>
-            <Font name="Century Gothic" size="9.0" />
-         </font>
-      </Label>
-      <Rectangle fx:id="opaco" arcHeight="5.0" arcWidth="5.0" height="406.0" layoutY="-3.0" opacity="0.2" stroke="BLACK" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="600.0" />
-      <Rectangle fx:id="abaAdicionar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="323.0" layoutX="137.0" layoutY="35.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="326.0" />
-      <Label fx:id="addOrçamento" layoutX="207.0" layoutY="53.0" text="ADICIONAR ORÇAMENTO" textFill="#435ea0" visible="false">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <TextField fx:id="novoOrçamentoServiçoNome" layoutX="155.0" layoutY="156.0" prefHeight="25.0" prefWidth="198.0" promptText="Nome do Serviço" visible="false" />
-      <TextField fx:id="novoOrçamentoPeçaNome" layoutX="155.0" layoutY="220.0" prefHeight="25.0" prefWidth="198.0" promptText="Nome da Peça" visible="false" />
-      <Label fx:id="addServiço" layoutX="159.0" layoutY="138.0" text="Serviços" textFill="#435ea0" visible="false">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="novoOrçamentoServiçoValor" layoutX="361.0" layoutY="156.0" prefHeight="25.0" prefWidth="74.0" promptText="Valor" visible="false" />
-      <Label fx:id="addPeça" layoutX="159.0" layoutY="206.0" text="Peças" textFill="#435ea0" visible="false">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="novoOrçamentoPeçaValor" layoutX="361.0" layoutY="220.0" prefHeight="25.0" prefWidth="74.0" promptText="Valor" visible="false" />
-      <Label fx:id="addServiço2" layoutX="250.0" layoutY="182.0" prefHeight="25.0" prefWidth="100.0" text="+ Adicionar Serviço" textFill="#435ea0" visible="false">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Label>
-      <Label fx:id="addServiço21" layoutX="257.0" layoutY="245.0" prefHeight="25.0" prefWidth="100.0" text="+ Adicionar Peça" textFill="#435ea0" visible="false">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Label>
-      <Button fx:id="botaoAddServiçoOrçamento" layoutX="250.0" layoutY="182.0" mnemonicParsing="false" onAction="#somarValor" opacity="0.0" prefHeight="25.0" prefWidth="100.0" visible="false" />
-      <Button fx:id="botaoAddPeçaOrçamento" layoutX="250.0" layoutY="245.0" mnemonicParsing="false" onAction="#somarValor" opacity="0.0" prefHeight="25.0" prefWidth="100.0" visible="false" />
-      <ImageView fx:id="logoSairAdicionar" fitHeight="18.0" fitWidth="21.0" layoutX="426.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
-         </image>
-      </ImageView>
-      <Button fx:id="botaoSairAdicionar" layoutX="418.0" layoutY="39.0" mnemonicParsing="false" onAction="#fecharAbaAdicionar" opacity="0.0" prefHeight="34.0" prefWidth="35.0" />
-      <TextField fx:id="novoOrçamentoPlaca" layoutX="155.0" layoutY="97.0" prefHeight="25.0" prefWidth="198.0" promptText="Placa do Automóvel" visible="false" />
-      <TextField fx:id="novoOrçamentoData" layoutX="361.0" layoutY="97.0" prefHeight="25.0" prefWidth="74.0" promptText="Data" visible="false" />
-      <CheckBox fx:id="checarFinalizadoAdd" layoutX="361.0" layoutY="284.0" mnemonicParsing="false" onAction="#confirmarOrçamento" text="Finalizado" textFill="#435ea0" visible="false" />
-      <Label fx:id="valorTotalOrçamento" layoutX="155.0" layoutY="282.0" text="Valor Total: R$" textFill="#435ea0" visible="false">
+      <TableView fx:id="tabelaOrçamento" layoutX="156.0" layoutY="100.0" prefHeight="226.0" prefWidth="433.0">
+        <columns>
+          <TableColumn fx:id="idOrçamento" prefWidth="42.0" text="ID" />
+          <TableColumn fx:id="placaOrçamento" prefWidth="85.0" text="Placa" />
+            <TableColumn fx:id="dataOrçamento" prefWidth="102.0" text="Data" />
+            <TableColumn fx:id="statusOrçamento" prefWidth="106.0" text="Status" />
+            <TableColumn fx:id="valorOrçamento" prefWidth="97.0" text="Valor" />
+        </columns>
+      </TableView>
+      <Button fx:id="botaoAlterar" layoutX="188.0" layoutY="343.0" mnemonicParsing="false" onAction="#abrirAbaAlterar" prefHeight="27.0" prefWidth="84.0" text="ALTERAR" visible="false">
          <font>
             <Font size="15.0" />
          </font>
-      </Label>
-      <Button fx:id="botaoConfirmarAdicionar" layoutX="254.0" layoutY="312.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
+      </Button>
+      <Button fx:id="botaoDeletar" layoutX="295.0" layoutY="343.0" mnemonicParsing="false" onAction="#abrirAbaDeletar" prefHeight="31.0" prefWidth="84.0" text="DELETAR" visible="false">
          <font>
-            <Font name="Century Gothic" size="12.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Rectangle fx:id="abaAlterar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="283.0" layoutX="140.0" layoutY="29.0" stroke="WHITE" strokeDashOffset="10.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="326.0" />
-      <ImageView fx:id="logoSairAlterar" fitHeight="18.0" fitWidth="21.0" layoutX="435.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <Rectangle fx:id="opaco" arcHeight="5.0" arcWidth="5.0" height="406.0" layoutY="-3.0" opacity="0.2" stroke="BLACK" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="600.0" />
+      <Rectangle fx:id="abaAdicionar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="382.0" layoutX="64.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="494.0" />
+      <ImageView fx:id="logoSairAdicionar" fitHeight="18.0" fitWidth="21.0" layoutX="519.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
          </image>
       </ImageView>
-      <Button fx:id="botaoSairAlterar" layoutX="433.0" layoutY="37.0" mnemonicParsing="false" onAction="#fecharAbaAlterar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" visible="false" />
-      <Label fx:id="alterarOrçamento" layoutX="220.0" layoutY="50.0" text="ALTERAR ORÇAMENTO" textFill="#435ea0" visible="false">
+      <Button fx:id="botaoSairAdicionar" layoutX="511.0" layoutY="23.0" mnemonicParsing="false" onAction="#fecharAbaAdicionar" opacity="0.0" prefHeight="34.0" prefWidth="35.0" visible="false" />
+      <Button fx:id="botaoDefinir" layoutX="415.0" layoutY="70.0" mnemonicParsing="false" onAction="#definir" prefHeight="25.0" prefWidth="84.0" text="DEFINIR" visible="false" />
+      <Label fx:id="addOrçamento" layoutX="220.0" layoutY="37.0" text="ADICIONAR ORÇAMENTO" textFill="#435ea0" visible="false">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="alterarOrçamentoPeçaValor" layoutX="372.0" layoutY="195.0" prefHeight="25.0" prefWidth="74.0" promptText="Valor" text="R$" visible="false" />
-      <Label fx:id="alterarPeça" layoutX="170.0" layoutY="181.0" text="Peças" textFill="#435ea0" visible="false">
+      <TextField fx:id="novoOrçamentoPlaca" layoutX="123.0" layoutY="70.0" prefHeight="25.0" prefWidth="198.0" promptText="Placa do Automóvel" visible="false" />
+      <TextField fx:id="novoOrçamentoData" layoutX="329.0" layoutY="70.0" prefHeight="25.0" prefWidth="74.0" promptText="Data" visible="false" />
+      <CheckBox fx:id="checarFinalizadoAdd" layoutX="464.0" layoutY="359.0" mnemonicParsing="false" text="Finalizado" textFill="#435ea0" visible="false" />
+      <Button fx:id="botaoAddItem" layoutX="183.0" layoutY="352.0" mnemonicParsing="false" onAction="#abrirAbaAddItem" prefHeight="31.0" prefWidth="127.0" text="ADICIONAR ITEM" visible="false" />
+      <Button fx:id="botaoConfirmarAdicionar" layoutX="321.0" layoutY="352.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="31.0" prefWidth="127.0" text="CONFIRMAR" visible="false" />
+      <Button fx:id="botaoAtt" layoutX="81.0" layoutY="352.0" mnemonicParsing="false" onAction="#atualizarTabela" prefHeight="31.0" prefWidth="92.0" text="ATUALIZAR" visible="false" />
+      <Rectangle fx:id="abaAlterar" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="400.0" layoutX="32.0" layoutY="-1.0" stroke="BLACK" strokeDashOffset="10.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="100.0" strokeType="INSIDE" visible="false" width="541.0" />
+      <ImageView fx:id="logoSairAlterar" fitHeight="18.0" fitWidth="21.0" layoutX="540.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoSairAlterar" layoutX="538.0" layoutY="11.0" mnemonicParsing="false" onAction="#fecharAbaAlterar" opacity="0.0" prefHeight="25.0" prefWidth="22.0" visible="false" />
+      <TableView fx:id="tabelaAddItem" layoutX="80.0" layoutY="112.0" prefHeight="235.0" prefWidth="462.0" visible="false">
+        <columns>
+          <TableColumn fx:id="id_o_add" prefWidth="85.0" text="id_orçamento" />
+          <TableColumn fx:id="nomeItemAdd" prefWidth="216.0" text="Nome" />
+            <TableColumn fx:id="qtdItemAdd" prefWidth="83.0" text="Quantidade" />
+            <TableColumn fx:id="valorItemAdd" prefWidth="77.0" text="Valor" />
+        </columns>
+      </TableView>
+      <Label fx:id="alterarOrçamento" layoutX="224.0" layoutY="13.0" text="ALTERAR ORÇAMENTO" textFill="#435ea0" visible="false">
          <font>
-            <Font size="10.0" />
+            <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="alterarOrçamentoServiçoValor" layoutX="372.0" layoutY="145.0" prefHeight="25.0" prefWidth="74.0" promptText="Valor" text="R$" visible="false" />
-      <Label fx:id="alterarServiço" layoutX="170.0" layoutY="123.0" text="Serviços" textFill="#435ea0" visible="false">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <TextField fx:id="alterarOrçamentoPeçaNome" layoutX="166.0" layoutY="195.0" prefHeight="25.0" prefWidth="198.0" promptText="Nome da Peça" text="PEÇA A" visible="false" />
-      <TextField fx:id="alterarOrçamentoServiçoNome" layoutX="166.0" layoutY="145.0" prefHeight="25.0" prefWidth="198.0" promptText="Nome do Serviço" text="SERVIÇO A" visible="false" />
-      <TextField fx:id="alterarOrçamentoData" layoutX="373.0" layoutY="86.0" prefHeight="25.0" prefWidth="76.0" promptText="Preço" text="00/00/0000" visible="false" />
-      <TextField fx:id="alterarOrçamentoPlaca" layoutX="169.0" layoutY="86.0" prefHeight="25.0" prefWidth="198.0" promptText="Nome" text="PLACA A" visible="false" />
-      <CheckBox fx:id="checarFinalizado" layoutX="263.0" layoutY="237.0" mnemonicParsing="false" onAction="#confirmarOrçamento" text="Finalizado" textFill="#435ea0" visible="false" />
-      <Button fx:id="botaoConfirmarAlteracao" layoutX="254.0" layoutY="264.0" mnemonicParsing="false" onAction="#alterar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
+      <TextField fx:id="alterarOrçamentoData" layoutX="303.0" layoutY="46.0" prefHeight="25.0" prefWidth="104.0" promptText="Data" visible="false" />
+      <TextField fx:id="alterarOrçamentoPlaca" layoutX="97.0" layoutY="46.0" prefHeight="25.0" prefWidth="198.0" promptText="Placa" visible="false" />
+      <CheckBox fx:id="checarFinalizado" layoutX="440.0" layoutY="359.0" mnemonicParsing="false" text="Finalizado" textFill="#435ea0" visible="false" />
+      <Button fx:id="botaoDefinirAlterar" layoutX="413.0" layoutY="46.0" mnemonicParsing="false" onAction="#definirAlterar" prefHeight="25.0" prefWidth="84.0" text="DEFINIR" visible="false" />
+      <TextField fx:id="nomeItemAlterar" layoutX="160.0" layoutY="78.0" promptText="Nome do item" visible="false" />
+      <Button fx:id="botaoAlterarItem" layoutX="316.0" layoutY="78.0" mnemonicParsing="false" onAction="#abrirAbaAlterarItem" prefHeight="25.0" prefWidth="115.0" text="ALTERAR ITEM" visible="false" />
+      <Button fx:id="botaoAttAlterar" layoutX="81.0" layoutY="353.0" mnemonicParsing="false" onAction="#atualizarTabelaAlterar" prefHeight="31.0" prefWidth="92.0" text="ATUALIZAR" visible="false" />
+      <Button fx:id="botaoConfirmarAlteracao" layoutX="258.0" layoutY="351.0" mnemonicParsing="false" onAction="#alterar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #435ea0;" text="CONFIRMAR" textFill="WHITE" visible="false">
          <font>
             <Font name="Century Gothic" size="12.0" />
          </font>
@@ -236,5 +152,35 @@
       <Button fx:id="botaoAlterarClientes" layoutX="26.0" layoutY="43.0" mnemonicParsing="false" onAction="#alterarParaClientes" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
       <Button fx:id="botaoAlterarServiços" layoutX="26.0" layoutY="159.0" mnemonicParsing="false" onAction="#alterarParaServiços" opacity="0.0" prefHeight="34.0" prefWidth="92.0" />
       <Button fx:id="botaoAlterarRelatorios" layoutX="20.0" layoutY="241.0" mnemonicParsing="false" onAction="#alterarParaRelatorios" opacity="0.0" prefHeight="34.0" prefWidth="104.0" />
+      <Rectangle fx:id="retanguloExit" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="95.0" layoutX="243.0" layoutY="107.0" stroke="#867777" strokeType="INSIDE" visible="false" width="168.0" />
+      <Button fx:id="botaoAlterarOrçamentos" layoutX="311.0" layoutY="155.0" mnemonicParsing="false" onAction="#alterarParaOrçamentos" style="-fx-background-color: #4e67a5;" text="OK" textFill="WHITE" visible="false" />
+      <Label fx:id="labelExit" layoutX="259.0" layoutY="130.0" text="A operação teve êxito!" textFill="#4e67a5" visible="false">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="opacoAddItem" arcHeight="5.0" arcWidth="5.0" height="413.0" layoutX="-5.0" layoutY="-8.0" opacity="0.56" stroke="BLACK" strokeType="INSIDE" visible="false" width="607.0" />
+      <Rectangle fx:id="abaAddItem" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="156.0" layoutY="101.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="285.0" />
+      <Label fx:id="labelAddItem" layoutX="241.0" layoutY="113.0" text="ADICIONAR ITEM" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelAlterarItem" layoutX="251.0" layoutY="123.0" text="ALTERAR ITEM" textFill="#435ea0" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoSairAbaAddItem" fitHeight="20.0" fitWidth="18.0" layoutX="409.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../Desktop/Imagens%20Sistema/Logo%20X%20(Sair).png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoSairAbaAddItem" layoutX="403.0" layoutY="107.0" mnemonicParsing="false" onAction="#fecharAbaAddItem" opacity="0.0" prefHeight="27.0" prefWidth="30.0" text="FECHAR ABA ADD ITEM" visible="false" />
+      <Button fx:id="botaoConfirmarAddItem" layoutX="246.0" layoutY="217.0" mnemonicParsing="false" onAction="#adicionarItem" style="-fx-background-color: #435ea0;" text="CONFIRMAR ITEM" textFill="WHITE" visible="false" />
+      <TextField fx:id="nomeItemAdicionado" layoutX="181.0" layoutY="149.0" prefHeight="25.0" prefWidth="242.0" promptText="Nome do item" visible="false" />
+      <TextField fx:id="qtdItemAdicionado" layoutX="182.0" layoutY="182.0" prefHeight="25.0" prefWidth="116.0" promptText="Quantidade" visible="false" />
+      <TextField fx:id="valorItemAdicionado" layoutX="306.0" layoutY="182.0" prefHeight="25.0" prefWidth="116.0" promptText="Preço" visible="false" />
+      <Button fx:id="botaoConfirmarAlterarItem" layoutX="220.0" layoutY="217.0" mnemonicParsing="false" onAction="#alterarItem" style="-fx-background-color: #435ea0;" text="CONFIRMAR ALTERAÇÃO" textFill="WHITE" visible="false" />
    </children>
 </Pane>

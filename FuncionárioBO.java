@@ -6,6 +6,8 @@ import java.util.List;
 import DAO.FuncionárioDAO;
 import VO.FuncionárioVO;
 import VO.OrçamentoVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class FuncionárioBO {
 	FuncionárioDAO dao = new FuncionárioDAO();
@@ -61,7 +63,13 @@ public class FuncionárioBO {
 	public boolean fazerLogin (FuncionárioVO funcionario) { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
 		//iguais aos digitados no programa e, por fim, avisa se foi ou não logado com sucesso
 		//ResultSet funcrs = dao.buscar(funcionario);
-		return dao.fazerLogin(funcionario);
+		try {
+			return dao.fazerLogin(funcionario);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 		
 		/*boolean v = false;
 		
@@ -95,8 +103,17 @@ public class FuncionárioBO {
 		}*/
 	}
 	
-	public void gerarRelatorios(OrçamentoVO inicio, OrçamentoVO fim) { //Recebe o vetor de orçamentos, a data de início e fim
+	public ObservableList<OrçamentoVO> gerarRelatorios(OrçamentoVO inicio, OrçamentoVO fim) { //Recebe o vetor de orçamentos, a data de início e fim
 		//do período que deseja gerar relatórios e por fim, mostra todos eles com deus valores
+		ObservableList<OrçamentoVO> relatorio = FXCollections.observableArrayList();
+		try {
+			relatorio = dao.gerarRelatorios(inicio, fim);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return relatorio;
+		
 		/*OrçamentoBO met = new OrçamentoBO();
 		boolean t = false;
  		System.out.println("RELATÓRIOS DE " + inicio + " até " + fim + "\n");
@@ -114,7 +131,12 @@ public class FuncionárioBO {
 	public OrçamentoVO finalizarOrçamento(OrçamentoVO o) { //Vê se o orçamento está finalizado ou não. Se estiver, diz que já está
 		//finalizado, se não, finaliza e emite uma nota
 		
-		dao.confirmarOrçamento(o);
+		try {
+			o = dao.confirmarOrçamento(o);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*if (o.getFinalizado() != true) {
 			o.setFinalizado(true);
