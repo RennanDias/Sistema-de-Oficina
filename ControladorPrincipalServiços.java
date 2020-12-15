@@ -56,10 +56,12 @@ public class ControladorPrincipalServiços {
 	@FXML private Label idNomeServiçoDel;
 	@FXML private Label textDeletar;
 	
+	//Componentes de operação com êxito
 	@FXML private Rectangle retanguloExit;
 	@FXML private Button botaoAlterarServiços;
 	@FXML private Label labelExit;
 	
+	//Elementos da tabela serviços
 	@FXML private TableView <ServiçoVO> tabelaServiços;
 	@FXML private TableColumn <ServiçoVO, Long> idServiço;
 	@FXML private TableColumn <ServiçoVO, String> nomeServiço;
@@ -67,11 +69,13 @@ public class ControladorPrincipalServiços {
 	
 	ServiçoBO sbo = new ServiçoBO();
 	
+	//Instancia a lista de serviços
 	ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList(
 			serviços = sbo.listar()
 	);
 	
-public void initialize() {
+	//Inicializa a tabela com os valores presentes na lista de serviços
+	public void initialize() {
 		
 		idServiço.setCellValueFactory(new PropertyValueFactory<ServiçoVO, Long>("id"));
 		nomeServiço.setCellValueFactory(new PropertyValueFactory<ServiçoVO, String>("nome"));
@@ -81,9 +85,11 @@ public void initialize() {
 		
 	}
 	
+	//Função para pesquisar serviços
 	public void pesquisar(ActionEvent event) {
 		ServiçoVO s =  new ServiçoVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaServiçoNome.getText().length() >= 1) {
 			s.setNome(insertPesquisaServiçoNome.getText());
 		}
@@ -104,33 +110,30 @@ public void initialize() {
 		botaoAlterar.setVisible(true);
 		botaoDeletar.setVisible(true);
 		
-		/*nomeServiçoPesquisado.setText(s.getNome());
-		preçoServiço.setText(String.valueOf(s.getValor()));
-		
-		retanguloBase.setVisible(true);
-		logoAlterar.setVisible(true);
-		logoDeletar.setVisible(true);
-		r$.setVisible(true);
-		preçoServiço.setVisible(true);
-		nomeServiçoPesquisado.setVisible(true);*/
 	}
 	
+	//Função para adicionar serviços
 	public void adicionar(ActionEvent event) {
 		ServiçoVO s =  new ServiçoVO();
+		
+		//Coloca os valores digitados na interface em um objeto para que seja adicionado
 		s.setNome(novoServiçoNome.getText());
 		s.setValor(Float.parseFloat(novoServiçoPreço.getText()));
 		
 		sbo.adicionar(s);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarServiços.setVisible(true);
 	}
 	
+	//Função que altera um serviço
 	public void alterar(ActionEvent event) {
 		ServiçoVO s =  new ServiçoVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaServiçoNome.getText().length() >= 1) {
 			s.setNome(insertPesquisaServiçoNome.getText());
 		}
@@ -149,20 +152,24 @@ public void initialize() {
 			s = svo;
 		}
 		
+		//Coloca os valores digitados na interface em um objeto para que seja alterado
 		s.setNome(alterarServiçoNome.getText());
 		s.setValor(Float.parseFloat(alterarServiçoPreço.getText()));
 		
 		sbo.alterar(s);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarServiços.setVisible(true);
 	}
 	
+	//Função que deleta uma peça
 	public void deletar(ActionEvent event) {
 		ServiçoVO s =  new ServiçoVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaServiçoNome.getText().length() >= 1) {
 			s.setNome(insertPesquisaServiçoNome.getText());
 		}
@@ -183,12 +190,14 @@ public void initialize() {
 		
 		sbo.deletar(s);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarServiços.setVisible(true);
 	}
 	
+	//Mostra os elementos da aba adicionar
 	public void abrirAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaAdicionar.setVisible(true);
@@ -200,6 +209,7 @@ public void initialize() {
 		botaoConfirmarAdicionar.setVisible(true);
 	}
 	
+	//Esconde os elementos da aba adicionar
 	public void fecharAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAdicionar.setVisible(false);
@@ -211,6 +221,7 @@ public void initialize() {
 		botaoConfirmarAdicionar.setVisible(false);
 	}
 
+	//Mostra os elementos da aba alterar
 	public void abrirAbaAlterar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaAlterar.setVisible(true);
@@ -222,6 +233,7 @@ public void initialize() {
 		alterarServiçoPreço.setVisible(true);
 	}
 
+	//Esconde os elementos da aba alterar
 	public void fecharAbaAlterar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAlterar.setVisible(false);
@@ -233,6 +245,7 @@ public void initialize() {
 		alterarServiçoPreço.setVisible(false);
 	}
 	
+	//Mostra os elementos da aba deletar
 	public void abrirAbaDeletar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaDeletar.setVisible(true);
@@ -242,10 +255,11 @@ public void initialize() {
 		botaoConfirmarDeletar.setVisible(true);
 		delServiço.setVisible(true);
 		//idNomeServiçoDel.setText(nomeServiçoPesquisado.getText());
-		idNomeServiçoDel.setVisible(true);
+		//idNomeServiçoDel.setVisible(true);
 		textDeletar.setVisible(true);
 	}
 
+	//Esconde os elementos da aba deletar
 	public void fecharAbaDeletar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaDeletar.setVisible(false);
@@ -254,10 +268,11 @@ public void initialize() {
 		botaoCancelarDeletar.setVisible(false);
 		botaoConfirmarDeletar.setVisible(false);
 		delServiço.setVisible(false);
-		idNomeServiçoDel.setVisible(false);
+		//idNomeServiçoDel.setVisible(false);
 		textDeletar.setVisible(false);
 	}
 	
+	//As seguintes funções servem para alterar as telas que ficam na parte esquerda da interface
 	public void alterarParaAutomoveis(ActionEvent event) {
 		try {
 			Telas.telaPrincipalAutomoveis();

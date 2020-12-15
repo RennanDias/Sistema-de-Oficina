@@ -21,8 +21,8 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		c = a.getDono();
 		
 		try {
-			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			//ptst.setLong(1, a.getId());
+			//Realiza conexão com o banco de dados a partir do código da string 'sql'
+			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
 			ptst.setString(1, c.getCpf());
 			ptst.setString(2, a.getPlaca());
 			ptst.setString(3, a.getMarca());
@@ -30,7 +30,6 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 			ptst.setString(5, a.getCor());
 			ptst.setInt(6, a.getAno());
 			ptst.setInt(7, a.getQuilometragem());
-			//ptst.execute();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -60,7 +59,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		String sql = "update automoveis set (placa, marca, modelo, cor, ano, quilometragem) =  (?,?,?,?,?,?) where id = ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, a.getPlaca());
 			ptst.setString(2, a.getMarca());
 			ptst.setString(3, a.getModelo());
@@ -82,7 +81,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		String sql = "delete from automoveis where placa =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, a.getPlaca());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -92,7 +91,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 	}
 	
 	public ObservableList<AutomovelVO> listar() throws SQLException { 
-		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
+		//Recebe os atributos das tuplas da tabela automoveis do banco de dados e insere eles numa lista
 	
 		String sql = "select * from visao_auto";
 		PreparedStatement st;
@@ -100,7 +99,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		ObservableList<AutomovelVO> automoveis = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -111,9 +110,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 				vo.setPlaca(rs.getString("placa"));
 				vo.setMarca(rs.getString("marca"));
 				vo.setModelo(rs.getString("modelo"));
-				//vo.setCor(rs.getString("cor"));
 				vo.setAno(rs.getInt("ano"));
-				//vo.setQuilometragem(rs.getInt("quilometragem"));
 				vo.setId(rs.getLong("id"));
 				vo.setDono(c);
 				automoveis.add(vo);
@@ -125,8 +122,8 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		return automoveis;
 	}
 	
-	public ObservableList<AutomovelVO> buscar(AutomovelVO a)/*throws SQLException*/ { 
-		//Recebe um objeto do tipo AutomovelVO e busca ele no banco de dados na tabela Automovel	
+	public ObservableList<AutomovelVO> buscar(AutomovelVO a) throws SQLException { 
+		//Recebe um objeto do tipo AutomovelVO e busca ele no banco de dados na tabela automoveis e coloca ele numa lista	
 		
 		String sql = "select * from visao_auto where id = ? or placa = ? or cpf_cliente = ?";
 		PreparedStatement st;
@@ -137,7 +134,7 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 		
 		try {
 			
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setLong(1, a.getId());
 			st.setString(2, a.getPlaca());
 			st.setString(3, cvo.getCpf());
@@ -146,19 +143,15 @@ public class AutomovelDAO extends BaseDAO<AutomovelVO> implements BaseInterDAO <
 			while(rs.next()) {
 				AutomovelVO vo = new AutomovelVO();
 				ClientesVO c = new ClientesVO();
-				//c = a.getDono();
 				c.setCpf(rs.getString("cpf_cliente"));
 				vo.setPlaca(rs.getString("placa"));
 				vo.setMarca(rs.getString("marca"));
 				vo.setModelo(rs.getString("modelo"));
-				//vo.setCor(rs.getString("cor"));
 				vo.setAno(rs.getInt("ano"));
-				//vo.setQuilometragem(rs.getInt("quilometragem"));
 				vo.setId(rs.getLong("id"));
 				vo.setDono(c);
 				automoveis.add(vo);
-			}
-			
+			}	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

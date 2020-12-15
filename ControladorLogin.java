@@ -15,6 +15,7 @@ public class ControladorLogin {
 	
 	FuncionárioBO funcBO = new FuncionárioBO();
 	
+	//Essa função realiza o login de acordo com os valores inseridos nos campos de texto
 	public void fazerLogin(ActionEvent event) {
 		FuncionárioVO func = new FuncionárioVO();
 		func.setUsuario(login.getText());

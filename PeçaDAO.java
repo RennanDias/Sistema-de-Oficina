@@ -17,16 +17,12 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 		String sql = "insert into peças (nome, fabricante, valor) values (?,?,?)";
 		PreparedStatement ptst;
 		
-		//AutomovelVO avo = new AutomovelVO();
-		//avo = p.getAutomoveis();
-		
 		try {
+			//Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ptst.setString(1, p.getNome());
-			//ptst.setString(2, avo.getModelo());
 			ptst.setString(2, p.getFabricante());
 			ptst.setFloat(3, p.getValor());
-			//ptst.execute();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -56,7 +52,7 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 		PreparedStatement ptst;
 		
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, p.getNome());
 			ptst.setString(2, p.getFabricante());
 			ptst.setFloat(3, p.getValor());
@@ -76,7 +72,7 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 		String sql = "delete from peças where id =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setLong(1, p.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -86,7 +82,7 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 	}
 		
 	public ObservableList<PeçaVO> listar() throws SQLException { 
-		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
+		//Pega os atributos das tuplas da tabela peças e coloca em objetos e forma uma lista
 
 		String sql = "select * from peças";
 		PreparedStatement st;
@@ -94,18 +90,15 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 		ObservableList<PeçaVO> peças = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
 				PeçaVO vo = new PeçaVO();
-				//AutomovelVO avo = new AutomovelVO();
 				vo.setNome(rs.getString("nome"));
-				//avo.setModelo(rs.getString("modelo_auto"));
 				vo.setFabricante(rs.getString("fabricante"));
 				vo.setValor(rs.getFloat("valor"));
 				vo.setId(rs.getLong("id"));
-				//vo.setAutomoveis(avo);
 				peças.add(vo);
 			}
 			
@@ -116,7 +109,7 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 	}
 	
 	public ObservableList<PeçaVO> buscar(PeçaVO p) throws SQLException { 
-		//Recebe um objeto do tipo PeçaVO e busca ele na tabela Peças no banco de dados	
+		//Lista as peças no banco de dados e separa uma específica
 
 		String sql = "select * from peças where nome = ? or id = ? or fabricante = ?";
 		PreparedStatement st;
@@ -124,7 +117,7 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 		ObservableList<PeçaVO> peças = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setString(1, p.getNome());
 			st.setLong(2, p.getId());
 			st.setString(3, p.getFabricante());
@@ -132,14 +125,10 @@ public class PeçaDAO extends BaseDAO<PeçaVO> implements BaseInterDAO <PeçaVO>{
 			
 			while (rs.next()) {
 				PeçaVO vo = new PeçaVO();
-				//AutomovelVO avo = new AutomovelVO();
-				//avo = vo.getAutomoveis();
 				vo.setNome(rs.getString("nome"));
-				//avo.setModelo(rs.getString("modelo_auto"));
 				vo.setFabricante(rs.getString("fabricante"));
 				vo.setValor(rs.getFloat("valor"));
 				vo.setId(rs.getLong("id"));
-				//vo.setAutomoveis(avo);
 				peças.add(vo);
 			}
 			

@@ -35,10 +35,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class ControladorPrincipalRelatorios {
 	
+	//Componentes da tela principal
 	@FXML private TextField insertDataInicio;
 	@FXML private TextField insertDataFim;
 	@FXML private Button botaoLogout;
-	@FXML private ImageView retanguloBase;
+	/*@FXML private ImageView retanguloBase;
 	@FXML private Label setupAutoOrçamentoPesquisado;
 	@FXML private Label r$;
 	@FXML private Label valorOrçamento1;
@@ -47,9 +48,10 @@ public class ControladorPrincipalRelatorios {
 	@FXML private Label prefData;
 	@FXML private Label dataOrçamentoPesquisado;
 	@FXML private Label prefStatus;
-	@FXML private Label statusOrçamentoPesquisado;
+	@FXML private Label statusOrçamentoPesquisado;*/
 	@FXML private Button botaoGerarRelatorio;
 	
+	//Componentes da tabela de orçamentos
     @FXML private TableView <OrçamentoVO> tabelaOrçamentos;
     @FXML private TableColumn <OrçamentoVO, Long> idOrçamento;
     @FXML private TableColumn <OrçamentoVO, String> placaOrçamento;
@@ -57,14 +59,16 @@ public class ControladorPrincipalRelatorios {
     @FXML private TableColumn <OrçamentoVO, String> statusOrçamento;
     @FXML private TableColumn <OrçamentoVO, Float> valorOrçamento;
 	
+    //Retangulo opaco pra dar efeito visual
 	@FXML private Rectangle opaco;
 	
+	
 	@FXML private Rectangle abaPeriodoRelatorio;
-	@FXML private Label gerOrçamentoPer;
-	@FXML private Label prefValorTotal;
+	//@FXML private Label gerOrçamentoPer;
+	//@FXML private Label prefValorTotal;
 	@FXML private Label valorTotalOrçamento;
 	
-	@FXML private Label prefPlaca1;
+	/*@FXML private Label prefPlaca1;
 	@FXML private Label prefData1;
 	@FXML private Label prefValor1;
 	@FXML private Label placa1Rel;
@@ -88,11 +92,12 @@ public class ControladorPrincipalRelatorios {
 	@FXML private Label dataFimPeriodoRel;
 	@FXML private Label dataInPeriodoRel;
 	@FXML private Label prefFim;
-	@FXML private Label prefInicio;
+	@FXML private Label prefInicio;*/
 	@FXML private ImageView logoSairAdicionar;
 	@FXML private Button botaoSairPeriodoRelatorio;
 	@FXML private Button botaoConfirmarGeracao;	
 	
+	//Componentes de operação com êxito
 	@FXML private Rectangle retanguloExit;
 	@FXML private Button botaoAlterarRelatorios;
 	@FXML private Label labelExit;
@@ -100,10 +105,12 @@ public class ControladorPrincipalRelatorios {
 	FuncionárioBO fbo = new FuncionárioBO();
 	OrçamentoBO obo = new OrçamentoBO();
 	
+	//Instancia a lista de orçamentos
 	ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList(
 		orçamentos = obo.listar()
 	);
 	
+	//Inicializa a tabela com os valores presentes na lista de orçamentos
 	public void initialize() {
 
 		idOrçamento.setCellValueFactory(new PropertyValueFactory<OrçamentoVO, Long>("id"));
@@ -116,11 +123,14 @@ public class ControladorPrincipalRelatorios {
 		
 	}
 	
+	//Função para pesquisar os orçamentos dentro do período especificado
 	public void pesquisar(ActionEvent event) {
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		OrçamentoVO ini = new OrçamentoVO();
 		OrçamentoVO fim = new OrçamentoVO();
+		
+		
 		try {
 			ini.setData(dateFormat.parse(insertDataInicio.getText()));
 		} catch (ParseException e) {
@@ -139,85 +149,28 @@ public class ControladorPrincipalRelatorios {
 		
 	}
 	
+	//Essas duas funções são falsas
 	public void abrirAbaGerarRelatorio(ActionEvent event) {
-		/*opaco.setVisible(true);
-		abaPeriodoRelatorio.setVisible(true);
-		gerOrçamentoPer.setVisible(true);
-		prefValorTotal.setVisible(true);
-		valorTotalOrçamento.setVisible(true);
-		prefPlaca1.setVisible(true);
-		prefData1.setVisible(true);
-		prefValor1.setVisible(true);
-		placa1Rel.setVisible(true);
-		data1Rel.setVisible(true);
-		valor1Rel.setVisible(true);
-		prefPlaca2.setVisible(true);
-		prefData2.setVisible(true);
-		prefValor2.setVisible(true);
-		placa2Rel.setVisible(true);
-		data2Rel.setVisible(true);
-		valor2Rel.setVisible(true);
-		prefPlaca3.setVisible(true);
-		prefData3.setVisible(true);
-		prefValor3.setVisible(true);
-		placa3Rel.setVisible(true);
-		data3Rel.setVisible(true);
-		valor3Rel.setVisible(true);
-		dataFimPeriodoRel.setVisible(true);
-		dataInPeriodoRel.setVisible(true);
-		prefFim.setVisible(true);
-		prefInicio.setVisible(true);
-		logoSairAdicionar.setVisible(true);
-		botaoSairPeriodoRelatorio.setVisible(true);
-		botaoConfirmarGeracao.setVisible(true);*/
+
 	}
-	
+		
 	public void fecharAbaRelatorio(ActionEvent event) {
-		/*opaco.setVisible(false);
-		abaPeriodoRelatorio.setVisible(false);
-		gerOrçamentoPer.setVisible(false);
-		prefValorTotal.setVisible(false);
-		valorTotalOrçamento.setVisible(false);
-		prefPlaca1.setVisible(false);
-		prefData1.setVisible(false);
-		prefValor1.setVisible(false);
-		placa1Rel.setVisible(false);
-		data1Rel.setVisible(false);
-		valor1Rel.setVisible(false);
-		prefPlaca2.setVisible(false);
-		prefData2.setVisible(false);
-		prefValor2.setVisible(false);
-		placa2Rel.setVisible(false);
-		data2Rel.setVisible(false);
-		valor2Rel.setVisible(false);
-		prefPlaca3.setVisible(false);
-		prefData3.setVisible(false);
-		prefValor3.setVisible(false);
-		placa3Rel.setVisible(false);
-		data3Rel.setVisible(false);
-		valor3Rel.setVisible(false);
-		dataFimPeriodoRel.setVisible(false);
-		dataInPeriodoRel.setVisible(false);
-		prefFim.setVisible(false);
-		prefInicio.setVisible(false);
-		logoSairAdicionar.setVisible(false);
-		botaoSairPeriodoRelatorio.setVisible(false);
-		botaoConfirmarGeracao.setVisible(false);*/		
+
 	}
 	
+	//A seguinte função serve para gerar um arquivo PDF, um relatório contendo os dados acerca dos orçamentos do período
 	public void gerarRelatorio(ActionEvent event) {
-		//Preciso pegar meu vetor de orçamentos, organizar direitin e lançar um PDF
 		Document document = new Document();
-		try {
-			
-			PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\rdfla\\Desktop\\RelatórioPDF"));
+		
+		try {			
+			PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\rdfla\\Desktop\\RelatórioPDF.pdf"));
 			document.open();
 			document.setPageSize(PageSize.A4);
 			document.add(new Paragraph("---------- Oficina Simas Turbo ----------\n")/*.setAlignment(Paragraph.ALIGN_CENTER)*/);
 			document.add(new Paragraph("-       Data       -     Placa     -   Valor\n"));
 			OrçamentoVO ovo = new OrçamentoVO();
 			ovo.setValor(0);
-			for(OrçamentoVO o : orçamentos) {
+			for(OrçamentoVO o : orçamentos) { //Vai adicionando ao PDF os atributos escolhidos dos objetos
 				AutomovelVO a = new AutomovelVO();
 				ovo.setValor(ovo.getValor() + o.getValor());
 				a = o.getAutomoveis();
@@ -234,6 +187,7 @@ public class ControladorPrincipalRelatorios {
 		document.close();
 	}
 	
+	//As seguintes funções servem para alterar as telas que ficam na parte esquerda da interface
 	public void alterarParaAutomoveis(ActionEvent event) {
 		try {
 			Telas.telaPrincipalAutomoveis();

@@ -13,9 +13,9 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 	ClientesDAO dao = new ClientesDAO();
 	AutomovelDAO adao = new AutomovelDAO();
 	AutomovelVO avo = new AutomovelVO();
-	public ClientesVO adicionar(ClientesVO c) { //Cria um cliente dentro do método, cria um objeto do tipo AutomovelBO para poder usar
-		//os métodos na hora de adicionar o cliente, depois pega os valores e vai atribuindo ao meu objeto do tipo ClientesVO criado
-		//ao final, retorna um objeto do tipo ClientesVO
+	public ClientesVO adicionar(ClientesVO c) { //Recebe um cliente junto a um automovel e adiciona eles ao banco de dados por meio das
+		//funções inserir, tanto para clientes quanto para automoveis
+		
 		avo = c.getAutomoveis();
 		avo.setDono(c);
 
@@ -30,14 +30,7 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		return c;
 	}
 	
-	public ClientesVO alterar(ClientesVO c) { //Recebe um objeto do tipo ClienteVO, altera seus atributos e, ao final, retorna ele
-		
-		//Ao invés de listar, usar buscar
-		
-		System.out.println(c.getId());
-		System.out.println(c.getNome());
-		System.out.println(c.getCpf());
-		System.out.println(c.getEndereço());
+	public ClientesVO alterar(ClientesVO c) { //Recebe um objeto do tipo ClienteVO e altera seus atributos no banco de dados e, ao final, retorna ele
 		
 		try {
 			c = dao.modificar(c);
@@ -49,7 +42,7 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		return c;
 	}
 
-	public void deletar(ClientesVO c) { //Acessa o vetor de clientes, pesquisa o cliente pelo cpf ou nome e deleta ele no vetor
+	public void deletar(ClientesVO c) { //Acessa o vetor de clientes, pesquisa o cliente pelo cpf, nome ou id e deleta ele
 		
 		try {
 			dao.excluir(c);
@@ -60,8 +53,7 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		
 	}
 	
-	public ObservableList<ClientesVO> listar() { //Recebe o vetor de orçamentos, a data de início e fim
-		//do período que deseja gerar relatórios e por fim, mostra todos eles com deus valores
+	public ObservableList<ClientesVO> listar() { //Pega os valores contidos nas tuplas da tabela clientes no banco de dados e transforma em uma lista
 		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		try {
 			clientes = dao.listar();
@@ -72,30 +64,8 @@ public class ClientesBO implements BaseInterBO <ClientesVO>{
 		return clientes;
 	}
 
-	public ObservableList<ClientesVO> pesquisar(ClientesVO c) { //Pesquisa o cliente de acordo com o nome ou cpf, rodando o vetor de clientes recebido
-		
-	//Buscar ao invés de listar	
-		
-		/*System.out.println(c.getNome());
-		System.out.println(c.getCpf());
-		System.out.println(c.getId());
-		
-		if(c.getNome().length() < 1 || c.getNome() ==  null) {
-			c.setNome("a");
-		}
-		
-		if (c.getCpf().length() < 1 || c.getNome() ==  null) {
-			c.setCpf("000.000.000-00");
-		}
-		
-		if (c.getId() == null) {
-			c.setId((long) 0);
-		}
-		
-		System.out.println(c.getNome());
-		System.out.println(c.getCpf());
-		System.out.println(c.getId());*/
-		
+	public ObservableList<ClientesVO> pesquisar(ClientesVO c) { //Pega o valor contido numa tupla específica da tabela clientes no banco de dados e transforma em uma lista
+		//A intenção de retornar uma lista é para que o cliente específico possa ser exibido na tabela na interface
 		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		try {
 			clientes = dao.buscar(c);

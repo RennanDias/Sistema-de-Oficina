@@ -68,24 +68,26 @@ public class ControladorPrincipalClientes {
 	@FXML private Label nomeClienteDeletado;
 	@FXML private Label textDeletar;
 	
+	//Componentes de operação com êxito
 	@FXML private Rectangle retanguloExit;
 	@FXML private Button botaoAlterarClientes;
 	@FXML private Label labelExit;
 	
+	//Elementos da tabela de automóveis
     @FXML private TableView <ClientesVO> tabelaClientes;
     @FXML private TableColumn <ClientesVO, Long> idCliente;
     @FXML private TableColumn <ClientesVO, String> nomeCliente;
     @FXML private TableColumn <ClientesVO, String> cpfCliente1;
     @FXML private TableColumn <ClientesVO, String> endereçoCliente;
 	
-	//A operação teve êxito
-	
 	ClientesBO cBO = new ClientesBO();
 	
+	//Instancia a lista de clientes
 	ObservableList<ClientesVO> clientes = FXCollections.observableArrayList(
 			clientes = cBO.listar()
 	);
 	
+	//Inicializa a tabela com os valores presentes na lista de clientes
 	public void initialize() {
 		
 		idCliente.setCellValueFactory(new PropertyValueFactory<ClientesVO, Long>("id"));
@@ -96,13 +98,11 @@ public class ControladorPrincipalClientes {
 		tabelaClientes.setItems(clientes);
 	}
 	
+	//Função para pesquisar os clientes
 	public void pesquisar(ActionEvent event) {
 		ClientesVO c = new ClientesVO();
 		
-		/*System.out.println("\" " + insertPesquisaClienteNome.getText().length() + " \"");
-		System.out.println(insertPesquisaClienteCPF.getText());
-		System.out.println("\" " + insertPesquisaClienteID.getText().length() + " \"");*/
-		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if(insertPesquisaClienteNome.getText().length() >= 1) {
 			c.setNome(insertPesquisaClienteNome.getText());
 		}
@@ -124,39 +124,15 @@ public class ControladorPrincipalClientes {
 			c.setId((long) 0);
 		}
 		
-		/*c.setNome(insertPesquisaClienteNome.getText());
-		c.setCpf(insertPesquisaClienteCPF.getText());
-		c.setId(Long.parseLong(insertPesquisaClienteID.getText()));*/
-		
-		//------- CONFIRMAR COM GADELHA -----------
-		
-		//Fazer 3 métodos de busca ou tentar condensar em um só com as 3 possíveis entradas??
-		
-		//------- CONFIRMAR COM GADELHA -----------		
-		
-		/*for(ClientesVO cvo : cBO.pesquisar(c)) {
-		c = cvo;
-		}*/
-		
 		clientes = cBO.pesquisar(c);	
 		tabelaClientes.setItems(clientes);
-		
-		/*nomeClientePesquisado.setText(c.getNome());
-		cpfCliente.setText(c.getCpf());
-		endCliente.setText(c.getEndereço());*/
-		
+
 		botaoAlterar.setVisible(true);
 		botaoDeletar.setVisible(true);
-		
-		/*retanguloBase.setVisible(true);
-		prefEnd.setVisible(true);
-		prefCpf.setVisible(true);
-		endCliente.setVisible(true);
-		cpfCliente.setVisible(true);
-		nomeClientePesquisado.setVisible(true);*/
-		
+
 	}
 	
+	//Mostra os elementos da aba adicionar
 	public void abrirAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(true);
 		retanguloAdicionar.setVisible(true);
@@ -177,6 +153,7 @@ public class ControladorPrincipalClientes {
 		botaoConfirmarAdicionar.setVisible(true);
 	}
 	
+	//Esconde os elementos da aba adicionar
 	public void fecharAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(false);
 		retanguloAdicionar.setVisible(false);
@@ -197,6 +174,7 @@ public class ControladorPrincipalClientes {
 		botaoConfirmarAdicionar.setVisible(false);
 	}
 
+	//Mostra os elementos da aba alterar
 	public void abrirAbaAlterar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaAlterar.setVisible(true);
@@ -209,6 +187,7 @@ public class ControladorPrincipalClientes {
 		novoClienteEnd1.setVisible(true);
 	}
 
+	//Esconde os elementos da aba alterar
 	public void fecharAbaAlterar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAlterar.setVisible(false);
@@ -221,6 +200,7 @@ public class ControladorPrincipalClientes {
 		novoClienteEnd1.setVisible(false);		
 	}
 	
+	//Mostra os elementos da aba deletar
 	public void abrirAbaDeletar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaDeletar.setVisible(true);
@@ -229,11 +209,12 @@ public class ControladorPrincipalClientes {
 		botaoCancelarDeletar.setVisible(true);
 		botaoConfirmarDeletar.setVisible(true);
 		delCliente.setVisible(true);
-		nomeClienteDeletado.setText(insertPesquisaClienteNome.getText());
-		nomeClienteDeletado.setVisible(true);
+		//nomeClienteDeletado.setText(insertPesquisaClienteNome.getText());
+		//nomeClienteDeletado.setVisible(true);
 		textDeletar.setVisible(true);
 	}
 
+	//Esconde os elementos da aba deletar
 	public void fecharAbaDeletar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaDeletar.setVisible(false);
@@ -242,13 +223,16 @@ public class ControladorPrincipalClientes {
 		botaoCancelarDeletar.setVisible(false);
 		botaoConfirmarDeletar.setVisible(false);
 		delCliente.setVisible(false);
-		nomeClienteDeletado.setVisible(false);
+		//nomeClienteDeletado.setVisible(false);
 		textDeletar.setVisible(false);
 	}
+	
 	
 	public void adicionar(ActionEvent event) {
 		ClientesVO vo = new ClientesVO();
 		AutomovelVO a = new AutomovelVO();
+		
+		//Coloca os valores digitados na interface em um objeto para que seja adicionado
 		vo.setNome(novoClienteNome.getText());
 		vo.setCpf(novoClienteCPF.getText());
 		vo.setEndereço(novoClienteEnd.getText());
@@ -262,6 +246,7 @@ public class ControladorPrincipalClientes {
 		
 		cBO.adicionar(vo);
 
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
@@ -272,6 +257,7 @@ public class ControladorPrincipalClientes {
 	public void alterar(ActionEvent event) {
 		ClientesVO c = new ClientesVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if(insertPesquisaClienteNome.getText().length() >= 1) {
 			c.setNome(insertPesquisaClienteNome.getText());
 		}
@@ -296,21 +282,15 @@ public class ControladorPrincipalClientes {
 		for(ClientesVO cvo : cBO.pesquisar(c)) {
 			c = cvo;
 		}
-		
-		//System.out.println(novoClienteNome1.getText());
-		//System.out.println(novoClienteCPF1.getText());
-		//System.out.println(novoClienteEnd1.getText());
-		
+
+		//Coloca os valores digitados na interface em um objeto para que seja adicionado
 		c.setNome(novoClienteNome1.getText());
 		c.setCpf(novoClienteCPF1.getText());
 		c.setEndereço(novoClienteEnd1.getText());
 		
-		//System.out.println(c.getNome());
-		//System.out.println(c.getCpf());
-		//System.out.println(c.getEndereço());
-		
 		cBO.alterar(c);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
@@ -320,6 +300,7 @@ public class ControladorPrincipalClientes {
 	public void deletar(ActionEvent event) {
 		ClientesVO c = new ClientesVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if(insertPesquisaClienteNome.getText().length() >= 1) {
 			c.setNome(insertPesquisaClienteNome.getText());
 		}
@@ -347,12 +328,14 @@ public class ControladorPrincipalClientes {
 		
 		cBO.deletar(c);
 
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarClientes.setVisible(true);
 	}	
 	
+	//As seguintes funções servem para alterar as telas que ficam na parte esquerda da interface
 	public void alterarParaAutomoveis(ActionEvent event) {
 		try {
 			Telas.telaPrincipalAutomoveis();

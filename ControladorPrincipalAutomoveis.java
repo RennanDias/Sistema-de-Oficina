@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public class ControladorPrincipalAutomoveis {
-	//Componentes do resultado da busca
+	//Componentes da busca
 	@FXML private TextField insertPesquisaAutoPlaca;
 	@FXML private TextField insertPesquisaAutoCpfDono;
 	@FXML private TextField insertPesquisaAutoID;
@@ -69,10 +69,12 @@ public class ControladorPrincipalAutomoveis {
 	@FXML private Label placaAutoDeletado;
 	@FXML private Label textDeletar;	
 	
+	//Componentes de operação com êxito
 	@FXML private Rectangle retanguloExit;
 	@FXML private Button botaoAlterarAutomoveis;
 	@FXML private Label labelExit;
 	
+	//Elementos da tabela de automóveis
 	@FXML private TableView <AutomovelVO> tabelaAutomoveis;
 	@FXML private TableColumn <AutomovelVO, Long> idAutomovel;
 	@FXML private TableColumn <AutomovelVO, String> cpfDonoAutomovel;
@@ -83,10 +85,12 @@ public class ControladorPrincipalAutomoveis {
 	
 	AutomovelBO abo = new AutomovelBO();
 	
+	//Instancia a lista de automoveis
 	ObservableList<AutomovelVO> automoveis = FXCollections.observableArrayList(
 			automoveis = abo.listar()
 	);
 	
+	//Inicializa a tabela com os valores presentes na lista de automoveis
 	public void initialize() {
 		
 		idAutomovel.setCellValueFactory(new PropertyValueFactory<AutomovelVO, Long>("id"));
@@ -100,10 +104,12 @@ public class ControladorPrincipalAutomoveis {
 		
 	}
 	
+	//Função para pesquisar os automoveis
 	public void pesquisar(ActionEvent event) {
 		AutomovelVO a = new AutomovelVO();
 		ClientesVO c = new ClientesVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaAutoPlaca.getText().length() >= 1) {
 			a.setPlaca(insertPesquisaAutoPlaca.getText());
 		}
@@ -124,40 +130,23 @@ public class ControladorPrincipalAutomoveis {
 		else {
 			a.setId((long) 0);
 		}
-		
-		/*a.setPlaca(insertPesquisaAutoPlaca.getText());
-		a.setId(Long.parseLong(insertPesquisaAutoID.getText()));
-		c.setCpf(insertPesquisaAutoCpfDono.getText());*/
-		
+
 		a.setDono(c);
-		
-		/*for(AutomovelVO avo : abo.pesquisar(a)) {
-		a = avo;
-		}*/
+
 		automoveis = abo.pesquisar(a);
 		tabelaAutomoveis.setItems(automoveis);
 		
 		botaoAlterar.setVisible(true);
 		botaoDeletar.setVisible(true);
 		
-		/*anoAutoPesquisado.setText(String.valueOf(a.getAno()));
-		placaAutoPesquisado.setText(a.getPlaca());
-		marcaModeloCor.setText(a.getMarca() + " " + a.getModelo() + " " + a.getCor());
-		
-		retanguloBase.setVisible(true);
-		logoAlterar.setVisible(true);
-		logoDeletar.setVisible(true);
-		prefAno.setVisible(true);
-		prefPlaca.setVisible(true);
-		anoAutoPesquisado.setVisible(true);
-		placaAutoPesquisado.setVisible(true);
-		marcaModeloCor.setVisible(true);*/
 	}
 	
+	//Função para adicionar automóveis
 	public void adicionar(ActionEvent event) {
 		AutomovelVO a = new AutomovelVO();
 		ClientesVO c = new ClientesVO();
 		
+		//Coloca os valores digitados na interface em um objeto para que seja adicionado
 		c.setCpf(cpfDono.getText());
 		a.setMarca(novoAutoMarca.getText());
 		a.setModelo(novoAutoModelo.getText());
@@ -169,16 +158,19 @@ public class ControladorPrincipalAutomoveis {
 		
 		abo.adicionar(a);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarAutomoveis.setVisible(true);
 	}
 	
+	//Função que altera um automovel
 	public void alterar(ActionEvent event) {
 		AutomovelVO a = new AutomovelVO();
 		ClientesVO c = new ClientesVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaAutoPlaca.getText().length() >= 1) {
 			a.setPlaca(insertPesquisaAutoPlaca.getText());
 		}
@@ -205,6 +197,7 @@ public class ControladorPrincipalAutomoveis {
 			a = avo;
 		}
 		
+		//Coloca os valores digitados na interface em um objeto para que seja alterado
 		a.setMarca(alterarAutoMarca.getText());
 		a.setModelo(alterarAutoModelo.getText());
 		a.setPlaca(alterarAutoPlaca.getText());
@@ -214,16 +207,19 @@ public class ControladorPrincipalAutomoveis {
 		
 		abo.alterar(a);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarAutomoveis.setVisible(true);
 	}
 	
+	//Função que deleta um automovel
 	public void deletar(ActionEvent event) {
 		AutomovelVO a = new AutomovelVO();
 		ClientesVO c = new ClientesVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaAutoPlaca.getText().length() >= 1) {
 			a.setPlaca(insertPesquisaAutoPlaca.getText());
 		}
@@ -252,6 +248,7 @@ public class ControladorPrincipalAutomoveis {
 		
 		abo.deletar(a);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
@@ -259,6 +256,7 @@ public class ControladorPrincipalAutomoveis {
 		
 	}	
 	
+	//Mostra os elementos da aba adicionar
 	public void abrirAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(true);
 		retanguloAdicionar.setVisible(true);
@@ -277,6 +275,7 @@ public class ControladorPrincipalAutomoveis {
 		botaoConfirmarAdicionar.setVisible(true);
 	}
 	
+	//Esconde os elementos da aba adicionar
 	public void fecharAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(false);
 		retanguloAdicionar.setVisible(false);
@@ -295,6 +294,7 @@ public class ControladorPrincipalAutomoveis {
 		botaoConfirmarAdicionar.setVisible(false);
 	}
 
+	//Mostra os elementos da aba alterar
 	public void abrirAbaAlterar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaAlterar.setVisible(true);
@@ -310,6 +310,7 @@ public class ControladorPrincipalAutomoveis {
 		alterarAutoKm.setVisible(true);
 	}
 
+	//Esconde os elementos da aba alterar
 	public void fecharAbaAlterar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAlterar.setVisible(false);
@@ -325,6 +326,7 @@ public class ControladorPrincipalAutomoveis {
 		alterarAutoKm.setVisible(false);
 	}
 	
+	//Mostra os elementos da aba deletar
 	public void abrirAbaDeletar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaDeletar.setVisible(true);
@@ -333,11 +335,11 @@ public class ControladorPrincipalAutomoveis {
 		botaoCancelarDeletar.setVisible(true);
 		botaoConfirmarDeletar.setVisible(true);
 		delAuto.setVisible(true);
-		//placaAutoDeletado.setText(placaAutoPesquisado.getText());
-		placaAutoDeletado.setVisible(true);
+		//placaAutoDeletado.setVisible(true);
 		textDeletar.setVisible(true);
 	}
 
+	//Esconde os elementos da aba deletar
 	public void fecharAbaDeletar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaDeletar.setVisible(false);
@@ -346,10 +348,11 @@ public class ControladorPrincipalAutomoveis {
 		botaoCancelarDeletar.setVisible(false);
 		botaoConfirmarDeletar.setVisible(false);
 		delAuto.setVisible(false);
-		placaAutoDeletado.setVisible(false);
+		//placaAutoDeletado.setVisible(false);
 		textDeletar.setVisible(false);
 	}
 	
+	//As seguintes funções servem para alterar as telas que ficam na parte esquerda da interface
 	public void alterarParaClientes(ActionEvent event) {
 		try {
 			Telas.telaPrincipalClientes();

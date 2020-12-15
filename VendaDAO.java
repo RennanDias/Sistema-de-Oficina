@@ -10,67 +10,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class VendaDAO extends BaseDAO<VendaVO>{
-	/*public VendaVO inserirPeça(VendaVO v) { 		
-		//Recebe um objeto do tipo PeçaVO e insere ele na tabela Peças no banco de dados
-		PeçaVO p = new PeçaVO();
-		OrçamentoVO o = new OrçamentoVO();
-		
-		
-		p = v.getP();
-		o = v.getO();
-		String sql = "insert into vendas (id_orcamento, nome, quantidade, preco) values (?,?,1,?)";
-		PreparedStatement ptst;
-		
-		try {
-			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, o.getId());
-			ptst.setString(2, p.getNome());
-			//ptst.setInt(3, p.getQuantidade());
-			ptst.setFloat(3, p.getValor());
-			ptst.execute();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return v;
-	}
-
-	/*public VendaVO inserirServiço(VendaVO v) { 		
-		//Recebe um objeto do tipo PeçaVO e insere ele na tabela Peças no banco de dados
-		ServiçoVO s = new ServiçoVO();
-		OrçamentoVO o = new OrçamentoVO();
-		
-		s = v.getS();
-		o = v.getO();
-		String sql = "insert into vendas (id_orcamento, nome, quantidade, preco) values (?,?,1,?)";
-		PreparedStatement ptst;
-		
-		try {
-			ptst = getConnection().prepareStatement(sql);
-			ptst.setLong(1, o.getId());
-			ptst.setString(2, s.getNome());
-			//ptst.setInt(3, s.getQuantidade());
-			ptst.setFloat(3, s.getValor());
-			ptst.execute();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return v;
-	}*/
 	
 	public VendaVO modificarItem(VendaVO v, VendaVO antigo) throws SQLException {
+		//Recebe uma venda antiga e uma nova, a antiga é para ser buscada na tabela, e a nova é pra ter os dados modificados
 		OrçamentoVO o = new OrçamentoVO();
 		o = v.getO();
 
 		String sql = "update vendas set (nome, quantidade, preco) = (?,?,?) where (id_orcamento, nome) = (?,?)";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, v.getNome());
 			ptst.setInt(2, v.getQuantidade());
 			ptst.setFloat(3, v.getValor());
@@ -86,7 +35,7 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 	}
 	
 	public VendaVO inserir(VendaVO vo) throws SQLException {
-		
+		//Insere na tabela vendas os valores do objeto recebido
 		OrçamentoVO o = new OrçamentoVO();
 		
 		o = vo.getO();
@@ -94,7 +43,7 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 		PreparedStatement ptst;
 		
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setLong(1, o.getId());
 			ptst.setString(2, vo.getNome());
 			ptst.setInt(3, vo.getQuantidade());
@@ -109,7 +58,7 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 	}
 
 	public VendaVO inserirItem(VendaVO vo) throws SQLException {
-		
+		//Insere um item na tabela venda_nova, que é referida à venda atual que está sendo cadastrada
 		OrçamentoVO o = new OrçamentoVO();
 		
 		o = vo.getO();
@@ -117,7 +66,7 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 		PreparedStatement ptst;
 		
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setLong(1, o.getId());
 			ptst.setString(2, vo.getNome());
 			ptst.setInt(3, vo.getQuantidade());
@@ -131,30 +80,13 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 		return vo;
 	}
 
-	@Override
-	public VendaVO modificar(VendaVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void excluir(VendaVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ObservableList<VendaVO> buscar(VendaVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void resetarTabela() {
+		//Essa função faz com que a tabela das vendas do último orçamento seja deletada e criada novamente
 		String sql = "drop table venda_nova";
 		PreparedStatement st;
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.execute();			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -168,7 +100,7 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 				"      REFERENCES \"orçamentos\" (id) MATCH SIMPLE\r\n" + 
 				"      ON UPDATE CASCADE ON DELETE CASCADE)";
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.execute();			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,7 +111,7 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 				"do insert into vendas \r\n" + 
 				"values (new.id_orcamento, new.nome, new.quantidade, new.preco)";
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.execute();			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -187,16 +119,14 @@ public class VendaDAO extends BaseDAO<VendaVO>{
 	}
 	
 public ObservableList<VendaVO> listarBusca(OrçamentoVO o){
-		
+		//Busca os itens referentes a um orçamento específico
 		String sql = "select * from vendas where id_orcamento = ?";
 		PreparedStatement st;
 		ResultSet rs;
-		//OrçamentoVO o = new OrçamentoVO();
-		//o = vvo.getO();
 		ObservableList<VendaVO> vendas = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setLong(1, o.getId());
 			rs = st.executeQuery();
 			
@@ -219,14 +149,14 @@ public ObservableList<VendaVO> listarBusca(OrçamentoVO o){
 	}
 	
 	public ObservableList<VendaVO> listar(){
-		
+		//Mostra os itens da tabela atual de itens de um orçamento
 		String sql = "select * from venda_nova";
 		PreparedStatement st;
 		ResultSet rs;
 		ObservableList<VendaVO> vendas = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -247,4 +177,22 @@ public ObservableList<VendaVO> listarBusca(OrçamentoVO o){
 		return vendas;
 	}
 
+	@Override
+	public VendaVO modificar(VendaVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void excluir(VendaVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ObservableList<VendaVO> buscar(VendaVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
