@@ -18,15 +18,13 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		String sql = "insert into funcionarios (nome, cpf, endereço, usuario, senha) values (?,?,?,?,?)";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
-			//ptst.setLong(1, func.getId());
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, func.getNome());
 			ptst.setString(2, func.getCpf());
 			ptst.setString(3, func.getEndereço());
 			ptst.setString(4, func.getUsuario());
 			ptst.setString(5, func.getSenha());
-			//ptst.execute();
-			
+
 			int affectedRows = ptst.executeUpdate();
 			
 			if(affectedRows == 0) {
@@ -48,7 +46,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 	}
 	
 	public ObservableList<OrçamentoVO> gerarRelatorios(OrçamentoVO inicio, OrçamentoVO fim) throws SQLException {
-		//Recebe um array de objetos do tipo OrçamentoVO para gerar os relatórios
+		//Recebe uma data de inicio e uma de fim por meio de objetos do tipo orçamentos para buscar os orçamentos contigos e gerar os relatórios
 		
 		String sql = "select * from orçamentos where data_de_solicitacao between ? and ?";
 		PreparedStatement st;
@@ -56,7 +54,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setDate(1, new java.sql.Date(inicio.getData().getTime()));
 			st.setDate(2, new java.sql.Date(fim.getData().getTime()));
 			rs = st.executeQuery();
@@ -69,7 +67,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 				vo.setData(rs.getDate("data_de_solicitacao"));
 				vo.setValor(rs.getFloat("valor_total"));
 				vo.setId(rs.getLong("id"));
-				//vo.setFinalizado(rs.getBoolean("finalizado"));
+				vo.setFinalizado(rs.getBoolean("finalizado"));
 				vo.setAutomoveis(a);	
 				orçamentos.add(vo);
 			}
@@ -81,7 +79,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		return orçamentos;
 	}
 	
-	public boolean fazerLogin (FuncionárioVO func) throws SQLException { //Busca, dentro do vetor de funcionários, o funcionário que possui login e senha
+	public boolean fazerLogin (FuncionárioVO func) throws SQLException { //Busca, dentro da tabela funcionários, o funcionário que possui login e senha
 		//iguais aos digitados no programa e, por fim, avisa se foi ou não logado com sucesso
 		String sql = "select * from funcionarios where usuario = ? and senha = ?";
 		PreparedStatement st;
@@ -89,7 +87,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		boolean logon = false;
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			((PreparedStatement) st).setString(1, func.getUsuario());
 			((PreparedStatement) st).setString(2, func.getSenha());
 			rs = st.executeQuery();
@@ -120,7 +118,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		String sql = "update from orçamentos set finalizado = true where id = ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setLong(1, o.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -128,24 +126,6 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		}
 		
 		return o;
-	}
-
-	@Override
-	public FuncionárioVO inserir(FuncionárioVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public FuncionárioVO modificar(FuncionárioVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void excluir(FuncionárioVO vo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public ObservableList<FuncionárioVO> buscar(FuncionárioVO func) throws SQLException {
@@ -156,7 +136,7 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		ObservableList<FuncionárioVO> funcionarios = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while(rs.next()) {
@@ -179,6 +159,24 @@ public class FuncionárioDAO extends BaseDAO<FuncionárioVO> {
 		return funcionarios;
 	}
 
+	@Override
+	public FuncionárioVO inserir(FuncionárioVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FuncionárioVO modificar(FuncionárioVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void excluir(FuncionárioVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public List<FuncionárioVO> listar() {
 		// TODO Auto-generated method stub

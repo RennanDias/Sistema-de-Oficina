@@ -19,15 +19,14 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		PreparedStatement ptst;
 		AutomovelVO a = new AutomovelVO();
 		a = r.getAutomoveis();
-		//a.setOrçamento(r);
 		
 		try {
+			//Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ptst.setString(1, a.getPlaca());
 			ptst.setDate(2, new java.sql.Date(r.getData().getTime()));
 			ptst.setBoolean(3, r.getFinalizado());
 			ptst.setFloat(4, r.getValor());
-			//ptst.executeQuery();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -59,7 +58,7 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		a = o.getAutomoveis();
 		
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, a.getPlaca());
 			ptst.setDate(2, new java.sql.Date(o.getData().getTime()));
 			ptst.setBoolean(3, o.getFinalizado());
@@ -79,7 +78,7 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		String sql = "delete from orçamentos where id =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setLong(1, a.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -89,12 +88,12 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 	}
 	
 	public OrçamentoVO atualizar(OrçamentoVO a) throws SQLException { 
-		//Recebe um objeto do tipo OrçamentoVO e exclui ele no banco de dados na tabela Orçamento
+		//Recebe um orçamento e atualiza seus dados no banco de dados
 
 		String sql = "update orçamentos set valor_total = ? where id =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setFloat(1, a.getValor());
 			ptst.setLong(2, a.getId());
 			ptst.executeUpdate();
@@ -106,16 +105,15 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 	}
 	
 	public ObservableList<OrçamentoVO> listar() throws SQLException { 
-		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
+		//Pega os atributos de cada tupla da tabela orçamentos, coloca elas em objetos e cria uma lista
 
 		String sql = "select * from orçamentos";
 		PreparedStatement st;
 		ResultSet rs;
-		//List<OrçamentoVO> orçamentos = new ArrayList<OrçamentoVO>();
 		ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -127,7 +125,7 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 				vo.setFinalizado(rs.getBoolean("finalizado"));
 				vo.setValor(rs.getFloat("valor_total"));
 				vo.setId(rs.getLong("id"));
-				//vo.setFinalizado(rs.getBoolean("finalizado"));
+				vo.setFinalizado(rs.getBoolean("finalizado"));
 				vo.setAutomoveis(a);
 				orçamentos.add(vo);
 			}
@@ -149,7 +147,7 @@ public class OrçamentoDAO extends BaseDAO<OrçamentoVO> implements BaseInterDAO<O
 		ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setLong(1, o.getId());
 			st.setString(2, avo.getPlaca());
 			rs = st.executeQuery();

@@ -98,6 +98,7 @@ public class ControladorPrincipalOrçamentos {
 	@FXML private Label textDeletar;
 	@FXML private Label textDeletar2;
 	
+	//Componentes de operação com êxito
 	@FXML private Rectangle retanguloExit;
 	@FXML private Button botaoAlterarOrçamentos;
 	@FXML private Label labelExit;
@@ -114,14 +115,17 @@ public class ControladorPrincipalOrçamentos {
 	OrçamentoVO ovo = new OrçamentoVO();
 	VendaDAO vdao = new VendaDAO();
 	
+	//Instancia a lista de vendas
 	ObservableList<VendaVO> vendas = FXCollections.observableArrayList(
 			vendas = vdao.listar()
 	);
 	
+	//Instancia a lista de orçamentos
 	ObservableList<OrçamentoVO> orçamentos = FXCollections.observableArrayList(
 			orçamentos = obo.listar()
 	);
 	
+	//Inicializa a tabela com os valores presentes na lista de orçamentos
 	public void initialize() {
 		
 		idOrçamento.setCellValueFactory(new PropertyValueFactory<OrçamentoVO, Long>("id"));
@@ -134,11 +138,12 @@ public class ControladorPrincipalOrçamentos {
 		
 	}
 	
+	//Função para pesquisar os orçamentos
 	public void pesquisar(ActionEvent event) {
-		//DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		OrçamentoVO o = new OrçamentoVO();
 		AutomovelVO a = new AutomovelVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaOrçamentoPlaca.getText().length() >= 1) {
 			a.setPlaca(insertPesquisaOrçamentoPlaca.getText());
 		}
@@ -157,29 +162,14 @@ public class ControladorPrincipalOrçamentos {
 		ovo = o;
 		orçamentos = obo.pesquisar(o);
 		
-		/*for(OrçamentoVO ovo : obo.pesquisar(o)) {
-			o = ovo;
-		}
-		
-		a = o.getAutomoveis();*/
-		
 		tabelaOrçamento.setItems(orçamentos);
-		
-		/*placaOrçamentoPesquisado.setText(a.getPlaca());
-		dataOrçamentoPesquisado.setText(dateFormat.format(o.getData()));
-		if(o.getFinalizado() ==  true) {
-			statusOrçamentoPesquisado.setText("Finalizado");
-		}
-		else {
-			statusOrçamentoPesquisado.setText("Não finalizado");
-		}
-		setupAutoOrçamentoPesquisado.setText(a.getMarca() + " " + a.getModelo() + " " + a.getAno() + " (" + a.getCor() + ")");*/
 		
 		botaoAlterar.setVisible(true);
 		botaoDeletar.setVisible(true);
 
 	}
 	
+	//Essa função define, instancia e adiciona o orçamento o qual terá os itens adicionados
 	public void definir(ActionEvent event) {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		OrçamentoVO o = new OrçamentoVO();
@@ -203,6 +193,7 @@ public class ControladorPrincipalOrçamentos {
 		ovo = o;
 	}
 	
+	//Essa função define e busca o orçamento o qual terá os itens alterados
 	public void definirAlterar(ActionEvent event) {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		OrçamentoVO o = new OrçamentoVO();
@@ -232,28 +223,15 @@ public class ControladorPrincipalOrçamentos {
 		ovo = o;
 	}
 	
+	//Função para adicionar orçamentos
 	public void adicionar(ActionEvent event) {
-		//DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
 		OrçamentoVO o = new OrçamentoVO();
 		
-		/*a.setPlaca(novoOrçamentoPlaca.getText());
-		try {
-			o.setData(dateFormat.parse(novoOrçamentoData.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(checarFinalizado.isSelected() == true) {
-			o.setFinalizado(true);
-		}
-		else {
-			o.setFinalizado(false);
-		}
-		o.setAutomoveis(a);*/		
 		o = ovo;
 		o.setValor(0);
 		
+		//Essa função lista os itens adicionados para poder somar os valores e atualizar o orçamento com o valor total
 		ObservableList<VendaVO> venda_atual = FXCollections.observableArrayList(
 				venda_atual = vdao.listar()
 		);
@@ -261,53 +239,18 @@ public class ControladorPrincipalOrçamentos {
 			o.setValor(o.getValor() + v.getValor());
 		}
 		
-		//s.setNome(novoOrçamentoServiçoNome.getText());
-		//s.setValor(Float.parseFloat(novoOrçamentoServiçoValor.getText()));
-		//p.setNome(novoOrçamentoPeçaNome.getText());
-		//p.setValor(Float.parseFloat(novoOrçamentoPeçaValor.getText()));
-		//valorTotalOrçamento.setText("Valor Total: R$" + o.getValor());
-		
 		obo.atualizarValor(o);
 	
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarOrçamentos.setVisible(true);
 	}
 	
+	//Função que altera um orçamento
 	public void alterar(ActionEvent event) {
-		//DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		OrçamentoVO o = new OrçamentoVO();
-		/*o.setId(Long.parseLong(insertPesquisaOrçamentoID.getText()));
-		
-		/*for(OrçamentoVO ovo : obo.pesquisar(o)) {
-			o = ovo;
-		}
-		
-		AutomovelVO a = new AutomovelVO();
-		VendaVO v = new VendaVO();
-		//ServiçoVO s = new ServiçoVO();
-		//PeçaVO p = new PeçaVO();
-		
-		a.setPlaca(alterarOrçamentoPlaca.getText());
-		/*s.setNome(alterarOrçamentoServiçoNome.getText());
-		s.setValor(Float.parseFloat(alterarOrçamentoServiçoValor.getText()));
-		p.setNome(alterarOrçamentoPeçaNome.getText());
-		p.setValor(Float.parseFloat(alterarOrçamentoPeçaValor.getText()));*/
-		//o.setValor(s.getValor() + p.getValor());
-
-		/*try {
-			o.setData(dateFormat.parse(alterarOrçamentoData.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(checarFinalizado.isSelected() == true) {
-			o.setFinalizado(true);
-		}
-		else {
-			o.setFinalizado(false);
-		}*/
 		
 		o = ovo;
 		
@@ -317,6 +260,7 @@ public class ControladorPrincipalOrçamentos {
 		
 		o.setValor(0);
 		
+		//Essa função lista os itens do meu orçamento, já após terem sido alterados para poder atualizar o valor
 		ObservableList<VendaVO> listaItens = FXCollections.observableArrayList(
 				listaItens = vdao.listarBusca(ovo)
 		);
@@ -325,21 +269,15 @@ public class ControladorPrincipalOrçamentos {
 		}
 		
 		 o = obo.alterar(o);
-		
-		//o.setAutomoveis(a);
-		//v.setP(p);
-		//v.setS(s);
-		//v.setO(o);
-		//o.setVenda(v);
-		
-		//obo.alterar(o);
-		
+		 
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarOrçamentos.setVisible(true);
 	}
 	
+	//Função para alterar item específico no orçamento
 	public void alterarItem(ActionEvent event) throws SQLException {
 		VendaVO item = new VendaVO();
 		VendaVO antigo = new VendaVO();
@@ -347,20 +285,14 @@ public class ControladorPrincipalOrçamentos {
 		antigo.setO(ovo);
 		item.setO(ovo);
 		
+		//Coloca os valores digitados na interface em um objeto para que seja alterado
 		item.setNome(nomeItemAdicionado.getText());
 		item.setQuantidade(Integer.parseInt(qtdItemAdicionado.getText()));
 		item.setValor(Float.parseFloat(valorItemAdicionado.getText()));
 		
-		/*System.out.println(antigo.getNome());
-		System.out.println(antigo.getQuantidade());
-		System.out.println(antigo.getValor());
-		System.out.println("\n");
-		System.out.println(item.getNome());
-		System.out.println(item.getQuantidade());
-		System.out.println(item.getValor());*/
-		
 		vdao.modificarItem(item,antigo);
 		
+		//Esconde na tela os elementos da aba de adicionar item
 		opacoAddItem.setVisible(false);
 		abaAddItem.setVisible(false);
 		labelAlterarItem.setVisible(false);
@@ -373,6 +305,7 @@ public class ControladorPrincipalOrçamentos {
 		botaoAtt.setVisible(true);
 	}
 	
+	//Função para deletar um orçamento
 	public void deletar(ActionEvent event) {	
 		OrçamentoVO o = new OrçamentoVO();
 		o.setId(Long.parseLong(insertPesquisaOrçamentoID.getText()));
@@ -383,37 +316,19 @@ public class ControladorPrincipalOrçamentos {
 		
 		obo.deletar(o);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarOrçamentos.setVisible(true);
 	}
 	
+	//Função para adicionar um item específico
 	public void adicionarItem(ActionEvent event) {
-		/*DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		OrçamentoVO o = new OrçamentoVO();
-		AutomovelVO a = new AutomovelVO();
-				
-		a.setPlaca(novoOrçamentoPlaca.getText());
-		try {
-			o.setData(dateFormat.parse(novoOrçamentoData.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(checarFinalizado.isSelected() == true) {
-			o.setFinalizado(true);
-		}
-		else {
-			o.setFinalizado(false);
-		}
-		o.setAutomoveis(a);
-		obo.adicionar(o);
-		o = ovo;*/
-		
 		VendaVO item = new VendaVO();
 		item.setO(ovo);
 		
+		//Coloca os valores digitados na interface em um objeto para que seja alterado
 		item.setNome(nomeItemAdicionado.getText());
 		item.setQuantidade(Integer.parseInt(qtdItemAdicionado.getText()));
 		item.setValor(Float.parseFloat(valorItemAdicionado.getText()));
@@ -425,6 +340,7 @@ public class ControladorPrincipalOrçamentos {
 			e.printStackTrace();
 		}
 		
+		//Esconde na tela os elementos da aba de adicionar item
 		opacoAddItem.setVisible(false);
 		abaAddItem.setVisible(false);
 		labelAddItem.setVisible(false);
@@ -437,6 +353,7 @@ public class ControladorPrincipalOrçamentos {
 		botaoAtt.setVisible(true);
 	}
 	
+	//Função para atualizar a tabela inicial da tela principal de orçamentos
 	public void atualizarTabela(ActionEvent event) {
 		tabelaAddItem.setVisible(false);
 		vendas = vdao.listar();
@@ -444,6 +361,7 @@ public class ControladorPrincipalOrçamentos {
 		tabelaAddItem.setVisible(true);
 	}	
 	
+	//Função para atualizar a tabela com os orçamentos após a alteração
 	public void atualizarTabelaAlterar(ActionEvent event) {
 		tabelaAddItem.setVisible(false);
 		vendas = vdao.listarBusca(ovo);
@@ -451,6 +369,7 @@ public class ControladorPrincipalOrçamentos {
 		tabelaAddItem.setVisible(true);
 	}
 	
+	//Mostra os componentes da aba adicionar e, além disso, instancia e exibe a tabela de itens do orçamento
 	public void abrirAbaAdicionar(ActionEvent event) {
 		tabelaAddItem.setVisible(false);
 		vdao.resetarTabela();
@@ -466,6 +385,7 @@ public class ControladorPrincipalOrçamentos {
 			
 		tabelaAddItem.setItems(vendas);
 		
+		//Mostra os componentes da aba adicionar
 		opaco.setVisible(true);
 		abaAdicionar.setVisible(true);
 		logoSairAdicionar.setVisible(true);
@@ -481,6 +401,7 @@ public class ControladorPrincipalOrçamentos {
 		
 	}
 	
+	//Esconde os componentes da aba adicionar
 	public void fecharAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAdicionar.setVisible(false);
@@ -496,6 +417,7 @@ public class ControladorPrincipalOrçamentos {
 		tabelaAddItem.setVisible(false);
 	}
 	
+	//Mostra os componentes da aba de adicionar um item específico
 	public void abrirAbaAddItem(ActionEvent event) {
 		
 		opacoAddItem.setVisible(true);
@@ -510,6 +432,7 @@ public class ControladorPrincipalOrçamentos {
 		
 	}
 	
+	//Esconde os componentes da aba de adicionar um item específico
 	public void fecharAbaAddItem(ActionEvent event) {
 		
 		opacoAddItem.setVisible(false);
@@ -524,6 +447,7 @@ public class ControladorPrincipalOrçamentos {
 		
 	}
 
+	//Mostra os componentes da aba alterar e, além disso, reseta, instancia e mostra os itens do orçamento
 	public void abrirAbaAlterar(ActionEvent event) {
 		tabelaAddItem.setVisible(false);
 		vdao.resetarTabela();
@@ -555,6 +479,7 @@ public class ControladorPrincipalOrçamentos {
 		checarFinalizado.setVisible(true);
 	}
 
+	//Esconde os componentes da aba alterar
 	public void fecharAbaAlterar(ActionEvent event) {
 		opaco.setVisible(false);
 		tabelaAddItem.setVisible(false);
@@ -572,6 +497,7 @@ public class ControladorPrincipalOrçamentos {
 		checarFinalizado.setVisible(false);
 	}
 	
+	//Mostra os componentes da aba alterar item
 	public void abrirAbaAlterarItem(ActionEvent event) {
 		
 		opacoAddItem.setVisible(true);
@@ -586,6 +512,7 @@ public class ControladorPrincipalOrçamentos {
 		
 	}
 	
+	//Esconde os componentes da aba alterar item
 	public void fecharAbaAlterarItem(ActionEvent event) {
 		
 		opacoAddItem.setVisible(false);
@@ -600,6 +527,7 @@ public class ControladorPrincipalOrçamentos {
 		
 	}
 	
+	//Mostra os componentes da aba deletar
 	public void abrirAbaDeletar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaDeletar.setVisible(true);
@@ -613,6 +541,7 @@ public class ControladorPrincipalOrçamentos {
 		textDeletar2.setVisible(true);
 	}
 
+	//Esconde os componentes da aba deletar
 	public void fecharAbaDeletar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaDeletar.setVisible(false);
@@ -626,6 +555,7 @@ public class ControladorPrincipalOrçamentos {
 		textDeletar2.setVisible(false);
 	}
 	
+	//As seguintes funções servem para alterar as telas que ficam na parte esquerda da interface
 	public void alterarParaAutomoveis(ActionEvent event) {
 		try {
 			Telas.telaPrincipalAutomoveis();

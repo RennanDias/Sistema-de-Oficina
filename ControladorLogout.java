@@ -4,6 +4,7 @@ import View.Telas;
 import javafx.event.ActionEvent;
 
 public class ControladorLogout {
+	//Altera para a tela de login caso o botão confirmar seja pressionado
 	public void alterarParaLogin(ActionEvent event) {
 		try {
 			Telas.telaLogin();
@@ -13,6 +14,7 @@ public class ControladorLogout {
 		}
 	}
 	
+	//Volta para a tela inicial de clientes caso o botão cancelar seja pressionado
 	public void alterarParaClientes(ActionEvent event) {
 		try {
 			Telas.telaPrincipalClientes();

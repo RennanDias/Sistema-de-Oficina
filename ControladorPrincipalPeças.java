@@ -59,10 +59,12 @@ public class ControladorPrincipalPeças {
 	@FXML private Label idNomePeçaDel;
 	@FXML private Label textDeletar;
 	
+	//Componentes de operação com êxito
 	@FXML private Rectangle retanguloExit;
 	@FXML private Button botaoAlterarPeças;
 	@FXML private Label labelExit;
 	
+	//Elementos da tabela peças
 	@FXML private TableView <PeçaVO> tabelaPeças;
 	@FXML private TableColumn <PeçaVO, Long> idPeça;
 	@FXML private TableColumn <PeçaVO, String> nomePeça;
@@ -71,11 +73,13 @@ public class ControladorPrincipalPeças {
 	
 	PeçaBO pbo = new PeçaBO();
 	
+	//Instancia a lista de peças
 	ObservableList<PeçaVO> peças = FXCollections.observableArrayList(
 			peças = pbo.listar()
 	);
 	
-public void initialize() {
+	//Inicializa a tabela com os valores presentes na lista de peças
+	public void initialize() {
 		
 		idPeça.setCellValueFactory(new PropertyValueFactory<PeçaVO, Long>("id"));
 		nomePeça.setCellValueFactory(new PropertyValueFactory<PeçaVO, String>("nome"));
@@ -86,9 +90,11 @@ public void initialize() {
 		
 	}
 	
+	//Função para pesquisar peças
 	public void pesquisar(ActionEvent event) {
 		PeçaVO p =  new PeçaVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaPeçaNome.getText().length() >= 1) {
 			p.setNome(insertPesquisaPeçaNome.getText());
 		}
@@ -112,45 +118,35 @@ public void initialize() {
 		
 		peças = pbo.pesquisar(p);		
 		tabelaPeças.setItems(peças);
-		
-		/*for(PeçaVO pvo : pbo.pesquisar(p)) {
-			p = pvo;
-		}*/
-		
+
 		botaoAlterar.setVisible(true);
 		botaoDeletar.setVisible(true);
 		
-		/*nomePeçaPesquisada.setText(p.getNome());
-		fabricantePeçaPesquisada.setText(p.getFabricante());
-		preçoPeça.setText(String.valueOf(p.getValor()));
-		
-		retanguloBase.setVisible(true);
-		logoAlterar.setVisible(true);
-		logoDeletar.setVisible(true);
-		prefFabricante.setVisible(true);
-		r$.setVisible(true);
-		fabricantePeçaPesquisada.setVisible(true);
-		preçoPeça.setVisible(true);
-		nomePeçaPesquisada.setVisible(true);*/
 	}
 	
+	//Função para adicionar peças
 	public void adicionar(ActionEvent event) {
 		PeçaVO p =  new PeçaVO();
+		
+		//Coloca os valores digitados na interface em um objeto para que seja adicionado
 		p.setNome(novoPeçaNome.getText());
 		p.setFabricante(novoPeçaFabricante.getText());
 		p.setValor(Float.parseFloat(novoPeçaPreço.getText()));
 		
 		pbo.adicionar(p);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarPeças.setVisible(true);
 	}
 	
+	//Função que altera uma peça
 	public void alterar(ActionEvent event) {
 		PeçaVO p =  new PeçaVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaPeçaNome.getText().length() >= 1) {
 			p.setNome(insertPesquisaPeçaNome.getText());
 		}
@@ -176,21 +172,25 @@ public void initialize() {
 			p = pvo;
 		}
 		
+		//Coloca os valores digitados na interface em um objeto para que seja alterado
 		p.setNome(alterarPeçaNome.getText());
 		p.setFabricante(alterarPeçaFabricante.getText());
 		p.setValor(Float.parseFloat(alterarPeçaPreço.getText()));
 		
 		pbo.alterar(p);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarPeças.setVisible(true);
 	}
 	
+	//Função que deleta uma peça
 	public void deletar(ActionEvent event) {
 		PeçaVO p =  new PeçaVO();
 		
+		//As seguintes estruturas condicionais realizam a checagem dos valores para impedir que sejam nulos
 		if (insertPesquisaPeçaNome.getText().length() >= 1) {
 			p.setNome(insertPesquisaPeçaNome.getText());
 		}
@@ -218,12 +218,14 @@ public void initialize() {
 		
 		pbo.deletar(p);
 		
+		//Exibe a tela com mensagem de êxito
 		opaco.setVisible(true);
 		retanguloExit.setVisible(true);
 		labelExit.setVisible(true);
 		botaoAlterarPeças.setVisible(true);
 	}	
 	
+	//Mostra os elementos da aba adicionar
 	public void abrirAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaAdicionar.setVisible(true);
@@ -236,6 +238,7 @@ public void initialize() {
 		botaoConfirmarAdicionar.setVisible(true);
 	}
 	
+	//Esconde os elementos da aba adicionar
 	public void fecharAbaAdicionar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAdicionar.setVisible(false);
@@ -248,6 +251,7 @@ public void initialize() {
 		botaoConfirmarAdicionar.setVisible(false);
 	}
 
+	//Mostra os elementos da aba alterar
 	public void abrirAbaAlterar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaAlterar.setVisible(true);
@@ -260,6 +264,7 @@ public void initialize() {
 		alterarPeçaPreço.setVisible(true);
 	}
 
+	//Esconde os elementos da aba alterar
 	public void fecharAbaAlterar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaAlterar.setVisible(false);
@@ -272,6 +277,7 @@ public void initialize() {
 		alterarPeçaPreço.setVisible(false);	
 	}
 	
+	//Mostra os elementos da aba deletar
 	public void abrirAbaDeletar(ActionEvent event) {
 		opaco.setVisible(true);
 		abaDeletar.setVisible(true);
@@ -281,10 +287,11 @@ public void initialize() {
 		botaoConfirmarDeletar.setVisible(true);
 		delPeça.setVisible(true);
 		//idNomePeçaDel.setText(nomePeçaPesquisada.getText());
-		idNomePeçaDel.setVisible(true);
+		//idNomePeçaDel.setVisible(true);
 		textDeletar.setVisible(true);
 	}
 
+	//Esconde os elementos da aba deletar
 	public void fecharAbaDeletar(ActionEvent event) {
 		opaco.setVisible(false);
 		abaDeletar.setVisible(false);
@@ -293,10 +300,11 @@ public void initialize() {
 		botaoCancelarDeletar.setVisible(false);
 		botaoConfirmarDeletar.setVisible(false);
 		delPeça.setVisible(false);
-		idNomePeçaDel.setVisible(false);
+		//idNomePeçaDel.setVisible(false);
 		textDeletar.setVisible(false);
 	}
 	
+	//As seguintes funções servem para alterar as telas que ficam na parte esquerda da interface
 	public void alterarParaAutomoveis(ActionEvent event) {
 		try {
 			Telas.telaPrincipalAutomoveis();

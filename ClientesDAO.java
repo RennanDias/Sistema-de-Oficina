@@ -18,12 +18,11 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 		PreparedStatement ptst;
 		
 		try {
-			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			//ptst.setLong(4, c.getId());
+			//Realiza conexão com o banco de dados a partir do código da string 'sql'
+			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
 			ptst.setString(1, c.getNome());
 			ptst.setString(2, c.getCpf());
 			ptst.setString(3, c.getEndereço());
-			//ptst.execute();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -52,7 +51,7 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 		PreparedStatement ptst;
 		
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, c.getNome());
 			ptst.setString(2, c.getCpf());
 			ptst.setString(3, c.getEndereço());
@@ -72,7 +71,7 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 		String sql = "delete from clientes where cpf =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, c.getCpf());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -82,7 +81,7 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	}
 	
 	public ObservableList<ClientesVO> listar() throws SQLException { 
-		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
+		//Pega os valores contidos nas tuplas da tabela clientes no banco de dados e transforma em uma lista
 	
 		String sql = "select * from clientes";
 		PreparedStatement st;
@@ -90,7 +89,7 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -110,30 +109,27 @@ public class ClientesDAO extends BaseDAO<ClientesVO> implements BaseInterDAO <Cl
 	
 	
 	public ObservableList<ClientesVO> buscar(ClientesVO c) throws SQLException{ 
-		//Recebe um objeto do tipo ClientesVO e busca ele na tabela Clientes no banco de dados
+		//Pega o valor contido numa tupla específica da tabela clientes no banco de dados e transforma em uma lista
 		
-		//String sql = "select * from clientes where nome = ?";
 		String sql = "select * from clientes where nome = ? or cpf = ? or id = ?";
 		PreparedStatement st;
 		ResultSet rs;
 		ObservableList<ClientesVO> clientes = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setString(1, c.getNome());
 			st.setString(2, c.getCpf());
 			st.setLong(3, c.getId());
 			rs = st.executeQuery();
 			
 			while(rs.next()) {
-				//if(rs.getString("nome").equals(c.getNome()) || rs.getString("cpf").equals(c.getCpf()) || rs.getLong("id") == c.getId()) {
-					ClientesVO vo = new ClientesVO();
-					vo.setNome(rs.getString("nome"));
-					vo.setCpf(rs.getString("cpf"));
-					vo.setEndereço(rs.getString("endereço"));
-					vo.setId(rs.getLong("id"));
-					clientes.add(vo);
-				//}
+				ClientesVO vo = new ClientesVO();
+				vo.setNome(rs.getString("nome"));
+				vo.setCpf(rs.getString("cpf"));
+				vo.setEndereço(rs.getString("endereço"));
+				vo.setId(rs.getLong("id"));
+				clientes.add(vo);
 			}
 			
 		} catch (SQLException e) {

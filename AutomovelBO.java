@@ -7,10 +7,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AutomovelBO implements BaseInterBO <AutomovelVO>{
-	//static private AutomovelBO<AutomovelVO> usuBO = new AutomovelBO<AutomovelVO>();
+	
 	AutomovelDAO dao = new AutomovelDAO();
 	
-public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retorna vetor de clientes com os automoveis adicionados
+public AutomovelVO adicionar(AutomovelVO a) { //Recebe um automóvel e delega a função de adicionar ele ao banco de dados chamando a função inserir
 	try {
 		dao.inserir(a);
 	} catch (SQLException e) {
@@ -20,7 +20,7 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 		return a;
 	}
 	
-	public AutomovelVO alterar(AutomovelVO a) { //Recebe um automóvel e altera seus atributos
+	public AutomovelVO alterar(AutomovelVO a) { //Recebe um automóvel e delega a função de alterar ele no banco de dados chamando a função modificar
 		
 		try {
 			dao.modificar(a);
@@ -32,7 +32,7 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 		return a;
 	}
 
-	public void deletar(AutomovelVO a) { //Recebe um vetor de automóveis e deleta um de acordo com a placa dele
+	public void deletar(AutomovelVO a) { //Recebe um automóvel e delega a função de deletar ele no banco de dados chamando a função excluir
 		
 		try {
 			dao.excluir(a);
@@ -43,7 +43,7 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 		
 	}
 	
-	public ObservableList<AutomovelVO> listar() { //Recebe um vetor de peças e retorna a peça específica que tiver o nome recebido
+	public ObservableList<AutomovelVO> listar() { //Pega os valores contidos nas tuplas da tabela automoveis no banco de dados e transforma em uma lista
 		ObservableList<AutomovelVO> automoveis = FXCollections.observableArrayList();
 		
 		try {
@@ -57,13 +57,18 @@ public AutomovelVO adicionar(AutomovelVO a) { //Recebe vetor de clientes e retor
 		
 	}
 	
-	public ObservableList<AutomovelVO> pesquisar(AutomovelVO a) { //Recebe um vetor de automoveis e mostra os atributos especificos do veiculo
+	public ObservableList<AutomovelVO> pesquisar(AutomovelVO a) { //Pega o valor contido numa tupla específica da tabela automoveis no banco de dados e transforma em uma lista
+		//A intenção de retornar uma lista é para que o automovel específico possa ser exibido na tabela na interface
+		ObservableList<AutomovelVO> automoveis = FXCollections.observableArrayList();
 		
-		/*for(AutomovelVO avo : dao.buscar(a)) {
-			a = avo;
-		}*/
+		try {
+			automoveis = dao.buscar(a);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return dao.buscar(a);
+		return automoveis;
 	}
 	
 }

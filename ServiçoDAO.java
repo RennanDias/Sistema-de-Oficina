@@ -17,10 +17,10 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		String sql = "insert into serviços (nome, valor) values (?,?)";
 		PreparedStatement ptst;
 		try {
+			//Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ptst.setString(1, t.getNome());
 			ptst.setFloat(2, t.getValor());
-			//ptst.execute();
 			
 			int affectedRows = ptst.executeUpdate();
 			
@@ -49,7 +49,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		String sql = "update serviços set (nome, valor) =  (?,?) where id = ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setString(1, t.getNome());
 			ptst.setFloat(2, t.getValor());
 			ptst.setLong(3, t.getId());
@@ -68,7 +68,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		String sql = "delete from serviços where id =  ?";
 		PreparedStatement ptst;
 		try {
-			ptst = getConnection().prepareStatement(sql);
+			ptst = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			ptst.setLong(1, t.getId());
 			ptst.executeUpdate();
 		} catch (SQLException e) {
@@ -78,7 +78,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 	}
 	
 	public ObservableList<ServiçoVO> listar() throws SQLException { 
-		//Recebe um objeto do tipo ClientesVO e exclui ele da tabela Clientes no banco de dados
+		//Forma uma lista com os objetos formados com os atributos das tuplas da tabela serviços
 
 		String sql = "select * from serviços";
 		PreparedStatement st;
@@ -86,7 +86,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -105,7 +105,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 	
 
 	public ObservableList<ServiçoVO> buscar(ServiçoVO t) throws SQLException { 
-		//Recebe um objeto do tipo ServiçoVO e busca ele na tabela Peças no banco de dados
+		//Forma uma lista com um serviço específico da tabela serviços
 
 		String sql = "select * from serviços where nome = ? or id = ?";
 		PreparedStatement st;
@@ -113,7 +113,7 @@ public class ServiçoDAO extends BaseDAO<ServiçoVO> implements BaseInterDAO <Serv
 		ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList();
 		
 		try {
-			st = getConnection().prepareStatement(sql);
+			st = getConnection().prepareStatement(sql); //Realiza conexão com o banco de dados a partir do código da string 'sql'
 			st.setString(1, t.getNome());
 			st.setLong(2, t.getId());
 			rs = st.executeQuery();

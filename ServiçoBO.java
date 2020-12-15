@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 public class ServiçoBO implements BaseInterBO <ServiçoVO>{
 	ServiçoDAO dao = new ServiçoDAO();
 	
-	public ServiçoVO adicionar(ServiçoVO t) { //Cria um objeto do tipo ServiçoVO, atribui valores aos seus atributos e retorna o objeto
+	public ServiçoVO adicionar(ServiçoVO t) { //Recebe um serviço e adiciona ele no banco de dados na tabela serviços
 		
 		try {
 			dao.inserir(t);
@@ -22,7 +22,7 @@ public class ServiçoBO implements BaseInterBO <ServiçoVO>{
 		return t;
 	}
 	
-	public ServiçoVO alterar(ServiçoVO t) { //Recebe um serviço e altera seus atributos
+	public ServiçoVO alterar(ServiçoVO t) { //Recebe um serviço e altera seus atributos no banco de dados
 		try {
 			t = dao.modificar(t);
 		} catch (SQLException e) {
@@ -33,7 +33,7 @@ public class ServiçoBO implements BaseInterBO <ServiçoVO>{
 		return t;
 	}
 
-	public void deletar(ServiçoVO t) { //Recebe um vetor de serviços e deleta um de acordo com o nome digitado
+	public void deletar(ServiçoVO t) { //Recebe um serviço e deleta ele na tabela serviços por meio da função excluir
 	
 		try {
 			dao.excluir(t);
@@ -44,7 +44,7 @@ public class ServiçoBO implements BaseInterBO <ServiçoVO>{
 		
 	}
 
-	public ObservableList<ServiçoVO> listar() { //Recebe um vetor de peças e retorna a peça específica que tiver o nome recebido
+	public ObservableList<ServiçoVO> listar() { //Forma uma lista com os objetos formados com os atributos das tuplas da tabela serviços
 		ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList();
 		
 		try {
@@ -58,7 +58,7 @@ public class ServiçoBO implements BaseInterBO <ServiçoVO>{
 		
 	}
 	
-	public ObservableList<ServiçoVO> pesquisar(ServiçoVO t) { //Recebe um vetor de serviços e pesquisa um serviço de acordo com o nome
+	public ObservableList<ServiçoVO> pesquisar(ServiçoVO t) { //Forma uma lista com um serviço específico da tabela serviços
 		ObservableList<ServiçoVO> serviços = FXCollections.observableArrayList();
 		
 		try {
